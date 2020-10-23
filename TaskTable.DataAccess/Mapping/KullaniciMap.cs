@@ -11,6 +11,7 @@ namespace TaskTable.DataAccess.Mapping
     {
         public void Configure(EntityTypeBuilder<KullaniciEntity> builder)
         {
+            builder.ToTable("tKullanici", "dbo");
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).UseIdentityColumn();
             builder.Property(a => a.Ad).IsRequired().HasMaxLength(50);

@@ -7,6 +7,7 @@ namespace TaskTable.Entity.Concrete
     {
         public int Id { get; set; }
         public string Ad { get; set; }
+        public bool Durum { get; set; }
         public string Aciklama { get; set; }
         public DateTime OlusturulmaTarihi { get; set; }
         public KullaniciEntity Kullanici { get; set; }
