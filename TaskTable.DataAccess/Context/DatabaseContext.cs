@@ -10,7 +10,7 @@ namespace TaskTable.DataAccess.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("");
+            optionsBuilder.UseSqlite("dbTaskTable");
             base.OnConfiguring(optionsBuilder);
         }
         public DbSet<Kullanici> Kullanicis { get; set; }
