@@ -7,22 +7,22 @@ namespace TaskTable.DataAccess.Repository
 {
     public class CalismaRepository : ICalismaRepository
     {
-        public Calisma GetirCalisma(int id)
+        public CalismaEntity GetirCalisma(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Calisma> GetirCalismalar()
+        public List<CalismaEntity> GetirCalismalar()
         {
             throw new NotImplementedException();
         }
 
-        public void KaydetCalisma(Calisma calisma)
+        public void KaydetCalisma(CalismaEntity calisma)
         {
             throw new NotImplementedException();
         }
 
-        public void SilCalisma(Calisma calisma)
+        public void SilCalisma(CalismaEntity calisma)
         {
             throw new NotImplementedException();
         }

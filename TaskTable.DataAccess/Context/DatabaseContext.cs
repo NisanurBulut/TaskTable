@@ -10,10 +10,10 @@ namespace TaskTable.DataAccess.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("dbTaskTable");
+            optionsBuilder.UseSqlite("Data Source=TaskTable.db;Cache=Shared");
             base.OnConfiguring(optionsBuilder);
         }
-        public DbSet<Kullanici> Kullanicis { get; set; }
-        public DbSet<Calisma> Calismas { get; set; }
+        public DbSet<KullaniciEntity> Kullanicis { get; set; }
+        public DbSet<CalismaEntity> Calismas { get; set; }
     }
 }

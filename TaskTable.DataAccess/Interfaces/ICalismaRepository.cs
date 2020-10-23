@@ -4,9 +4,9 @@ namespace TaskTable.DataAccess.Interfaces
 {
     public interface ICalismaRepository
     {
-        void KaydetCalisma(Calisma calisma);
-        void SilCalisma(Calisma calisma);
-        Calisma GetirCalisma(int id);
-        List<Calisma> GetirCalismalar();
+        void KaydetCalisma(CalismaEntity calisma);
+        void SilCalisma(CalismaEntity calisma);
+        CalismaEntity GetirCalisma(int id);
+        List<CalismaEntity> GetirCalismalar();
     }
 }

@@ -4,9 +4,9 @@ namespace TaskTable.DataAccess.Interfaces
 {
     public interface IKullaniciRepository
     {
-        void KaydetKullanici(Kullanici Kullanici);
-        void SilKullanici(Kullanici Kullanici);
-        Kullanici GetirKullanici(int id);
-        List<Kullanici> GetirKullanicilar();
+        void KaydetKullanici(KullaniciEntity Kullanici);
+        void SilKullanici(KullaniciEntity Kullanici);
+        KullaniciEntity GetirKullanici(int id);
+        List<KullaniciEntity> GetirKullanicilar();
     }
 }

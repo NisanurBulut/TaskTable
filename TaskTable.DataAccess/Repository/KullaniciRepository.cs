@@ -7,22 +7,22 @@ namespace TaskTable.DataAccess.Repository
 {
     public class KullaniciRepository : IKullaniciRepository
     {
-        public Kullanici GetirKullanici(int id)
+        public KullaniciEntity GetirKullanici(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Kullanici> GetirKullanicilar()
+        public List<KullaniciEntity> GetirKullanicilar()
         {
             throw new NotImplementedException();
         }
 
-        public void KaydetKullanici(Kullanici Kullanici)
+        public void KaydetKullanici(KullaniciEntity Kullanici)
         {
             throw new NotImplementedException();
         }
 
-        public void SilKullanici(Kullanici Kullanici)
+        public void SilKullanici(KullaniciEntity Kullanici)
         {
             throw new NotImplementedException();
         }
