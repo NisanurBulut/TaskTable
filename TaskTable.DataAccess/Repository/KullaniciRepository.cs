@@ -6,24 +6,24 @@ using TaskTable.Entity.Concrete;
 
 namespace TaskTable.DataAccess.Repository
 {
-    public class CalismaRepository : ICalismaRepository
+    public class KullaniciRepository : IKullaniciRepository
     {
-        public Calisma GetirCalisma(int id)
+        public Kullanici GetirKullanici(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<Calisma> GetirCalismalar()
+        public List<Kullanici> GetirKullanicilar()
         {
             throw new NotImplementedException();
         }
 
-        public void KaydetCalisma(Calisma calisma)
+        public void KaydetKullanici(Kullanici Kullanici)
         {
             throw new NotImplementedException();
         }
 
-        public void SilCalisma(Calisma calisma)
+        public void SilKullanici(Kullanici Kullanici)
         {
             throw new NotImplementedException();
         }

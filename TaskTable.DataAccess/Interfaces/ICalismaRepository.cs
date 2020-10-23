@@ -4,7 +4,7 @@ using System.Text;
 using TaskTable.Entity.Concrete;
 namespace TaskTable.DataAccess.Interfaces
 {
-   public interface ICalismaDal
+   public interface ICalismaRepository
     {
         void KaydetCalisma(Calisma calisma);
         void SilCalisma(Calisma calisma);
