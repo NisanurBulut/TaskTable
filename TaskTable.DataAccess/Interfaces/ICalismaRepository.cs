@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TaskTable.Entity.Concrete;
 namespace TaskTable.DataAccess.Interfaces
 {
-   public interface ICalismaRepository
+    public interface ICalismaRepository
     {
         void KaydetCalisma(Calisma calisma);
         void SilCalisma(Calisma calisma);

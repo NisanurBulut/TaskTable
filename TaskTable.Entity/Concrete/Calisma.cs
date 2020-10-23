@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using TaskTable.Entity.Interfaces;
 
 namespace TaskTable.Entity.Concrete

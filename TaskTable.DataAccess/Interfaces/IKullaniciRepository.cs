@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using TaskTable.Entity.Concrete;
 namespace TaskTable.DataAccess.Interfaces
 {
-   public interface IKullaniciRepository
+    public interface IKullaniciRepository
     {
         void KaydetKullanici(Kullanici Kullanici);
         void SilKullanici(Kullanici Kullanici);
