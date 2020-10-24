@@ -7,7 +7,8 @@ namespace TaskTable.DataAccess.Interfaces
 {
     public interface IBaseRepository<T> where T : class, ITablo, new()
     {
-        void Kaydet(T item);
+        void Ekle(T item);
+        void Guncelle(T item);
         void Sil(T item);
         T Getir(int id);
         List<T> GetirHepsi();
