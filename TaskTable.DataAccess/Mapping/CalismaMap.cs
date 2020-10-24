@@ -15,7 +15,7 @@ namespace TaskTable.DataAccess.Mapping
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).UseIdentityColumn();
             builder.Property(a => a.Ad).IsRequired().HasMaxLength(50);
-            builder.Property(a => a.Aciklama).IsRequired().HasMaxLength(150);
+            builder.Property(a => a.Aciklama).IsRequired().HasMaxLength(100);
            
         }
     }

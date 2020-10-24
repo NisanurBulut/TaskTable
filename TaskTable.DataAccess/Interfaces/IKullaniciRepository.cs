@@ -2,11 +2,8 @@
 using TaskTable.Entity.Concrete;
 namespace TaskTable.DataAccess.Interfaces
 {
-    public interface IKullaniciRepository
+    public interface IKullaniciRepository:IBaseRepository<KullaniciEntity>
     {
-        void KaydetKullanici(KullaniciEntity Kullanici);
-        void SilKullanici(KullaniciEntity Kullanici);
-        KullaniciEntity GetirKullanici(int id);
-        List<KullaniciEntity> GetirKullanicilar();
+       
     }
 }

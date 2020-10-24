@@ -1,6 +1,6 @@
 ﻿namespace TaskTable.Entity.Interfaces
 {
-    interface ITablo
+    public interface ITablo
     {
     }
 }
