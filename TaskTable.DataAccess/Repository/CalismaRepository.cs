@@ -9,26 +9,29 @@ namespace TaskTable.DataAccess.Repository
 {
     public class CalismaRepository : ICalismaRepository
     {
-        public CalismaEntity GetirCalisma(int id)
+        public void Ekle(CalismaEntity item)
         {
-            using var context = new DatabaseContext();
-            return context.Calismas.Find(id);
+            throw new NotImplementedException();
         }
 
-        public List<CalismaEntity> GetirCalismalar()
+        public CalismaEntity Getir(int id)
         {
-            using var context = new DatabaseContext();
-            return context.Calismas.ToList();
+            throw new NotImplementedException();
         }
 
-        public void KaydetCalisma(CalismaEntity calisma)
+        public List<CalismaEntity> GetirHepsi()
         {
-            
+            throw new NotImplementedException();
         }
 
-        public void SilCalisma(CalismaEntity calisma)
+        public void Guncelle(CalismaEntity item)
         {
-            
+            throw new NotImplementedException();
+        }
+
+        public void Sil(CalismaEntity item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

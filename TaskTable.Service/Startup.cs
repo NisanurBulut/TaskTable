@@ -27,7 +27,7 @@ namespace TaskTable.Service
             {
                 app.UseDeveloperExceptionPage();
             }
-            // 
+            app.UseStaticFiles(); 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
