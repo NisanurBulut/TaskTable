@@ -27,6 +27,10 @@ namespace TaskTable.Service
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("Home/Error");
+            }
             //app.UseStatusCodePages();
             app.UseStatusCodePagesWithReExecute("Home/PageError","=code={0}");
             app.UseStaticFiles(); 
