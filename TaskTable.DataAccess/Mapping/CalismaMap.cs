@@ -7,9 +7,9 @@ using TaskTable.Entity.Concrete;
 
 namespace TaskTable.DataAccess.Mapping
 {
-    public class CalismaMap : IEntityTypeConfiguration<CalismaEntity>
+    public class CalismaMap : IEntityTypeConfiguration<TaskEntity>
     {
-        public void Configure(EntityTypeBuilder<CalismaEntity> builder)
+        public void Configure(EntityTypeBuilder<TaskEntity> builder)
         {
             builder.ToTable("tCalisma","dbo");
             builder.HasKey(a => a.Id);

@@ -1,28 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using TaskTable.DataAccess.Context;
 using TaskTable.DataAccess.Interfaces;
 using TaskTable.Entity.Concrete;
 
 namespace TaskTable.DataAccess.Repository
 {
-    public class KullaniciRepository : IKullaniciRepository
+    public class TaskRepository : ITaskRepository
     {
-        public KullaniciEntity GetirKullanici(int id)
+        public void Ekle(TaskEntity item)
         {
             throw new NotImplementedException();
         }
 
-        public List<KullaniciEntity> GetirKullanicilar()
+        public TaskEntity Getir(int id)
         {
             throw new NotImplementedException();
         }
 
-        public void KaydetKullanici(KullaniciEntity Kullanici)
+        public List<TaskEntity> GetirHepsi()
         {
             throw new NotImplementedException();
         }
 
-        public void SilKullanici(KullaniciEntity Kullanici)
+        public void Guncelle(TaskEntity item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Sil(TaskEntity item)
         {
             throw new NotImplementedException();
         }
