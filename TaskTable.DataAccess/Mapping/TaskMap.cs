@@ -7,7 +7,7 @@ using TaskTable.Entity.Concrete;
 
 namespace TaskTable.DataAccess.Mapping
 {
-    public class CalismaMap : IEntityTypeConfiguration<TaskEntity>
+    public class TaskMap : IEntityTypeConfiguration<TaskEntity>
     {
         public void Configure(EntityTypeBuilder<TaskEntity> builder)
         {
@@ -15,8 +15,7 @@ namespace TaskTable.DataAccess.Mapping
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).UseIdentityColumn();
             builder.Property(a => a.Ad).IsRequired().HasMaxLength(50);
-            builder.Property(a => a.Aciklama).IsRequired().HasMaxLength(100);
-           
+            builder.Property(a => a.Aciklama).IsRequired().HasMaxLength(100);      
         }
     }
 }

@@ -18,7 +18,7 @@ namespace TaskTable.DataAccess.Context
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new CalismaMap());
+            modelBuilder.ApplyConfiguration(new TaskMap());
             // IdentityDbContext içerisinde yeniden yorumlanabilmesi için
             base.OnModelCreating(modelBuilder);
 

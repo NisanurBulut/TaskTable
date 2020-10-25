@@ -10,6 +10,8 @@ namespace TaskTable.Entity.Concrete
         public bool Durum { get; set; }
         public string Aciklama { get; set; }
         public DateTime OlusturulmaTarihi { get; set; }
-        public int KullaniciId { get; set; }
+        // görev oluşturulurken kullanıcı atama zorlaması olmaması için nullable olmalı
+        public int? AppUserId { get; set; }
+        public AppUser AppUser { get; set; }
     }
 }
