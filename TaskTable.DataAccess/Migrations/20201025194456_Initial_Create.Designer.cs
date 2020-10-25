@@ -10,8 +10,8 @@ using TaskTable.DataAccess.Context;
 namespace TaskTable.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20201025180740_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20201025194456_Initial_Create")]
+    partial class Initial_Create
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,6 +171,9 @@ namespace TaskTable.DataAccess.Migrations
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("TEXT")
                         .HasMaxLength(256);
@@ -189,6 +192,9 @@ namespace TaskTable.DataAccess.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("SecurityStamp")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Surname")
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("TwoFactorEnabled")
@@ -229,16 +235,18 @@ namespace TaskTable.DataAccess.Migrations
                         .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
-                    b.Property<bool>("Durum")
+                    b.Property<int?>("AppUserId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("KullaniciId")
+                    b.Property<bool>("Durum")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("OlusturulmaTarihi")
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
 
                     b.ToTable("tCalisma","dbo");
                 });
@@ -292,6 +300,13 @@ namespace TaskTable.DataAccess.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TaskTable.Entity.Concrete.TaskEntity", b =>
+                {
+                    b.HasOne("TaskTable.Entity.Concrete.AppUser", "AppUser")
+                        .WithMany("Tasks")
+                        .HasForeignKey("AppUserId");
                 });
 #pragma warning restore 612, 618
         }

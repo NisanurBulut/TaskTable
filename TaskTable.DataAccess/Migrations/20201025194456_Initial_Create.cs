@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TaskTable.DataAccess.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial_Create : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -44,29 +44,13 @@ namespace TaskTable.DataAccess.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    Surname = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "tCalisma",
-                schema: "dbo",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    Ad = table.Column<string>(maxLength: 50, nullable: false),
-                    Durum = table.Column<bool>(nullable: false),
-                    Aciklama = table.Column<string>(maxLength: 100, nullable: false),
-                    OlusturulmaTarihi = table.Column<DateTime>(nullable: false),
-                    KullaniciId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_tCalisma", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -175,6 +159,30 @@ namespace TaskTable.DataAccess.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "tCalisma",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Ad = table.Column<string>(maxLength: 50, nullable: false),
+                    Durum = table.Column<bool>(nullable: false),
+                    Aciklama = table.Column<string>(maxLength: 100, nullable: false),
+                    OlusturulmaTarihi = table.Column<DateTime>(nullable: false),
+                    AppUserId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tCalisma", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_tCalisma_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -211,6 +219,12 @@ namespace TaskTable.DataAccess.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tCalisma_AppUserId",
+                schema: "dbo",
+                table: "tCalisma",
+                column: "AppUserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

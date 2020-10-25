@@ -11,7 +11,10 @@ namespace TaskTable.DataAccess.Mapping
     {
         public void Configure(EntityTypeBuilder<AppUser> builder)
         {
-            throw new NotImplementedException();
+            builder.Property(I => I.Name).HasMaxLength(100);
+            builder.Property(I => I.Surname).HasMaxLength(100);
+            builder.HasMany(I => I.Tasks).WithOne(I => I.AppUser)
+                .HasForeignKey(I => I.AppUserId).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
