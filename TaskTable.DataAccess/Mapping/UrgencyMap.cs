@@ -13,6 +13,7 @@ namespace TaskTable.DataAccess.Mapping
         {
             builder.ToTable("tUrgency", "dbo");
             builder.HasKey(a => a.Id);
+            builder.Property(a => a.Id).UseIdentityColumn();
             builder.Property(a=>a.Description).HasMaxLength(100);
         }
     }

@@ -10,7 +10,7 @@ using TaskTable.DataAccess.Context;
 namespace TaskTable.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20201026062842_createInitial")]
+    [Migration("20201026073519_createInitial")]
     partial class createInitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -172,7 +172,8 @@ namespace TaskTable.DataAccess.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("TEXT")
@@ -195,7 +196,8 @@ namespace TaskTable.DataAccess.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Surname")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
 
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("INTEGER");
@@ -214,6 +216,33 @@ namespace TaskTable.DataAccess.Migrations
                         .HasName("UserNameIndex");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("TaskTable.Entity.Concrete.ReportEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("Detail")
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("TaskId")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TaskId");
+
+                    b.ToTable("tReport","dbo");
                 });
 
             modelBuilder.Entity("TaskTable.Entity.Concrete.TaskEntity", b =>
@@ -260,14 +289,18 @@ namespace TaskTable.DataAccess.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
 
                     b.HasKey("Id");
 
-                    b.ToTable("UrgencyEntity");
+                    b.ToTable("tUrgency","dbo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -321,11 +354,21 @@ namespace TaskTable.DataAccess.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("TaskTable.Entity.Concrete.ReportEntity", b =>
+                {
+                    b.HasOne("TaskTable.Entity.Concrete.TaskEntity", "Task")
+                        .WithMany("Reports")
+                        .HasForeignKey("TaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("TaskTable.Entity.Concrete.TaskEntity", b =>
                 {
                     b.HasOne("TaskTable.Entity.Concrete.AppUser", "AppUser")
                         .WithMany("Tasks")
-                        .HasForeignKey("AppUserId");
+                        .HasForeignKey("AppUserId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("TaskTable.Entity.Concrete.UrgencyEntity", "Urgency")
                         .WithMany("Tasks")

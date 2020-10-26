@@ -1,11 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using TaskTable.Entity.Interfaces;
 
 namespace TaskTable.Entity.Concrete
 {
-    public class TaskEntity : ITablo
+    public class TaskEntity :BaseEntity, ITablo
     {
-        public int Id { get; set; }
         public string Ad { get; set; }
         public bool Durum { get; set; }
         public string Aciklama { get; set; }
@@ -17,5 +17,6 @@ namespace TaskTable.Entity.Concrete
         // nullable olmadıı için zorunlu alan
         public int UrgencyId { get; set; }
         public UrgencyEntity Urgency { get; set; }
+        public List<ReportEntity> Reports { get; set; }
     }
 }
