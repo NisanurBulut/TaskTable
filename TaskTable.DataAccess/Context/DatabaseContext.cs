@@ -24,5 +24,6 @@ namespace TaskTable.DataAccess.Context
 
         }
         public DbSet<TaskEntity> Tasks { get; set; }
+        public DbSet<TaskEntity> Urgencies { get; set; }
     }
 }

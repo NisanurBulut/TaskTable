@@ -242,11 +242,30 @@ namespace TaskTable.DataAccess.Migrations
                     b.Property<DateTime>("OlusturulmaTarihi")
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("UrgencyId")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AppUserId");
 
-                    b.ToTable("tCalisma","dbo");
+                    b.HasIndex("UrgencyId");
+
+                    b.ToTable("tTask","dbo");
+                });
+
+            modelBuilder.Entity("TaskTable.Entity.Concrete.UrgencyEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UrgencyEntity");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -305,6 +324,12 @@ namespace TaskTable.DataAccess.Migrations
                     b.HasOne("TaskTable.Entity.Concrete.AppUser", "AppUser")
                         .WithMany("Tasks")
                         .HasForeignKey("AppUserId");
+
+                    b.HasOne("TaskTable.Entity.Concrete.UrgencyEntity", "Urgency")
+                        .WithMany("Tasks")
+                        .HasForeignKey("UrgencyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

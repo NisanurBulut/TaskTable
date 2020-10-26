@@ -11,11 +11,13 @@ namespace TaskTable.DataAccess.Mapping
     {
         public void Configure(EntityTypeBuilder<TaskEntity> builder)
         {
-            builder.ToTable("tCalisma","dbo");
+            builder.ToTable("tTask","dbo");
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Id).UseIdentityColumn();
             builder.Property(a => a.Ad).IsRequired().HasMaxLength(50);
-            builder.Property(a => a.Aciklama).IsRequired().HasMaxLength(100);      
+            builder.Property(a => a.Aciklama).IsRequired().HasMaxLength(100);
+
+            builder.HasOne(a => a.Urgency).WithMany(a => a.Tasks).HasForeignKey(a=>a.UrgencyId);
         }
     }
 }

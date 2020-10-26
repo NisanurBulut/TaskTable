@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TaskTable.DataAccess.Migrations
 {
-    public partial class Initial_Create : Migration
+    public partial class createInitial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -51,6 +51,19 @@ namespace TaskTable.DataAccess.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UrgencyEntity",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    Description = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UrgencyEntity", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -160,7 +173,7 @@ namespace TaskTable.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "tCalisma",
+                name: "tTask",
                 schema: "dbo",
                 columns: table => new
                 {
@@ -170,17 +183,24 @@ namespace TaskTable.DataAccess.Migrations
                     Durum = table.Column<bool>(nullable: false),
                     Aciklama = table.Column<string>(maxLength: 100, nullable: false),
                     OlusturulmaTarihi = table.Column<DateTime>(nullable: false),
-                    AppUserId = table.Column<int>(nullable: true)
+                    AppUserId = table.Column<int>(nullable: true),
+                    UrgencyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tCalisma", x => x.Id);
+                    table.PrimaryKey("PK_tTask", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_tCalisma_AspNetUsers_AppUserId",
+                        name: "FK_tTask_AspNetUsers_AppUserId",
                         column: x => x.AppUserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_tTask_UrgencyEntity_UrgencyId",
+                        column: x => x.UrgencyId,
+                        principalTable: "UrgencyEntity",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -221,10 +241,16 @@ namespace TaskTable.DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_tCalisma_AppUserId",
+                name: "IX_tTask_AppUserId",
                 schema: "dbo",
-                table: "tCalisma",
+                table: "tTask",
                 column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_tTask_UrgencyId",
+                schema: "dbo",
+                table: "tTask",
+                column: "UrgencyId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -245,7 +271,7 @@ namespace TaskTable.DataAccess.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "tCalisma",
+                name: "tTask",
                 schema: "dbo");
 
             migrationBuilder.DropTable(
@@ -253,6 +279,9 @@ namespace TaskTable.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "UrgencyEntity");
         }
     }
 }
