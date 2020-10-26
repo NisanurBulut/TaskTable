@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using TaskTable.Entity.Concrete;
 
-namespace TaskTable.DataAccess.Interfaces
+namespace TaskTable.DataAccess.Repository
 {
-    public interface IReportRepository:IBaseRepository<UrgencyEntity>
+    public class UrgencyRepository:BaseRepository<UrgencyEntity>
     {
     }
 }
