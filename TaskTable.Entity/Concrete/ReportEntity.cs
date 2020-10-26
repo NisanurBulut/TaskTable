@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TaskTable.Entity.Interfaces;
 
 namespace TaskTable.Entity.Concrete
 {
-    public class ReportEntity : BaseEntity
+    public class ReportEntity : BaseEntity, ITablo
     {
         public string Description { get; set; }
         public string Detail { get; set; }
