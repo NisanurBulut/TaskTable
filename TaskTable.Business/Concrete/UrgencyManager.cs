@@ -5,7 +5,7 @@ using TaskTable.Business.Interfaces;
 
 namespace TaskTable.Business.Concrete
 {
-    public class UrgencyManager: IUrgencyService
+    public class UrgencyManager : IUrgencyService
     {
     }
 }
