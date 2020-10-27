@@ -20,12 +20,12 @@ namespace TaskTable.Web.Areas.Member.Controllers
         }
         public IActionResult Index()
         {
+            TempData["active"] = "urgency";
             var results = _urgencyService.GetAllUrgency();
             return View(results);
         }
         public IActionResult AddUrgency()
         {
-
             return View(new UrgencyAddViewModel());
         }
         [HttpPost]
@@ -44,6 +44,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         [HttpGet]
         public IActionResult EditUrgency(int id)
         {
+            TempData["active"] = "urgency";
             var model = _urgencyService.GetUrgency(id);
             var urgencyEditViewModel = new UrgencyEditViewModel()
             {

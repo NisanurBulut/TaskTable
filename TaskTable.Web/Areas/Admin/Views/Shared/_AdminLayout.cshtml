@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{ 
+    string active = TempData["active"]?.ToString();
+}
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -27,8 +30,8 @@
         <div class=" border-right" id="sidebar-wrapper">
             <div class="sidebar-heading">Yönetici Ekranı </div>
             <div class="list-group list-group-flush">
-                <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="list-group-item list-group-item-action active">Görev</a>
-                <a asp-area="Admin" asp-controller="Urgency" asp-action="Index" class="list-group-item list-group-item-action ">Aciliyet</a>
+                <a asp-area="Admin" asp-controller="Task" asp-action="Index" class="list-group-item list-group-item-action @(active=="task"?"active":"")">Görev</a>
+                <a asp-area="Admin" asp-controller="Urgency" asp-action="Index" class="list-group-item list-group-item-action @(active=="urgency"?"active":"")">Aciliyet</a>
                 <a href="#" class="list-group-item list-group-item-action ">Overview</a>
                 <a href="#" class="list-group-item list-group-item-action ">Events</a>
                 <a href="#" class="list-group-item list-group-item-action ">Profile</a>
