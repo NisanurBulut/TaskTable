@@ -8,27 +8,27 @@ namespace TaskTable.DataAccess.Repository
 {
     public class UrgencyRepository : IUrgencyRepository
     {
-        public void Ekle(ReportEntity item)
+        public void Ekle(UrgencyEntity item)
         {
             throw new NotImplementedException();
         }
 
-        public ReportEntity Getir(int id)
+        public UrgencyEntity Getir(int id)
         {
             throw new NotImplementedException();
         }
 
-        public List<ReportEntity> GetirHepsi()
+        public List<UrgencyEntity> GetirHepsi()
         {
             throw new NotImplementedException();
         }
 
-        public void Guncelle(ReportEntity item)
+        public void Guncelle(UrgencyEntity item)
         {
             throw new NotImplementedException();
         }
 
-        public void Sil(ReportEntity item)
+        public void Sil(UrgencyEntity item)
         {
             throw new NotImplementedException();
         }

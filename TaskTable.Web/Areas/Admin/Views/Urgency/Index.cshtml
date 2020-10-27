@@ -1,0 +1,32 @@
+﻿@model List<TaskTable.Entity.Concrete.UrgencyEntity>;
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+@if (Model.Any())
+{
+    <table class="table table-sm table-hover">
+        <thead>
+            <tr>Tanım</tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Description
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+<div class="text-center lead mt-4">
+    <p class="lead">Kayıt bulunamadı</p>
+  <a asp-area="Admin" asp-controller="Urgency" asp-action="AddUrgency" class="btn btn-sm btn-info my-2">Aciliyet Ekle</a>
+</div>
+}

@@ -5,7 +5,7 @@ using TaskTable.Entity.Concrete;
 
 namespace TaskTable.DataAccess.Interfaces
 {
-    public interface IUrgencyRepository:IBaseRepository<ReportEntity>
+    public interface IUrgencyRepository:IBaseRepository<UrgencyEntity>
     {
     }
 }

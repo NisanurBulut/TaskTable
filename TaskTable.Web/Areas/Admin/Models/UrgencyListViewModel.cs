@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TaskTable.Web.Areas.Member.Models
+namespace TaskTable.Web.Areas.Admin.Models
 {
     public class UrgencyListViewModel
     {

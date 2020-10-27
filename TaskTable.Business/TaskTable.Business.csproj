@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\TaskTable.Entity\TaskTable.Entity.csproj" />
+    <ProjectReference Include="..\TaskTable.DataAccess\TaskTable.DataAccess.csproj" />
   </ItemGroup>
 
 </Project>
