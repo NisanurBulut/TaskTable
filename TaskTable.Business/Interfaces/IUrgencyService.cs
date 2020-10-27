@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TaskTable.Business.Interfaces
 {
-    interface IUrgencyService:IBaseService
+    public interface IUrgencyService:IBaseService
     {
     }
 }

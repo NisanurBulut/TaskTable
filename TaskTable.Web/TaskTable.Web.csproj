@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TaskTable.Business\TaskTable.Business.csproj" />
+    <ProjectReference Include="..\TaskTable.DataAccess\TaskTable.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
