@@ -42,7 +42,14 @@ namespace TaskTable.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapDefaultControllerRoute();
+                // MapAreaControllerRoute kullanýlýrsa area'a özgü olur route
+                // her zaman özelden genele sýrasýyla yazýlmalý
+                endpoints.MapControllerRoute(
+                       name: "areas",
+                       pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute(
+                    name:"default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
