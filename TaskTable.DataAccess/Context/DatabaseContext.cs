@@ -12,7 +12,7 @@ namespace TaskTable.DataAccess.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=TaskTable.db;Cache=Shared");
+            optionsBuilder.UseSqlite("Data Source=../TaskTable.DataAccess/TaskTable.db;Cache=Shared");
             // IdentityDbContext içerisinde yeniden yorumlanabilmesi için
             base.OnConfiguring(optionsBuilder);
         }

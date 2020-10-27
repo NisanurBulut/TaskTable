@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using TaskTable.Business.Interfaces;
+using TaskTable.DataAccess.Interfaces;
 using TaskTable.Entity.Concrete;
 
 namespace TaskTable.Business.Concrete
 {
     public class TaskManager : ITaskService
     {
+        private readonly ITaskRepository _taskRepository;
+        public TaskManager(ITaskRepository taskRepository)
+        {
+            _taskRepository = taskRepository;
+        }
         public void Ekle(TaskEntity item)
         {
             throw new NotImplementedException();
@@ -20,7 +26,7 @@ namespace TaskTable.Business.Concrete
 
         public List<TaskEntity> GetirHepsi()
         {
-            throw new NotImplementedException();
+            return _taskRepository.GetirHepsi();
         }
 
         public void Guncelle(TaskEntity item)

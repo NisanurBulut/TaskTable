@@ -1,8 +1,41 @@
-﻿
+﻿@model List<TaskTable.Web.Areas.Admin.Models.TaskListViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
+@if (Model.Any())
+{
+    <a asp-action="AddTask" class="btn btn-sm btn-info">Bir görev oluştur</a>
+    <table>
+        <tr>
+            <th>Ad</th>
+            <th>Açıklama</th>
+            <th>Durum</th>
+            <th>Aciliyet Id</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ad</td>
+                <td>@item.Aciklama</td>
+                <td>@item.Durum</td>
+                <td>@item.UrgencyId</td>
+                <td>
+                    <a>Sil</a>
+                    <a>Güncelle</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
 
+    <div class="p-3 text-center mt-3">
+        <p class="lead">
+            Herhangi bir görev bulunamadı
+        </p>
+        <a asp-action="AddTask" class="btn btn-sm btn-info">Bir görev oluştur</a>
+    </div>
+}
