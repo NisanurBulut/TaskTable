@@ -9,7 +9,10 @@
 {
     <table class="table table-sm table-hover">
         <thead>
-            <tr>Tanım</tr>
+            <tr>
+                <th>Tanım</th>
+                <th>İşlem</th>
+            </tr>
         </thead>
         <tbody>
             @foreach (var item in Model)
@@ -17,6 +20,12 @@
                 <tr>
                     <td>
                         @item.Description
+                    </td>
+                    <td>
+                        <a asp-area="" asp-controller="" asp-action="" 
+                           class="btn btn-sm btn-warning" id="@item.Id">
+                            Düzenle
+                        </a>
                     </td>
                 </tr>
             }

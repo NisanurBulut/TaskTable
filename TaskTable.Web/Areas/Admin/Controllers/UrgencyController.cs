@@ -20,18 +20,18 @@ namespace TaskTable.Web.Areas.Member.Controllers
         }
         public IActionResult Index()
         {
-           var results= _urgencyService.GetAllUrgency();
+            var results = _urgencyService.GetAllUrgency();
             return View(results);
         }
         public IActionResult AddUrgency()
         {
-           
+
             return View(new UrgencyAddViewModel());
         }
         [HttpPost]
         public IActionResult AddUrgency(UrgencyAddViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 _urgencyService.AddUrgency(new UrgencyEntity
                 {
@@ -40,6 +40,28 @@ namespace TaskTable.Web.Areas.Member.Controllers
                 return RedirectToAction("Index");
             }
             return View(model);
+        }
+        [HttpGet]
+        public IActionResult EditUrgency(int id)
+        {
+            var model = _urgencyService.GetUrgency(id);
+            var urgencyEditViewModel = new UrgencyEditViewModel()
+            {
+                Description = model.Description,
+                Id = model.Id
+            };
+            return View(urgencyEditViewModel);
+        }
+        [HttpPost]
+        public IActionResult EditUrgency(UrgencyEditViewModel model)
+        {
+            UrgencyEntity entity = new UrgencyEntity()
+            {
+                Description = model.Description,
+                Id = model.Id
+            };
+            _urgencyService.UpdateUrgency(entity);
+            return View();
         }
     }
 }
