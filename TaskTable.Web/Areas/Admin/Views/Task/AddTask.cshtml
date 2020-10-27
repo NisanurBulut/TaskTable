@@ -1,0 +1,26 @@
+﻿@model TaskTable.Web.Areas.Admin.Models.TaskAddViewModel
+@{
+    ViewData["Title"] = "AddTask";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form asp-action="AddTask" method="post" class="w-75 mx-auto p-3">
+    <div class="form-group">
+        <label>Ad: </label>
+        <span class="text-danger" asp-validation-for="Ad"></span>
+        <input class="form-control" type="text" asp-for="Ad" />
+    </div>
+    <div class="form-group">
+        <label>Açıklama: </label>
+        <span class="text-danger" asp-validation-for="Aciklama"></span>
+        <textarea class="form-control" type="text" asp-for="Aciklama"></textarea>
+    </div>
+    <div class="form-group">
+        <label>Aciliter: </label>
+        <span class="text-danger" asp-validation-for="UrgencyId"></span>
+        <select asp-for="UrgencyId" class="form-control">
+            <option value="-1">Seçiniz</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-info btn-sm">Kaydet</button>
+</form>

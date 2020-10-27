@@ -8,7 +8,8 @@ using TaskTable.Web.Areas.Admin.Models;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
-   
+
+    [Area("Admin")]
     public class TaskController : Controller
     {
         private readonly ITaskService _taskService;
@@ -16,7 +17,6 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         {
             _taskService = taskService;
         }
-        [Area("Admin")]
         public IActionResult Index()
         {
             TempData["active"] = "task";
@@ -29,7 +29,6 @@ namespace TaskTable.Web.Areas.Admin.Controllers
                 {
                     Aciklama = item.Aciklama,
                     UrgencyId = item.UrgencyId,
-                    Urgency = item.Urgency,
                     OlusturulmaTarihi = item.OlusturulmaTarihi,
                     Ad = item.Ad,
                     Durum = item.Durum
@@ -37,6 +36,20 @@ namespace TaskTable.Web.Areas.Admin.Controllers
                 results.Add(model);
             }
             return View(results);
+        }
+        [HttpGet]
+        public IActionResult AddTask()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult AddTask(TaskAddViewModel model)
+        {
+            if(ModelState.IsValid)
+            {
+
+            }
+            return View();
         }
     }
 }
