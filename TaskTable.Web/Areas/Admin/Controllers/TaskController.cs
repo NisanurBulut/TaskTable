@@ -96,5 +96,11 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             }
             return View(model);
         }
+        [HttpGet]
+        public IActionResult DeleteTask(int id)
+        {
+            _taskService.Sil(new TaskEntity() { Id = id });
+            return Json(null);
+        }
     }
 }

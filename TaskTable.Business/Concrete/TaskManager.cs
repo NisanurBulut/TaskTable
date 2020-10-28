@@ -41,7 +41,7 @@ namespace TaskTable.Business.Concrete
 
         public void Sil(TaskEntity item)
         {
-            throw new NotImplementedException();
+            _taskRepository.Sil(item);
         }
     }
 }
