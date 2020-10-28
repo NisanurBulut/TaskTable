@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TaskTable.Business.Interfaces;
@@ -10,6 +12,7 @@ using TaskTable.Web.Areas.Admin.Models;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class UrgencyController : Controller
     {

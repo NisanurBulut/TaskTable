@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using TaskTable.Business.Interfaces;
@@ -10,7 +11,7 @@ using TaskTable.Web.Areas.Admin.Models;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
-
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     public class TaskController : Controller
     {

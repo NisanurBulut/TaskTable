@@ -2,11 +2,12 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TaskTable.Entity.Interfaces;
 
 namespace TaskTable.Entity.Concrete
 {
     // int yazmazsam primary key default string olur
-    public class AppUser:IdentityUser<int>
+    public class AppUser:IdentityUser<int>, ITablo
     {
         public string Name { get; set; }
         public string Surname { get; set; }

@@ -83,5 +83,9 @@ namespace TaskTable.Web.Controllers
             }
             return View("Index", model);
         }
+        public IActionResult TaskOrder()
+        {
+            return View();
+        }
     }
 }

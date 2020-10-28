@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {
-    [Authorize("Member")]
+    [Authorize(Roles = "Member")]
     [Area("Member")]
     public class HomeController : Controller
     {
