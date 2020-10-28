@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_StandartLayout.cshtml";
+}
+
+@model AppUserViewModel
+@{
+    ViewData["Title"] = "KayitOl";
+    Layout = "~/Views/Shared/_StandartLayout.cshtml";
+}
+
+<form asp-action="Register" method="post" class="w-75 mt-4 mx-auto p-3 shadow">
+    <h4 class="text-center">Kayıt Ol</h4>
+    <div class="form-group">
+        <label asp-for="@Model.UserName"></label>
+        <span asp-validation-for="@Model.UserName" class="text-danger"></span>
+        <input asp-for="@Model.UserName" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Name"></label>
+        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+        <input asp-for="@Model.Name" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Surname"></label>
+        <span asp-validation-for="@Model.Surname" class="text-danger"></span>
+        <input asp-for="@Model.Surname" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Email"></label>
+        <span asp-validation-for="@Model.Email" class="text-danger"></span>
+        <input asp-for="@Model.Email" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Password"></label>
+        <span asp-validation-for="@Model.Password" class="text-danger"></span>
+        <input asp-for="@Model.Password" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.ConfirmPassword"></label>
+        <span asp-validation-for="@Model.ConfirmPassword" class="text-danger"></span>
+        <input asp-for="@Model.ConfirmPassword" class="form-control" />
+    </div>
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <button class="btn btn-sm btn-warning">Vazgeç</button>
+    <button type="submit" class="btn btn-sm btn-info">Kayıt Ol</button>
+</form>
