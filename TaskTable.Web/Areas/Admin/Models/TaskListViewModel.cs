@@ -15,6 +15,7 @@ namespace TaskTable.Web.Areas.Admin.Models
         public string Aciklama { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "Lütfen bir aciliyet durumu seçiniz.")]
         public int UrgencyId { get; set; }
+        public UrgencyEntity Urgency { get; set; }
         public DateTime OlusturulmaTarihi { get; set; }
     }
 }

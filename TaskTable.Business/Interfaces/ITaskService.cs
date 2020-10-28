@@ -7,5 +7,6 @@ namespace TaskTable.Business.Interfaces
 {
     public interface ITaskService:IBaseService<TaskEntity>
     {
+        List<TaskEntity> GetirTamamlanmayanGorevler();
     }
 }

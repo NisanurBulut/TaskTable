@@ -4,6 +4,6 @@ namespace TaskTable.DataAccess.Interfaces
 {
     public interface ITaskRepository:IBaseRepository<TaskEntity>
     {
-        
+        List<TaskEntity> GetirTamamlanmayanGorevler();
     }
 }

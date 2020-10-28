@@ -29,6 +29,11 @@ namespace TaskTable.Business.Concrete
             return _taskRepository.GetirHepsi();
         }
 
+        public List<TaskEntity> GetirTamamlanmayanGorevler()
+        {
+            return _taskRepository.GetirTamamlanmayanGorevler();
+        }
+
         public void Guncelle(TaskEntity item)
         {
             throw new NotImplementedException();

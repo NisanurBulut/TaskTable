@@ -24,7 +24,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         public IActionResult Index()
         {
             TempData["active"] = "task";
-            var taskentities = _taskService.GetirHepsi();
+            var taskentities = _taskService.GetirTamamlanmayanGorevler();
             var results = new List<TaskListViewModel>();
             // automapper kullanılarak düzeltilecek
             foreach (var item in taskentities)
@@ -33,6 +33,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
                 {
                     Aciklama = item.Aciklama,
                     UrgencyId = item.UrgencyId,
+                    Urgency = item.Urgency,
                     OlusturulmaTarihi = item.OlusturulmaTarihi,
                     Ad = item.Ad,
                     Durum = item.Durum
