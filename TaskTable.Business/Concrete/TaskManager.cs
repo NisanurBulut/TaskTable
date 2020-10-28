@@ -16,7 +16,7 @@ namespace TaskTable.Business.Concrete
         }
         public void Ekle(TaskEntity item)
         {
-            throw new NotImplementedException();
+            _taskRepository.Ekle(item);
         }
 
         public TaskEntity Getir(int id)

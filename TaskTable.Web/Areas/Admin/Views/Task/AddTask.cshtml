@@ -18,8 +18,8 @@
     <div class="form-group">
         <label>Aciliter: </label>
         <span class="text-danger" asp-validation-for="@Model.UrgencyId"></span>
-        <select asp-for="@Model.UrgencyId" class="form-control">
-            <option value="-1">Seçiniz</option>
+        <select asp-for="@Model.UrgencyId" class="form-control" asp-items="ViewBag.Urgencies">
+            <option hidden value="-1">Seçiniz</option>
         </select>
     </div>
     <button type="submit" class="btn btn-info btn-sm">Kaydet</button>

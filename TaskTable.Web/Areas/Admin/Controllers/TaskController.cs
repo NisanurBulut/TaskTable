@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using TaskTable.Business.Interfaces;
+using TaskTable.Entity.Concrete;
 using TaskTable.Web.Areas.Admin.Models;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
@@ -13,9 +15,11 @@ namespace TaskTable.Web.Areas.Admin.Controllers
     public class TaskController : Controller
     {
         private readonly ITaskService _taskService;
-        public TaskController(ITaskService taskService)
+        private readonly IUrgencyService _urgencyService;
+        public TaskController(ITaskService taskService, IUrgencyService urgencyService)
         {
             _taskService = taskService;
+            _urgencyService = urgencyService;
         }
         public IActionResult Index()
         {
@@ -40,14 +44,22 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AddTask()
         {
+            ViewBag.Urgencies = new SelectList(_urgencyService.GetirHepsi(), "Id", "Description");
             return View();
         }
         [HttpPost]
         public IActionResult AddTask(TaskAddViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+                _taskService.Ekle(new TaskEntity
+                {
+                    Ad = model.Ad,
+                    Aciklama = model.Aciklama,
+                    UrgencyId = model.UrgencyId,
 
+                });
+                return RedirectToAction("Index");
             }
             return View(model);
         }
