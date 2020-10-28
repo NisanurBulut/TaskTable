@@ -7,20 +7,24 @@
 <form asp-action="AddTask" method="post" class="w-75 mx-auto p-3">
     <div class="form-group">
         <label>Ad: </label>
-        <span class="text-danger" asp-validation-for="Ad"></span>
-        <input class="form-control" type="text" asp-for="Ad" />
+        <span class="text-danger" asp-validation-for="@Model.Ad"></span>
+        <input class="form-control" type="text" asp-for="@Model.Ad" />
     </div>
     <div class="form-group">
         <label>Açıklama: </label>
-        <span class="text-danger" asp-validation-for="Aciklama"></span>
-        <textarea class="form-control" type="text" asp-for="Aciklama"></textarea>
+        <span class="text-danger" asp-validation-for="@Model.Aciklama"></span>
+        <textarea class="form-control" type="text" asp-for="@Model.Aciklama"></textarea>
     </div>
     <div class="form-group">
         <label>Aciliter: </label>
-        <span class="text-danger" asp-validation-for="UrgencyId"></span>
-        <select asp-for="UrgencyId" class="form-control">
+        <span class="text-danger" asp-validation-for="@Model.UrgencyId"></span>
+        <select asp-for="@Model.UrgencyId" class="form-control">
             <option value="-1">Seçiniz</option>
         </select>
     </div>
     <button type="submit" class="btn btn-info btn-sm">Kaydet</button>
 </form>
+@section JavaScript{
+    <script src="~/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
