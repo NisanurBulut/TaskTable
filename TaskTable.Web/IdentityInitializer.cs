@@ -24,7 +24,9 @@ namespace TaskTable.Web
             var userRole = await userManager.FindByNameAsync("nisanur");
             if (userRole == null)
             {
-                await userManager.CreateAsync(new AppUser { Name = "nisanur", Surname = "bulut", UserName = "nisanurbulut" }, "runasin");
+                var user = new AppUser { Name = "nisanur", Surname = "bulut", UserName = "nisanurbulut" };
+                await userManager.CreateAsync(user, "runasin");
+                await userManager.AddToRoleAsync(user,"Admin");
             }
         }
     }
