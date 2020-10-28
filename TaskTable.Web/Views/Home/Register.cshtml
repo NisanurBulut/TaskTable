@@ -43,6 +43,6 @@
         <input asp-for="@Model.ConfirmPassword" class="form-control" />
     </div>
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    <button class="btn btn-sm btn-warning">Vazgeç</button>
+    <button asp-action="Index" class="btn btn-sm btn-warning">Vazgeç</button>
     <button type="submit" class="btn btn-sm btn-info">Kayıt Ol</button>
 </form>
