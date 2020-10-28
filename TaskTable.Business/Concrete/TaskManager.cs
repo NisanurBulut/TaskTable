@@ -21,7 +21,7 @@ namespace TaskTable.Business.Concrete
 
         public TaskEntity Getir(int id)
         {
-            throw new NotImplementedException();
+            return _taskRepository.Getir(id);
         }
 
         public List<TaskEntity> GetirHepsi()
@@ -36,7 +36,7 @@ namespace TaskTable.Business.Concrete
 
         public void Guncelle(TaskEntity item)
         {
-            throw new NotImplementedException();
+            _taskRepository.Guncelle(item);
         }
 
         public void Sil(TaskEntity item)

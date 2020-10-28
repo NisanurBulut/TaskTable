@@ -31,6 +31,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             {
                 var model = new TaskListViewModel
                 {
+                    Id = item.Id,
                     Aciklama = item.Aciklama,
                     UrgencyId = item.UrgencyId,
                     Urgency = item.Urgency,
@@ -45,6 +46,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AddTask()
         {
+            TempData["active"] = "task";
             ViewBag.Urgencies = new SelectList(_urgencyService.GetirHepsi(), "Id", "Description");
             return View();
         }
@@ -59,6 +61,36 @@ namespace TaskTable.Web.Areas.Admin.Controllers
                     Aciklama = model.Aciklama,
                     UrgencyId = model.UrgencyId,
 
+                });
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+        public IActionResult EditTask(int id)
+        {
+            TempData["active"] = "task";
+            var entity = _taskService.Getir(id);
+            TaskEditViewModel model = new TaskEditViewModel()
+            {
+                Id = entity.Id,
+                Aciklama = entity.Aciklama,
+                Ad = entity.Ad,
+                UrgencyId = entity.UrgencyId
+            };
+            ViewBag.Urgencies = new SelectList(_urgencyService.GetirHepsi(), "Id", "Description", model.UrgencyId);
+            return View(model);
+        }
+        [HttpPost]
+        public IActionResult EditTask(TaskEditViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _taskService.Guncelle(new TaskEntity
+                {
+                    Ad = model.Ad,
+                    Aciklama = model.Aciklama,
+                    UrgencyId = model.UrgencyId,
+                    Id = model.Id
                 });
                 return RedirectToAction("Index");
             }

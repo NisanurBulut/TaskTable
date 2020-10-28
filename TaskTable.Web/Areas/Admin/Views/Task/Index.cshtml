@@ -23,7 +23,7 @@
                 <td>@item.Urgency.Description</td>                
                 <td>
                     <a>Sil</a>
-                    <a>Güncelle</a>
+                    <a class="btn btn-sm btn-warning" asp-action="EditTask" asp-route-id="@item.Id">Güncelle</a>
                 </td>
             </tr>
         }
