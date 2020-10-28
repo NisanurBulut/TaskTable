@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using TaskTable.Business.Concrete;
@@ -26,12 +27,19 @@ namespace TaskTable.Web
             services.AddScoped<IUrgencyRepository, UrgencyRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
 
-            services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<DatabaseContext>();
+            services.AddIdentity<AppUser, AppRole>(opt=>
+            {
+                opt.Password.RequireDigit = false;
+                opt.Password.RequireLowercase = false;
+                opt.Password.RequiredLength = 1;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireNonAlphanumeric = false;
+            }).AddEntityFrameworkStores<DatabaseContext>();
             services.AddControllersWithViews();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, UserManager<AppUser> userManager, RoleManager<AppRole> roleManager)
         {
             if (env.IsDevelopment())
             {
@@ -39,7 +47,7 @@ namespace TaskTable.Web
             }
             app.UseStaticFiles();
             app.UseRouting();
-
+            IdentityInitializer.SeedData(userManager, roleManager).Wait(); 
             app.UseEndpoints(endpoints =>
             {
                 // MapAreaControllerRoute kullanýlýrsa area'a özgü olur route
