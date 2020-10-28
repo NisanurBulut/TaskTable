@@ -59,6 +59,8 @@ namespace TaskTable.Web
             }
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             IdentityInitializer.SeedData(userManager, roleManager).Wait();
             app.UseEndpoints(endpoints =>
             {

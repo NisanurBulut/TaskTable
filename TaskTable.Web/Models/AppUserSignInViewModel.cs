@@ -15,5 +15,7 @@ namespace TaskTable.Web.Models
         [Required(ErrorMessage = "Parola boş geçilemez")]
         [Display(Name = "Parola")]
         public string Password { get; set; }
+        [Display(Name = "Beni Hatirla")]
+        public bool RememberMe { get; set; }
     }
 }
