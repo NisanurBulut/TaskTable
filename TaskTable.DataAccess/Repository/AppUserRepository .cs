@@ -37,7 +37,7 @@ namespace TaskTable.DataAccess.Repository
                      }).ToList();
             }
         }
-        public List<AppUser> GetNotAdminAppUsers(string searchKey, int activePage = 1)
+        public List<AppUser> GetNotAdminAppUsers(out int TotalPage, string searchKey, int activePage = 1)
         {
             using var context = new DatabaseContext();
             // eager loading .Include(a => a.UrgencyId)
@@ -61,13 +61,16 @@ namespace TaskTable.DataAccess.Repository
                      UserName = a.user.UserName,
                      Picture = a.user.Picture
                  });
+            TotalPage = (int)Math.Ceiling((double)result.Count() / 3);
+
             if (!string.IsNullOrWhiteSpace(searchKey))
             {
                 result = result.Where(a => a.Name.ToLower().Contains(searchKey.ToLower()) ||
                                   a.Surname.ToLower().Contains(searchKey.ToLower()));
+                TotalPage = (int)Math.Ceiling((double)result.Count() / 3);
             }
             // bir sayfa da 3 adet gösterim yapılmak isteniyor
-           return result.Skip((activePage-1)*3).Take(3).ToList();
+            return result.Skip((activePage - 1) * 3).Take(3).ToList();
         }
     }
 }

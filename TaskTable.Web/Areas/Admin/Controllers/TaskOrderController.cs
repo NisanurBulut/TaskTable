@@ -44,13 +44,12 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         public IActionResult AssignUser(int id, string searchKey, int page = 1)
         {
             ViewBag.ActivePage = page;
-            ViewBag.TotalPage =(int)Math.Ceiling((double)_appUserService.GetNotAdminAppUsers().Count / 3);
-            
+            int totalPage = 0;
             var entity = _taskService.GetTaskWithUrgencyProperty(id);
-            var kullaniciEntities = _appUserService.GetNotAdminAppUsers(searchKey, page);
-
+            var kullaniciEntities = _appUserService.GetNotAdminAppUsers(out totalPage, searchKey, page);
+            ViewBag.TotalPage = totalPage;
             List<AppUserListViewModel> appUserListModel = new List<AppUserListViewModel>();
-            foreach(var item in kullaniciEntities)
+            foreach (var item in kullaniciEntities)
             {
                 AppUserListViewModel modelAppUser = new AppUserListViewModel
                 {
