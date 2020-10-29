@@ -110,5 +110,17 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             _taskService.Update(item);
             return RedirectToAction("Index");
         }
+        public IActionResult GiveDetail(int id)
+        {
+           var result= _taskService.GetTaskWithReportProperty(id);
+            TaskListAllViewModel model = new TaskListAllViewModel();
+            model.OlusturulmaTarihi = result.OlusturulmaTarihi;
+            model.Id = result.Id;
+            model.Reports = result.Reports;
+            model.Aciklama = result.Aciklama;
+            model.Ad = result.Ad;
+            model.AppUser = result.AppUser;
+            return View(model);
+        }
     }
 }

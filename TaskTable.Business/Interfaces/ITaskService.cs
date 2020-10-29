@@ -10,6 +10,7 @@ namespace TaskTable.Business.Interfaces
         List<TaskEntity> GetAllTasksWithAllProperties();
         List<TaskEntity> GetNotFinishedTasks();
         TaskEntity GetTaskWithUrgencyProperty(int id);
+        TaskEntity GetTaskWithReportProperty(int id);
         List<TaskEntity> GetAllTasksWithUserId(int id);
     }
 }

@@ -8,5 +8,6 @@ namespace TaskTable.DataAccess.Interfaces
         List<TaskEntity> GetAllTasksWithAllProperties();
         List<TaskEntity> GetAllTasksWithUserId(int id);
         TaskEntity GetTaskWithUrgencyProperty(int id);
+        TaskEntity GetTaskWithReportProperty(int id);
     }
 }

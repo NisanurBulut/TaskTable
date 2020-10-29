@@ -51,5 +51,10 @@ namespace TaskTable.Business.Concrete
         {
             _taskRepository.Delete(item);
         }
+
+        public TaskEntity GetTaskWithReportProperty(int id)
+        {
+           return _taskRepository.GetTaskWithReportProperty(id);
+        }
     }
 }

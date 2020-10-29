@@ -1,0 +1,38 @@
+﻿@model TaskListAllViewModel
+@{
+    ViewData["Title"] = "GiveDetail";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@if (Model.Reports.Any())
+{
+    <a class="btn btn-info mt-2">Excelde Görüntüle</a>
+    <table class="table table-hover table-sm mt-2 text-center table-bordered border-primary">
+        <tr>
+            <th colspan="2">
+                @Model.AppUser.Name @Model.AppUser.Surname Kullanıcısının @Model.Ad Görevine Ait Raporları
+            </th>
+        </tr>
+        <tr>
+            <th>Tanım</th>
+            <th>Detay</th>
+        </tr>
+        <tbody>
+            @foreach (var item in @Model.Reports)
+            {
+                <tr>
+                    <td>
+                        @item.Description
+                    </td>
+                    <td>@item.Detail</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="border border-dark mt-2 text-center">
+        @Model.AppUser.Name @Model.AppUser.Surname Kullanıcısı görev üzerinde çalışıyor...
+        Henüz bir rapor bulunmuyor.
+    </div>
+}
