@@ -15,7 +15,26 @@ namespace TaskTable.DataAccess.Repository
             using (var context = new DatabaseContext())
             {
                 // eager loading .Include(a => a.UrgencyId)
-               
+               return context.Users.Join(context.UserRoles, user => user.Id, userRole => userRole.UserId,
+                    (userResult, userRoleResult) => new
+                    {
+                        user = userResult,
+                        userRole = userRoleResult
+                    }).Join(context.Roles, twoTableResult => twoTableResult.userRole.RoleId, role => role.Id,
+                    (resultTable, resultRole) => new
+                    {
+                        user = resultTable.user,
+                        userrole = resultTable.userRole,
+                        roles = resultRole
+                    }).Where(a => a.roles.Name != "Admin").Select(a => new AppUser
+                    {
+                        Id = a.user.Id,
+                        Email = a.user.Email,
+                        Name = a.user.Name,
+                        Surname = a.user.Surname,
+                        UserName = a.user.UserName,
+                        Picture = a.user.Picture
+                    }).ToList();
             }
         }
     }

@@ -20,14 +20,17 @@ namespace TaskTable.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<DatabaseContext>();
+
             services.AddScoped<ITaskService, TaskManager>(); // isteði gerçekleþtiren session da ilgili nesneden sadece bir tane örnek alýnýr, transient ta ise her istekte bir örnek alýnýr, singletonda devamlý ayný örnek kullanýlýr nesne için
             services.AddScoped<IUrgencyService, UrgencyManager>();
             services.AddScoped<IReportService, ReportManager>();
-            services.AddDbContext<DatabaseContext>();
+            services.AddScoped<IAppUserService, AppUserManager>();
 
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<IUrgencyRepository, UrgencyRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
+            services.AddScoped<IAppUserRepository, AppUserRepository>();
 
             services.AddIdentity<AppUser, AppRole>(opt =>
             {

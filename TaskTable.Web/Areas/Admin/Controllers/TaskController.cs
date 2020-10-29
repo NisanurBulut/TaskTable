@@ -17,10 +17,11 @@ namespace TaskTable.Web.Areas.Admin.Controllers
     {
         private readonly ITaskService _taskService;
         private readonly IUrgencyService _urgencyService;
+        
         public TaskController(ITaskService taskService, IUrgencyService urgencyService)
         {
             _taskService = taskService;
-            _urgencyService = urgencyService;
+            _urgencyService = urgencyService;          
         }
         public IActionResult Index()
         {
@@ -103,5 +104,6 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             _taskService.Sil(new TaskEntity() { Id = id });
             return Json(null);
         }
+      
     }
 }
