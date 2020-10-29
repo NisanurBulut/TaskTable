@@ -21,6 +21,12 @@ namespace TaskTable.Business.Concrete
         {
             return _taskRepository.GetAllTasksWithAllProperties();
         }
+
+        public List<TaskEntity> GetAllTasksWithUserId(int id)
+        {
+            return _taskRepository.GetAllTasksWithUserId(id);
+        }
+
         public TaskEntity Getir(int id)
         {
             return _taskRepository.Get(id);
