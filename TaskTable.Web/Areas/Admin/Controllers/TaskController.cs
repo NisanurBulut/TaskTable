@@ -49,7 +49,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         public IActionResult AddTask()
         {
             TempData["active"] = "task";
-            ViewBag.Urgencies = new SelectList(_urgencyService.GetirHepsi(), "Id", "Description");
+            ViewBag.Urgencies = new SelectList(_urgencyService.GetAll(), "Id", "Description");
             return View();
         }
         [HttpPost]
@@ -57,7 +57,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _taskService.Ekle(new TaskEntity
+                _taskService.Add(new TaskEntity
                 {
                     Ad = model.Ad,
                     Aciklama = model.Aciklama,
@@ -71,7 +71,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         public IActionResult EditTask(int id)
         {
             TempData["active"] = "task";
-            var entity = _taskService.Getir(id);
+            var entity = _taskService.Get(id);
             TaskEditViewModel model = new TaskEditViewModel()
             {
                 Id = entity.Id,
@@ -79,7 +79,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
                 Ad = entity.Ad,
                 UrgencyId = entity.UrgencyId
             };
-            ViewBag.Urgencies = new SelectList(_urgencyService.GetirHepsi(), "Id", "Description", model.UrgencyId);
+            ViewBag.Urgencies = new SelectList(_urgencyService.GetAll(), "Id", "Description", model.UrgencyId);
             return View(model);
         }
         [HttpPost]
@@ -87,7 +87,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                _taskService.Guncelle(new TaskEntity
+                _taskService.Update(new TaskEntity
                 {
                     Ad = model.Ad,
                     Aciklama = model.Aciklama,
@@ -101,7 +101,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult DeleteTask(int id)
         {
-            _taskService.Sil(new TaskEntity() { Id = id });
+            _taskService.Delete(new TaskEntity() { Id = id });
             return Json(null);
         }
       

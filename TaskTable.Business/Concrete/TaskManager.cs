@@ -13,7 +13,7 @@ namespace TaskTable.Business.Concrete
         {
             _taskRepository = taskRepository;
         }
-        public void Ekle(TaskEntity item)
+        public void Add(TaskEntity item)
         {
             _taskRepository.Add(item);
         }
@@ -27,11 +27,11 @@ namespace TaskTable.Business.Concrete
             return _taskRepository.GetAllTasksWithUserId(id);
         }
 
-        public TaskEntity Getir(int id)
+        public TaskEntity Get(int id)
         {
             return _taskRepository.Get(id);
         }
-        public List<TaskEntity> GetirHepsi()
+        public List<TaskEntity> GetAll()
         {
             return _taskRepository.GetAll();
         }
@@ -43,11 +43,11 @@ namespace TaskTable.Business.Concrete
         {
             return _taskRepository.GetTaskWithUrgencyProperty(id);
         }
-        public void Guncelle(TaskEntity item)
+        public void Update(TaskEntity item)
         {
             _taskRepository.Update(item);
         }
-        public void Sil(TaskEntity item)
+        public void Delete(TaskEntity item)
         {
             _taskRepository.Delete(item);
         }

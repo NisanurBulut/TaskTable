@@ -24,7 +24,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         public IActionResult Index()
         {
             TempData["active"] = "urgency";
-            var results = _urgencyService.GetirHepsi();
+            var results = _urgencyService.GetAll();
             return View(results);
         }
         public IActionResult AddUrgency()
@@ -36,7 +36,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         {
             if (ModelState.IsValid)
             {
-                _urgencyService.Ekle(new UrgencyEntity
+                _urgencyService.Add(new UrgencyEntity
                 {
                     Description = model.Description
                 });
@@ -48,7 +48,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         public IActionResult EditUrgency(int id)
         {
             TempData["active"] = "urgency";
-            var model = _urgencyService.Getir(id);
+            var model = _urgencyService.Get(id);
             var urgencyEditViewModel = new UrgencyEditViewModel()
             {
                 Description = model.Description,
@@ -64,7 +64,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
                 Description = model.Description,
                 Id = model.Id
             };
-            _urgencyService.Guncelle(entity);
+            _urgencyService.Update(entity);
             return View();
         }
     }

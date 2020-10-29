@@ -47,6 +47,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         }
         public IActionResult AssignUser(int id, string searchKey, int page = 1)
         {
+            TempData["active"] = "taskorder";
             ViewBag.ActivePage = page;
             int totalPage = 0;
             var entity = _taskService.GetTaskWithUrgencyProperty(id);
@@ -77,9 +78,11 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             };
             return View(model);
         }
+        [HttpGet]
         public IActionResult AssignTaskToUser(TaskAssignUserViewModel model)
         {
-           var user = _userManager.Users.FirstOrDefault(a => a.Id == model.AppUserId);
+            TempData["active"] = "taskorder";
+            var user = _userManager.Users.FirstOrDefault(a => a.Id == model.AppUserId);
             var task = _taskService.GetTaskWithUrgencyProperty(model.TaskId);
             AppUserListViewModel userModel = new AppUserListViewModel();
             userModel.Id = user.Id;
@@ -98,6 +101,14 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             taskUserViewModel.AppUser = userModel;
             taskUserViewModel.Task = taskListViewModel;
             return View(taskUserViewModel);
+        }
+        [HttpPost]
+        public IActionResult AssignTaskOnUser(TaskAssignUserViewModel model)
+        {
+            var item = _taskService.Get(model.TaskId);
+            item.AppUserId = model.AppUserId;
+            _taskService.Update(item);
+            return RedirectToAction("Index");
         }
     }
 }
