@@ -9,6 +9,6 @@ namespace TaskTable.Business.Interfaces
     public interface IAppUserService
     {
         List<AppUser> GetNotAdminAppUsers();
-        List<AppUser> GetNotAdminAppUsers(out int TotalPage, string searchKey, int activePage = 1)
+        List<AppUser> GetNotAdminAppUsers(out int TotalPage, string searchKey, int activePage = 1);
     }
 }

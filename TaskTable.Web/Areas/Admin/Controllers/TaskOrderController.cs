@@ -48,6 +48,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             var entity = _taskService.GetTaskWithUrgencyProperty(id);
             var kullaniciEntities = _appUserService.GetNotAdminAppUsers(out totalPage, searchKey, page);
             ViewBag.TotalPage = totalPage;
+            ViewBag.SearchKey = searchKey;
             List<AppUserListViewModel> appUserListModel = new List<AppUserListViewModel>();
             foreach (var item in kullaniciEntities)
             {
