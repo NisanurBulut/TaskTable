@@ -47,7 +47,7 @@ namespace TaskTable.Web.Controllers
                 {
                     var addRoleResult = await _userManager.AddToRoleAsync(user, "Member");
                     if (addRoleResult.Succeeded)
-                        return RedirectToAction("Login");
+                        return RedirectToAction("Index");
                     foreach (var err in addRoleResult.Errors)
                     {
                         ModelState.AddModelError("", err.Description);
@@ -82,10 +82,6 @@ namespace TaskTable.Web.Controllers
                 }
             }
             return View("Index", model);
-        }
-        public IActionResult TaskOrder()
-        {
-            return View();
         }
     }
 }

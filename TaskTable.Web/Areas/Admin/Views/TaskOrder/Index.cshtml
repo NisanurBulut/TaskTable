@@ -39,7 +39,7 @@
                     @{
                         if (item.AppUser == null)
                         {
-                            <a asp-action="AssignUser" asp-route-id="@item.Id">Kullanıcı Ata</a>
+                            <a class="btn btn-sm btn-success" asp-action="AssignUser" asp-route-id="@item.Id">Kullanıcı Ata</a>
                         }
                         else
                         {

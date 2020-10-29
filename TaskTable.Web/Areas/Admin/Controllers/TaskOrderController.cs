@@ -41,16 +41,32 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             var model = _appUserService.GetNotAdminAppUsers();
             return View(models);
         }
-        public IActionResult AssignUser(int id)
+        public IActionResult AssignUser(int id, string searchKey, int page = 1)
         {
             var entity = _taskService.GetTaskWithUrgencyProperty(id);
+            var kullaniciEntities = _appUserService.GetNotAdminAppUsers(searchKey, page);
+            List<AppUserListViewModel> appUserListModel = new List<AppUserListViewModel>();
+            foreach(var item in kullaniciEntities)
+            {
+                AppUserListViewModel modelAppUser = new AppUserListViewModel
+                {
+                    Email = item.Email,
+                    Name = item.Name,
+                    Surname = item.Surname,
+                    Id = item.Id,
+                    Picture = item.Picture
+                };
+                appUserListModel.Add(modelAppUser);
+            }
+            ViewBag.Kullanicilar = appUserListModel;
+
             TaskListViewModel model = new TaskListViewModel
             {
                 Aciklama = entity.Aciklama,
                 Ad = entity.Ad,
                 Id = entity.Id,
                 Urgency = entity.Urgency,
-                OlusturulmaTarihi=entity.OlusturulmaTarihi
+                OlusturulmaTarihi = entity.OlusturulmaTarihi
             };
             return View(model);
         }

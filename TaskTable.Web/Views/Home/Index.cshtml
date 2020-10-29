@@ -4,10 +4,6 @@
     Layout = "~/Views/Shared/_StandartLayout.cshtml";
 }
 
-<h1>Index</h1>
-
-<a asp-area="Admin" asp-controller="Home" asp-action="Index">Admin</a>
-<a asp-area="Member" asp-controller="Home" asp-action="Index">Member</a>
 <form asp-action="SignIn" method="post" class="w-50 mt-5 mx-auto p-3 shadow">
     <div class="form-group">
         <label asp-for="@Model.UserName"></label>
@@ -23,6 +19,6 @@
         <input type="checkbox"  class="form-check-input" asp-for="@Model.RememberMe"/>
         <label class="form-check-label" asp-for="@Model.RememberMe"></label>
     </div>
-    <button asp-action="Register" class="btn btn-sm btn-warning">Kayıt Ol</button>
+    <a asp-action="Register" asp-controller="Home" class="btn btn-sm btn-warning">Kayıt Ol</a>
     <button type="submit" class="btn btn-sm btn-info">Giriş Yap</button>
 </form>
