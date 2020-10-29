@@ -18,5 +18,9 @@ namespace TaskTable.Business.Concrete
         {
             return _appUserRepository.GetNotAdminAppUsers();
         }
+        public List<AppUser> GetNotAdminAppUsers(string searchKey, int activePage = 1)
+        {
+            return _appUserRepository.GetNotAdminAppUsers(searchKey, activePage);
+        }
     }
 }

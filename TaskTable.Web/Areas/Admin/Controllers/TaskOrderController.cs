@@ -41,5 +41,18 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             var model = _appUserService.GetNotAdminAppUsers();
             return View(models);
         }
+        public IActionResult AssignUser(int id)
+        {
+            var entity = _taskService.GetTaskWithUrgencyProperty(id);
+            TaskListViewModel model = new TaskListViewModel
+            {
+                Aciklama = entity.Aciklama,
+                Ad = entity.Ad,
+                Id = entity.Id,
+                Urgency = entity.Urgency,
+                OlusturulmaTarihi=entity.OlusturulmaTarihi
+            };
+            return View(model);
+        }
     }
 }
