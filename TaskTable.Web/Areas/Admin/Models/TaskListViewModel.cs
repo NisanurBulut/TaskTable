@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskTable.Entity.Concrete;
-
 namespace TaskTable.Web.Areas.Admin.Models
 {
     public class TaskListViewModel

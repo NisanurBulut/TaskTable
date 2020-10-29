@@ -1,8 +1,47 @@
-﻿
+﻿@model List<TaskListAllViewModel>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Index</h1>
-
+@if (Model.Any())
+{
+    <table class="table table-sm table-hover mt-2">
+        <tr>
+            <th>Ad</th>
+            <th>Açıklama</th>
+            <th>Oluşturulma Tarihi</th>
+            <th>Kullanıcı</th>
+            <th>Aciliyet</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ad</td>
+                <td>@item.Aciklama</td>
+                <td>@item.OlusturulmaTarihi.ToString("D")</td>
+                <td>
+                    @{
+                        if (item.AppUser.UserName == null)
+                        {
+                            <span class="badge badge-danger">Çalışan kullanıcı yok</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-success">@item.AppUser.UserName</span>
+                        }
+                    }
+                </td>
+                <td>@item.Urgency.Description</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="p-3 text-center mt-3">
+        <p class="lead">
+            Herhangi bir görev bulunamadı
+        </p>
+        <a asp-area="Admin" asp-controller="Task" asp-action="AddTask" class="btn btn-sm btn-info">Bir görev oluştur</a>
+    </div>
+}

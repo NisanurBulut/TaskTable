@@ -19,6 +19,11 @@ namespace TaskTable.Business.Concrete
             _taskRepository.Ekle(item);
         }
 
+        public List<TaskEntity> GetAllTasksWithAllProperties()
+        {
+            return _taskRepository.GetAllTasksWithAllProperties();
+        }
+
         public TaskEntity Getir(int id)
         {
             return _taskRepository.Getir(id);
@@ -29,9 +34,11 @@ namespace TaskTable.Business.Concrete
             return _taskRepository.GetirHepsi();
         }
 
-        public List<TaskEntity> GetirTamamlanmayanGorevler()
+     
+
+        public List<TaskEntity> GetNotFinishedTasks()
         {
-            return _taskRepository.GetirTamamlanmayanGorevler();
+            return _taskRepository.GetNotFinishedTasks();
         }
 
         public void Guncelle(TaskEntity item)

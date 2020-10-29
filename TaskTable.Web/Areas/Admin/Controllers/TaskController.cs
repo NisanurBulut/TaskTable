@@ -26,7 +26,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         public IActionResult Index()
         {
             TempData["active"] = "task";
-            var taskentities = _taskService.GetirTamamlanmayanGorevler();
+            var taskentities = _taskService.GetNotFinishedTasks();
             var results = new List<TaskListViewModel>();
             // automapper kullanılarak düzeltilecek
             foreach (var item in taskentities)

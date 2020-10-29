@@ -4,6 +4,7 @@ namespace TaskTable.DataAccess.Interfaces
 {
     public interface ITaskRepository:IBaseRepository<TaskEntity>
     {
-        List<TaskEntity> GetirTamamlanmayanGorevler();
+        List<TaskEntity> GetNotFinishedTasks();
+        List<TaskEntity> GetAllTasksWithAllProperties();
     }
 }

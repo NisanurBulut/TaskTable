@@ -3,7 +3,6 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
 @if (Model.Any())
 {
     <a asp-action="AddTask" class="btn btn-sm btn-info my-2">Bir görev oluştur</a>
@@ -31,7 +30,6 @@
 }
 else
 {
-
     <div class="p-3 text-center mt-3">
         <p class="lead">
             Herhangi bir görev bulunamadı
@@ -63,9 +61,7 @@ else
         $(document).ready(function () {
             $("#silTaskModal").on("show.bs.modal", function (event) {
                 let triggerElement = $(event.relatedTarget);
-               
                 let id = triggerElement.data("taskid");
-             
                 $("#btnSil").click(function () {
                     $.ajax({
                         type: "Get",

@@ -10,7 +10,20 @@ namespace TaskTable.DataAccess.Repository
 {
     public class TaskRepository : BaseRepository<TaskEntity>, ITaskRepository
     {
-        public List<TaskEntity> GetirTamamlanmayanGorevler()
+        public List<TaskEntity> GetAllTasksWithAllProperties()
+        {
+            using (var context = new DatabaseContext())
+            {
+                // eager loading .Include(a => a.UrgencyId)
+                return context.Tasks
+                    .Include(a => a.Urgency)
+                    .Include(a=>a.Reports)
+                    .Include(a=>a.AppUser)
+                    .Where(a => !a.Durum).OrderByDescending(a => a.OlusturulmaTarihi).ToList();
+            }
+        }
+
+        public List<TaskEntity> GetNotFinishedTasks()
         {
             using (var context = new DatabaseContext())
             {
