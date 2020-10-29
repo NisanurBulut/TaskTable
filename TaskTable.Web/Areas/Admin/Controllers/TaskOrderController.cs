@@ -112,7 +112,8 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         }
         public IActionResult GiveDetail(int id)
         {
-           var result= _taskService.GetTaskWithReportProperty(id);
+            TempData["active"] = "taskorder";
+            var result= _taskService.GetTaskWithReportProperty(id);
             TaskListAllViewModel model = new TaskListAllViewModel();
             model.OlusturulmaTarihi = result.OlusturulmaTarihi;
             model.Id = result.Id;
