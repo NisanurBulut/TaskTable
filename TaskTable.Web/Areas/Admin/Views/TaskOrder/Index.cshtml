@@ -21,7 +21,7 @@
                 <td>@item.OlusturulmaTarihi.ToString("D")</td>
                 <td>
                     @{
-                        if (item.AppUser.UserName == null)
+                        if (item.AppUser == null)
                         {
                             <span class="badge badge-danger">Çalışan kullanıcı yok</span>
                         }
