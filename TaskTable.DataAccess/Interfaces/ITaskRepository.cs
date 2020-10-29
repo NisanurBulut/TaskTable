@@ -6,5 +6,6 @@ namespace TaskTable.DataAccess.Interfaces
     {
         List<TaskEntity> GetNotFinishedTasks();
         List<TaskEntity> GetAllTasksWithAllProperties();
+        TaskEntity GetTaskWithUrgencyProperty(int id);
     }
 }

@@ -5,7 +5,6 @@ using System.Linq;
 using TaskTable.DataAccess.Context;
 using TaskTable.DataAccess.Interfaces;
 using TaskTable.Entity.Concrete;
-
 namespace TaskTable.DataAccess.Repository
 {
     public class TaskRepository : BaseRepository<TaskEntity>, ITaskRepository
@@ -22,14 +21,20 @@ namespace TaskTable.DataAccess.Repository
                     .Where(a => !a.Durum).OrderByDescending(a => a.OlusturulmaTarihi).ToList();
             }
         }
-
         public List<TaskEntity> GetNotFinishedTasks()
+        {
+            using var context = new DatabaseContext();
+            // eager loading .Include(a => a.UrgencyId)
+            return context.Tasks.Include(a => a.Urgency)
+                .Where(a => !a.Durum).OrderByDescending(a => a.OlusturulmaTarihi).ToList();
+        }
+        public TaskEntity GetTaskWithUrgencyProperty(int id)
         {
             using (var context = new DatabaseContext())
             {
                 // eager loading .Include(a => a.UrgencyId)
                 return context.Tasks.Include(a => a.Urgency)
-                    .Where(a => !a.Durum).OrderByDescending(a => a.OlusturulmaTarihi).ToList();
+                    .Where(a => !a.Durum && a.Id == id).FirstOrDefault();
             }
         }
     }

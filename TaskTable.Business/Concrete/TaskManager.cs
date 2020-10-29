@@ -4,7 +4,6 @@ using System.Text;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataAccess.Interfaces;
 using TaskTable.Entity.Concrete;
-
 namespace TaskTable.Business.Concrete
 {
     public class TaskManager : ITaskService
@@ -16,39 +15,35 @@ namespace TaskTable.Business.Concrete
         }
         public void Ekle(TaskEntity item)
         {
-            _taskRepository.Ekle(item);
+            _taskRepository.Add(item);
         }
-
         public List<TaskEntity> GetAllTasksWithAllProperties()
         {
             return _taskRepository.GetAllTasksWithAllProperties();
         }
-
         public TaskEntity Getir(int id)
         {
-            return _taskRepository.Getir(id);
+            return _taskRepository.Get(id);
         }
-
         public List<TaskEntity> GetirHepsi()
         {
-            return _taskRepository.GetirHepsi();
+            return _taskRepository.GetAll();
         }
-
-     
-
         public List<TaskEntity> GetNotFinishedTasks()
         {
             return _taskRepository.GetNotFinishedTasks();
         }
-
+        public TaskEntity GetTaskWithUrgencyProperty(int id)
+        {
+            return _taskRepository.GetTaskWithUrgencyProperty(id);
+        }
         public void Guncelle(TaskEntity item)
         {
-            _taskRepository.Guncelle(item);
+            _taskRepository.Update(item);
         }
-
         public void Sil(TaskEntity item)
         {
-            _taskRepository.Sil(item);
+            _taskRepository.Delete(item);
         }
     }
 }

@@ -13,30 +13,25 @@ namespace TaskTable.Business.Concrete
         {
             _urgencyRep = urgencyRepository;
         }
-
         public void Ekle(UrgencyEntity item)
         {
-             _urgencyRep.Ekle(item);
+             _urgencyRep.Add(item);
         }
-
         public UrgencyEntity Getir(int id)
         {
-           return _urgencyRep.Getir(id);
+           return _urgencyRep.Get(id);
         }
-
         public List<UrgencyEntity> GetirHepsi()
         {
-            return _urgencyRep.GetirHepsi();
+            return _urgencyRep.GetAll();
         }
-
         public void Guncelle(UrgencyEntity item)
         {
-            _urgencyRep.Guncelle(item);
+            _urgencyRep.Update(item);
         }
-
         public void Sil(UrgencyEntity item)
         {
-            _urgencyRep.Sil(item);
+            _urgencyRep.Delete(item);
         }
     }
 }
