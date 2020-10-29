@@ -5,7 +5,7 @@
 }
 <div class="row mt-2">
     <div class="col-md-4">
-        <div class="card">
+        <div class="card border border-primary">
             <div class="card-header">
                 <h4 class="lead text-center pt-2">Görev Bilgileri</h4>
             </div>
@@ -27,7 +27,7 @@
     <div class="col-md-8">
         @foreach (var item in (List<AppUserListViewModel>)ViewBag.Kullanicilar)
         {
-            <div class="card mb-3">
+            <div class="card mb-3 border border-primary">
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <img src="~/img/@item.Picture" class="card-img" alt="@item.Name">
@@ -42,6 +42,18 @@
                 </div>
             </div>
         }
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                @for (int i = 1; i <= ViewBag.TotalPage; i++)
+                {
+                    <li class="page-item @(ViewBag.ActivePage==i?"active":"")">
+                        <a class="page-link" 
+                           asp-action="AssignUser" 
+                           asp-route-id="@Model.Id" 
+                           asp-route-page="@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
     </div>
 </div>
-
