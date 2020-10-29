@@ -11,7 +11,7 @@ namespace TaskTable.Entity.Concrete
     {
         public string Name { get; set; }
         public string Surname { get; set; }
-        public string Picture { get; set; }
+        public string Picture { get; set; } = "default-user-icon.png";
         public List<TaskEntity> Tasks { get; set; }
     }
 }

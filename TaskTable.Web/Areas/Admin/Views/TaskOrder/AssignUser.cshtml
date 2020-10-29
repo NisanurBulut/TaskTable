@@ -6,7 +6,7 @@
 }
 <div class="row mt-2">
     <div class="col-md-12 mb-2">
-        @if(!string.IsNullOrEmpty(searchKey))
+        @if (!string.IsNullOrEmpty(searchKey))
         {
             <div class="border border-dark p-3 mb-2">
                 <strong>@searchKey</strong> kelimesi için sonuçları görüyorsunuz.
@@ -41,16 +41,17 @@
     <div class="col-md-8">
         @foreach (var item in (List<AppUserListViewModel>)ViewBag.Kullanicilar)
         {
-            <div class="card mb-3 border border-primary">
+            <div class="card mb-3 border border-primary p-2">
                 <div class="row no-gutters">
                     <div class="col-md-4">
-                        <img src="~/img/@item.Picture" class="card-img" alt="@item.Name">
+                        <img src="~/img/@item.Picture" class="card-img img-thumbnail" alt="@item.Name">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title">@item.Name @item.Surname</h5>
                             <p class="card-text">Bir görevi var mı</p>
                             <p class="card-text"><small class="text-muted">@item.Email</small></p>
+                            <a class="btn btn-sm btn-primary float-right">Görevlendir</a>
                         </div>
                     </div>
                 </div>
