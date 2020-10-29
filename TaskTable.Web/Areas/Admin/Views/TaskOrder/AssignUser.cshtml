@@ -51,7 +51,10 @@
                             <h5 class="card-title">@item.Name @item.Surname</h5>
                             <p class="card-text"><GetTaskWithAppUserId app-user-id="item.Id"></GetTaskWithAppUserId></p>
                             <p class="card-text"><small class="text-muted">@item.Email</small></p>
-                            <a class="btn btn-sm btn-primary float-right">Görevlendir</a>
+                            <a class="btn btn-sm btn-primary float-right"
+                              asp-action="AssignTaskToUser"
+                               asp-route-AppUserId="@item.Id"
+                               asp-route-TaskId="@Model.Id">Görevlendir</a>
                         </div>
                     </div>
                 </div>

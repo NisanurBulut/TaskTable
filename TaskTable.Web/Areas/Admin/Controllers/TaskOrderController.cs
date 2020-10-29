@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
+using TaskTable.Entity.Concrete;
 using TaskTable.Web.Areas.Admin.Models;
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
@@ -14,8 +16,10 @@ namespace TaskTable.Web.Areas.Admin.Controllers
     {
         private readonly IAppUserService _appUserService;
         private readonly ITaskService _taskService;
-        public TaskOrderController(IAppUserService appUserService, ITaskService taskService)
+        private readonly UserManager<AppUser> _userManager;
+        public TaskOrderController(IAppUserService appUserService, ITaskService taskService, UserManager<AppUser> userManager)
         {
+            _userManager = userManager;
             _appUserService = appUserService;
             _taskService = taskService;
         }
@@ -72,6 +76,28 @@ namespace TaskTable.Web.Areas.Admin.Controllers
                 OlusturulmaTarihi = entity.OlusturulmaTarihi
             };
             return View(model);
+        }
+        public IActionResult AssignTaskToUser(TaskAssignUserViewModel model)
+        {
+           var user = _userManager.Users.FirstOrDefault(a => a.Id == model.AppUserId);
+            var task = _taskService.GetTaskWithUrgencyProperty(model.TaskId);
+            AppUserListViewModel userModel = new AppUserListViewModel();
+            userModel.Id = user.Id;
+            userModel.Name = user.Name;
+            userModel.Surname = user.Surname;
+            userModel.Picture = user.Picture;
+            userModel.Email = user.Email;
+
+            TaskListViewModel taskListViewModel = new TaskListViewModel();
+            taskListViewModel.Aciklama = task.Aciklama;
+            taskListViewModel.Ad = task.Ad;
+            taskListViewModel.Urgency = task.Urgency;
+            taskListViewModel.Id = task.Id;
+
+            TaskAssignUserListViewModel taskUserViewModel = new TaskAssignUserListViewModel();
+            taskUserViewModel.AppUser = userModel;
+            taskUserViewModel.Task = taskListViewModel;
+            return View(taskUserViewModel);
         }
     }
 }
