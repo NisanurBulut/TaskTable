@@ -39,7 +39,11 @@
                     @{
                         if (item.AppUser == null)
                         {
-                            <a class="btn btn-sm btn-success" asp-action="AssignUser" asp-route-id="@item.Id">Kullanıcı Ata</a>
+                            <a class="btn btn-sm btn-dark" 
+                               asp-action="AssignUser" 
+                               asp-route-id="@item.Id">
+                                <i class="fas fa-user-tag fa-1x"></i>
+                            </a>
                         }
                         else
                         {

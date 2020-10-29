@@ -5,7 +5,9 @@
 }
 @if (Model.Any())
 {
-    <a asp-action="AddTask" class="btn btn-sm btn-info my-2">Bir görev oluştur</a>
+<a asp-action="AddTask" class="btn btn-sm btn-outline-pri my-2">
+    <i class="fas fa-plus mr-2"></i>Yeni Görev
+</a>
     <table class="table table-hover table-sm">
         <tr>
             <th>Ad</th>
@@ -37,12 +39,14 @@
 }
 else
 {
-    <div class="p-3 text-center mt-3">
-        <p class="lead">
-            Herhangi bir görev bulunamadı
-        </p>
-        <a asp-area="Admin" asp-controller="Task" asp-action="AddTask" class="btn btn-sm btn-info">Bir görev oluştur</a>
-    </div>
+<div class="p-3 text-center mt-3">
+    <p class="lead">
+        Herhangi bir görev bulunamadı
+    </p>
+    <a asp-area="Admin" asp-controller="Task" asp-action="AddTask" class="btn btn-sm btn-outline-pri my-2">
+        <i class="fas fa-plus mr-2"></i>Yeni Görev
+    </a>
+</div>
 }
 <div class="modal fade" id="silTaskModal" tabindex="-1" aria-labelledby="silTaskModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -57,8 +61,8 @@ else
                 Silmek istediğinizden emin misiniz ?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hayır, Vazgeç</button>
-                <button id="btnSil" type="button" class="btn btn-primary">Evet, Sil</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Vazgeç</button>
+                <button id="btnSil" type="button" class="btn btn-primary"><i class="fas fa-check mr-2"></i>Sil</button>
             </div>
         </div>
     </div>

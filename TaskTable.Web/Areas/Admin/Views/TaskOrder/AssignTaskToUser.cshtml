@@ -53,10 +53,15 @@
                 Yukarıdaki göreve ilgili kullanıcı atanacaktır. bu işlemi gerçekleştirmek istediğinizden emin misiniz ?
             </p>
             <div class="form-group text-center">
-                <a class="btn btn-warning" asp-action="AssignUser" asp-route-id="@Model.Task.Id">Vazgeç</a>
+                <a class="btn btn-warning"
+                   asp-action="AssignUser"
+                   asp-route-id="@Model.Task.Id">
+                    <i class="fas fa-times fa-1x mr-2"></i>Vazgeç
+                </a>
                 <input type="hidden" name="AppUserId" value="@Model.AppUser.Id" />
                 <input type="hidden" name="TaskId" value="@Model.Task.Id" />
-                <button type="submit" class="btn btn-primary">Evet Görevlendir</button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-check fa-1x mr-2"></i>Görevlendir</button>
             </div>
         </form>
     </div>
