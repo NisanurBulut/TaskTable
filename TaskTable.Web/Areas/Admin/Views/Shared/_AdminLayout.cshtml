@@ -1,6 +1,4 @@
-﻿@{ 
-    string active = TempData["active"]?.ToString();
-}
+﻿@{ string active = TempData["active"]?.ToString(); }
 <!DOCTYPE html>
 <html lang="tr">
 <head>
@@ -42,7 +40,9 @@
                 <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-chart-bar fa-1x mr-2"></i>Grafikler</a>
                 <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-chart-area fa-1x mr-2"></i>İstatistikler</a>
                 <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-bell fa-1x mr-2"></i>Bildirimler</a>
-                <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-user fa-1x mr-2"></i>Profil</a>
+                <a asp-area="Admin"
+                   asp-controller="Profil"
+                   asp-action="Index" class="list-group-item list-group-item-action "><i class="fas fa-user fa-1x mr-2"></i>Profil</a>
                 <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-sign-out-alt fa-1x mr-2"></i>Çıkış Yap</a>
             </div>
         </div>
@@ -93,7 +93,7 @@
     @RenderSection("JavaScript", false)
     <!-- Menu Toggle Script -->
     <script>
-    $("#menu-toggle").click(function (e) {
+        $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });</script>

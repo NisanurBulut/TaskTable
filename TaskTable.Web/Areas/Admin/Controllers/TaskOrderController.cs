@@ -18,7 +18,8 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         private readonly ITaskService _taskService;
         private readonly IFileService _fileService;
         private readonly UserManager<AppUser> _userManager;
-        public TaskOrderController(IAppUserService appUserService, ITaskService taskService, UserManager<AppUser> userManager, IFileService fileService)
+        public TaskOrderController(IAppUserService appUserService, 
+            ITaskService taskService, UserManager<AppUser> userManager, IFileService fileService)
         {
             _userManager = userManager;
             _appUserService = appUserService;

@@ -33,7 +33,7 @@ namespace TaskTable.Web.Models
         [Display(Name = "İsim")]     
         public string Name { get; set; }
         
-        [Required(ErrorMessage = "soyadı boş geçilemez")]
+        [Required(ErrorMessage = "Soyadı boş geçilemez")]
         [Display(Name = "Soyadı")]
         public string Surname { get; set; }
     }
