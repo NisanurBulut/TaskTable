@@ -4,7 +4,17 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<form class="w-75 mx-auto p-3">
+@if (TempData["message"] != null)
+{
+    <div class="alert alert-primary alert-dismissible fade show" role="alert">
+        @TempData["message"]
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+}
+<form asp-action="Index" method="post" class="w-75 mx-auto p-3" enctype="multipart/form-data">
+    <input type="hidden" value="@Model.Id" />
     <div class="form-group">
         <label asp-for="@Model.Name"></label>
         <input asp-for="@Model.Name" class="form-control" />
@@ -20,15 +30,15 @@
         <input asp-for="@Model.Email" class="form-control" />
         <span asp-validation-for="@Model.Email" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group mt-2">
         <div class="row">
-            <div class="col-md-4 mt-2">
+            <div class="col-md-2"></div>
+            <div class="col-md-4 ">
                 <div>
                     <h5 class="text-center">Şu anki profil fotoğrafı</h5>
                     <img src="~/img/@Model.Picture" class="w-100" style="height:10rem!important;" alt="@Model.Name" />
                 </div>
             </div>
-            <div class="col-md-2"></div>
             <div class="col-md-4" id="alanOnizleme" style="display:none!important;">
                 <h5 class="text-center">Seçili fotoğraf</h5>
                 <img src="" id="resimOnizleme" class="w-100" style="height:10rem!important;" alt="@Model.Name" />
