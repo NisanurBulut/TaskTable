@@ -5,8 +5,9 @@
 }
 @if (Model.Reports.Any())
 {
-    <a class="btn btn-outline-dark my-2"><i class="fas fa-file-excel mr-2"></i>Excel</a>
-    <a class="btn btn-outline-dark my-2"><i class="fas fa-file-pdf mr-2"></i>PDF</a>
+    <a asp-action="ExportExcel" asp-controller="Report" asp-route-id="@Model.Id" target="_blank" class="btn btn-outline-dark my-2">
+    <i class="fas fa-file-excel mr-2"></i>Excel</a>
+    <a asp-action="ExportPdf" asp-controller="Report" asp-route-id="@Model.Id" target="_blank" class="btn btn-outline-dark my-2"><i class="fas fa-file-pdf mr-2"></i>PDF</a>
     <table class="table table-hover table-sm mt-2 text-center table-bordered border-primary">
         <tr>
             <th colspan="2">

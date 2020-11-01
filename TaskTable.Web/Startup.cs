@@ -26,6 +26,7 @@ namespace TaskTable.Web
             services.AddScoped<IUrgencyService, UrgencyManager>();
             services.AddScoped<IReportService, ReportManager>();
             services.AddScoped<IAppUserService, AppUserManager>();
+            services.AddScoped<IFileService, FileManager>();
 
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<IUrgencyRepository, UrgencyRepository>();

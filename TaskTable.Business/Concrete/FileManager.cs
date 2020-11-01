@@ -30,7 +30,7 @@ namespace TaskTable.Business.Concrete
             var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwRoot/documents/" + fileName);
             var stream = new FileStream(path, FileMode.Open);
             Document document = new Document(PageSize.A4, 25f, 25f, 25f, 25f);
-            PdfWriter.GetInstance(document, null);
+            PdfWriter.GetInstance(document, stream);
             document.Open();
             PdfPTable pdfTable = new PdfPTable(dataTable.Columns.Count);
             for (int i=0; i< dataTable.Columns.Count; i++)

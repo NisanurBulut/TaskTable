@@ -16,12 +16,14 @@ namespace TaskTable.Web.Areas.Admin.Controllers
     {
         private readonly IAppUserService _appUserService;
         private readonly ITaskService _taskService;
+        private readonly IFileService _fileService;
         private readonly UserManager<AppUser> _userManager;
-        public TaskOrderController(IAppUserService appUserService, ITaskService taskService, UserManager<AppUser> userManager)
+        public TaskOrderController(IAppUserService appUserService, ITaskService taskService, UserManager<AppUser> userManager, IFileService fileService)
         {
             _userManager = userManager;
             _appUserService = appUserService;
             _taskService = taskService;
+            _fileService = fileService;
         }
         public IActionResult Index()
         {
@@ -113,7 +115,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         public IActionResult GiveDetail(int id)
         {
             TempData["active"] = "taskorder";
-            var result= _taskService.GetTaskWithReportProperty(id);
+            var result = _taskService.GetTaskWithReportProperty(id);
             TaskListAllViewModel model = new TaskListAllViewModel();
             model.OlusturulmaTarihi = result.OlusturulmaTarihi;
             model.Id = result.Id;
@@ -122,6 +124,19 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             model.Ad = result.Ad;
             model.AppUser = result.AppUser;
             return View(model);
+        }
+        public IActionResult ExportExcel(int id)
+        {
+            TempData["active"] = "taskorder";
+            // byte döndüğü için doğrudan report return edilebilir
+            return File(_fileService.ExportExcel(_taskService.GetTaskWithReportProperty(id).Reports),
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", new Guid() + ".xlsx");
+        }
+        public IActionResult ExportPdf(int id)
+        {
+            TempData["active"] = "taskorder";
+            var filePath = _fileService.ExportExcel(_taskService.GetTaskWithReportProperty(id).Reports);
+            return File(filePath, "application/pdf", new Guid() + ".pdf");
         }
     }
 }
