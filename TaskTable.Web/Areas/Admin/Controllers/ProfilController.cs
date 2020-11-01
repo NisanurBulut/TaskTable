@@ -22,11 +22,13 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            TempData["active"] = "profile";
             // oturum açmış kullanıcı bilgisi okunur
             var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
             AppUserListViewModel model = new AppUserListViewModel();
             model.Id = appUser.Id;
             model.Name = appUser.Name;
+            model.Email = appUser.Email;
             model.Picture = appUser.Picture;
             model.Surname = appUser.Surname;
             return View(model);
