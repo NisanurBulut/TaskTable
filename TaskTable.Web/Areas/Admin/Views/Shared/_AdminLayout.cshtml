@@ -1,5 +1,4 @@
-﻿@{ string active = TempData["active"]?.ToString(); }
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="utf-8">
@@ -15,44 +14,16 @@
 </head>
 <body>
     <div class="d-flex" id="wrapper">
-        <!-- Sidebar -->
-        <div class="border border-primary border-left-0 border-top-0 border-bottom-0 border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">Yönetici Ekranı </div>
-            <div class="list-group list-group-flush">
-                <a asp-area="Admin"
-                   asp-controller="Task"
-                   asp-action="Index"
-                   class="list-group-item list-group-item-action @(active=="task"?"active":"")">
-                    <i class="fas fa-tasks fa-1x mr-2"></i>Görev
-                </a>
-                <a asp-area="Admin"
-                   asp-controller="Urgency"
-                   asp-action="Index"
-                   class="list-group-item list-group-item-action @(active=="urgency"?"active":"")">
-                    <i class="fas fa-exclamation-triangle fa-1x mr-2"></i>Aciliyet
-                </a>
-                <a asp-area="Admin"
-                   asp-controller="TaskOrder"
-                   asp-action="Index"
-                   class="list-group-item list-group-item-action @(active=="taskorder"?"active":"")">
-                    <i class="fas fa-briefcase fa-1x mr-2"></i>İş Emirleri
-                </a>
-                <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-chart-bar fa-1x mr-2"></i>Grafikler</a>
-                <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-chart-area fa-1x mr-2"></i>İstatistikler</a>
-                <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-bell fa-1x mr-2"></i>Bildirimler</a>
-                <a asp-area="Admin"
-                   asp-controller="Profil"
-                   asp-action="Index" class="list-group-item list-group-item-action @(active=="profile"?"active":"")">
-                    <i class="fas fa-user fa-1x mr-2"></i>Profil
-                </a>
-                <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-sign-out-alt fa-1x mr-2"></i>Çıkış Yap</a>
-            </div>
-        </div>
+       
         <!-- /#sidebar-wrapper -->
+        @await Component.InvokeAsync("Wrapper")
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <nav class="navbar navbar-expand-lg navbar-light  border-bottom border-left-0 border-top-0 border-right-0">
-                <button class="btn btn-primary btn-sm" id="menu-toggle"><i class="fas fa-bars mr-2">Menü</i></button>
+            <nav class="navbar navbar-expand-lg navbar-light border border-bottom">
+                <button class="btn btn-primary btn-sm" 
+                        id="menu-toggle">
+                <i class="fas fa-exchange-alt mr-2">Menü</i>
+                </button>
                 @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
