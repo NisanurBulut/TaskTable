@@ -3,11 +3,17 @@
 <!-- Sidebar -->
 <div class="border border-primary border-left-0 border-top-0 border-bottom-0 border-right" id="sidebar-wrapper">
     <div class="sidebar-heading">
-        <img src="~/img/@Model.Picture" alt="@Model.Name" style="height:10rem!important;" class="w-100 img-thumbnail" />
+        <img src="~/img/@Model.Picture" alt="@Model.Name" style="height:10rem!important;width:10rem!important;" class="w-100 img-thumbnail" />
         <h4>@Model.Name @Model.Surname</h4>
     </div>
     <div class="list-group list-group-flush">
-        <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-arrow-alt-circle-down fa-1x mr-2"></i>Gelen İş Emirleri</a>
+        <a asp-area="Member"
+           asp-controller="TaskOrder"
+           asp-action="Index"
+           asp-route-id="@Model.Id"
+           class="list-group-item list-group-item-action @(active=="profile"?"active":"")">
+        <i class="fas fa-arrow-alt-circle-down fa-1x mr-2">
+                  </i>Gelen İş Emirleri</a>
         <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-arrow-alt-circle-up fa-1x mr-2"></i>Tamamlanan İş Emirleri</a>
         <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-bell fa-1x mr-2"></i>Bildirimler</a>
         <a asp-area="Member"

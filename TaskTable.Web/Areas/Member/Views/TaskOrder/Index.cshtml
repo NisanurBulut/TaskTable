@@ -1,0 +1,25 @@
+﻿@model List<TaskListAllViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Member/Views/Shared/_MemberLayout.cshtml";
+}
+
+@foreach (var item in Model)
+{
+    <div class="card">
+        <div class="card-header">
+            @item.Ad
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">@item.Urgency.Description</h5>
+            <p class="card-text">@item.Aciklama</p>
+            <a href="#" class="btn btn-primary">
+                Raporlara Git
+                <span class="badge badge-dark">@item.Reports.Count</span>
+            </a>
+            <a href="#" class="btn btn-primary">
+                Tamamlandı Olarak İşaretle
+            </a>
+        </div>
+    </div>
+}

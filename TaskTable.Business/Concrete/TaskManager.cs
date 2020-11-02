@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Text;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataAccess.Interfaces;
@@ -16,6 +17,10 @@ namespace TaskTable.Business.Concrete
         public void Add(TaskEntity item)
         {
             _taskRepository.Add(item);
+        }
+        public List<TaskEntity> GetAllTasksWithAllProperties(Expression<Func<TaskEntity, bool>> filter)
+        {
+            return _taskRepository.GetAllTasksWithAllProperties(filter);
         }
         public List<TaskEntity> GetAllTasksWithAllProperties()
         {
@@ -56,5 +61,6 @@ namespace TaskTable.Business.Concrete
         {
            return _taskRepository.GetTaskWithReportProperty(id);
         }
+
     }
 }
