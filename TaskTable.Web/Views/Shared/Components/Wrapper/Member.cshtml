@@ -7,26 +7,8 @@
         <h4>@Model.Name @Model.Surname</h4>
     </div>
     <div class="list-group list-group-flush">
-        <a asp-area="Admin"
-           asp-controller="Task"
-           asp-action="Index"
-           class="list-group-item list-group-item-action @(active=="task"?"active":"")">
-            <i class="fas fa-tasks fa-1x mr-2"></i>Görev
-        </a>
-        <a asp-area="Admin"
-           asp-controller="Urgency"
-           asp-action="Index"
-           class="list-group-item list-group-item-action @(active=="urgency"?"active":"")">
-            <i class="fas fa-exclamation-triangle fa-1x mr-2"></i>Aciliyet
-        </a>
-        <a asp-area="Admin"
-           asp-controller="TaskOrder"
-           asp-action="Index"
-           class="list-group-item list-group-item-action @(active=="taskorder"?"active":"")">
-            <i class="fas fa-briefcase fa-1x mr-2"></i>İş Emirleri
-        </a>
-        <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-chart-bar fa-1x mr-2"></i>Grafikler</a>
-        <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-chart-area fa-1x mr-2"></i>İstatistikler</a>
+        <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-arrow-alt-circle-down fa-1x mr-2"></i>Gelen İş Emirleri</a>
+        <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-arrow-alt-circle-up fa-1x mr-2"></i>Tamamlanan İş Emirleri</a>
         <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-bell fa-1x mr-2"></i>Bildirimler</a>
         <a asp-area="Admin"
            asp-controller="Profil"
