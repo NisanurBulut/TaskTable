@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.Areas.Admin.Models;
 
-namespace TaskTable.Web.Areas.Admin.ViewComponents
+namespace TaskTable.Web.ViewComponents
 {
     public class Wrapper : ViewComponent
     {
@@ -26,7 +26,14 @@ namespace TaskTable.Web.Areas.Admin.ViewComponents
             model.Id = user.Id;
             model.Surname = user.Surname;
             model.Email = user.Email;
-            return View(model);
+
+            var roles = _userManager.GetRolesAsync(user).Result;
+            if (roles.Contains("Admin"))
+            {
+                // varsayılana dmine git
+                return View(model);
+            }
+            return View("Member", model);
         }
     }
 }

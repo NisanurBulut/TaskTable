@@ -1,51 +1,32 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
-
+<html lang="tr">
 <head>
-
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <title>Simple Sidebar - Start Bootstrap Template</title>
-
+    <title>GM - Görev Masası</title>
     <!-- Bootstrap core CSS -->
-
-
     <link href="~/lib/bootswatch/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom styles for this template -->
-
     <link href="~/lib/template-css/simple-sidebar.css" rel="stylesheet" />
+    <link href="~/lib/font-awesome/css/all.min.css" rel="stylesheet" />
 </head>
-
 <body>
-
     <div class="d-flex" id="wrapper">
 
-        <!-- Sidebar -->
-        <div class=" border-right" id="sidebar-wrapper">
-            <div class="sidebar-heading">Üye Ekranı</div>
-            <div class="list-group list-group-flush">
-                <a href="#" class="list-group-item list-group-item-action active">Görev</a>
-                <a href="#" class="list-group-item list-group-item-action ">Shortcuts</a>
-                <a href="#" class="list-group-item list-group-item-action ">Overview</a>
-                <a href="#" class="list-group-item list-group-item-action ">Events</a>
-                <a href="#" class="list-group-item list-group-item-action ">Profile</a>
-                <a href="#" class="list-group-item list-group-item-action ">Status</a>
-            </div>
-        </div>
         <!-- /#sidebar-wrapper -->
+        @await Component.InvokeAsync("Wrapper")
         <!-- Page Content -->
         <div id="page-content-wrapper">
-
-            <nav class="navbar navbar-expand-lg navbar-light  border-bottom">
-                <button class="btn btn-primary" id="menu-toggle">Toggle Menu</button>
-
+            <nav class="navbar navbar-expand-lg navbar-light border border-bottom">
+                <button class="btn btn-primary btn-sm"
+                        id="menu-toggle">
+                    <i class="fas fa-exchange-alt mr-2">Menü</i>
+                </button>
                 @*<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
                             <li class="nav-item active">
@@ -78,12 +59,14 @@
     </div>
     <!-- /#wrapper -->
     <!-- Bootstrap core JavaScript -->
-
+    <script src="~/lib/twitter-bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/lib/font-awesome/js/all.min.js"></script>
     <script src="~/lib/twitter-bootstrap/js/jquery/jquery.js"></script>
     <script src="~/lib/twitter-bootstrap/js/bootstrap.bundle.min.js"></script>
-
+    @RenderSection("JavaScript", false)
     <!-- Menu Toggle Script -->
-    <script>$("#menu-toggle").click(function (e) {
+    <script>
+        $("#menu-toggle").click(function (e) {
             e.preventDefault();
             $("#wrapper").toggleClass("toggled");
         });</script>
