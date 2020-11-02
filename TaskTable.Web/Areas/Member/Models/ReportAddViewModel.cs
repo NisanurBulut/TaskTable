@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using TaskTable.Entity.Concrete;
 
 namespace TaskTable.Web.Areas.Member.Models
 {
@@ -15,5 +16,6 @@ namespace TaskTable.Web.Areas.Member.Models
         [Required(ErrorMessage = "Detay alanı boş bırakılamaz.")]
         public string Detail { get; set; }
         public int TaskId { get; set; }
+        public TaskEntity Task { get; set; }
     }
 }

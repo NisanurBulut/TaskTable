@@ -6,6 +6,24 @@
 
 <form method="post" asp-action="AddReport" class="w-75 mx-auto p-3">
     <input type="hidden" value="@Model.TaskId" />
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">
+                Rapor Yazılan Görev
+            </div>
+        </div>
+        <div class="card-body">
+            <p>
+                <span class="font-weight-bold mr-2">Görev Ad :</span>@Model.Task.Ad
+            </p>                              
+            <p>                               
+                <span class="font-weight-bold mr-2">Görev Açıklama :</span>@Model.Task.Aciklama
+            </p>                              
+            <p>                               
+                <span class="font-weight-bold mr-2">Görev Aciliyet :</span>@Model.Task.Urgency.Description
+            </p>
+        </div>
+    </div>
     <div class="form-group">
         <label asp-for="@Model.Description"></label>
         <span class="text-danger" asp-validation-for="@Model.Description"></span>
@@ -16,9 +34,14 @@
         <span class="text-danger" asp-validation-for="@Model.Detail"></span>
         <textarea class="form-control" type="text" asp-for="@Model.Detail"></textarea>
     </div>
-    <button type="submit" class="btn btn-info btn-sm">
-        <i class="fas fa-save mr-2"></i>Kaydet
-    </button>
+    <div class="form-group">
+        <a asp-action="Index" class="btn btn-sm btn-warning">
+            <i class="fas fa-chevron-circle-left mr-2"></i>Vazgeç
+        </a>
+        <button type="submit" class="btn btn-info btn-sm">
+            <i class="fas fa-save mr-2"></i>Kaydet
+        </button>
+    </div>
 </form>
 @section JavaScript{
     <script src="~/jquery-validate/jquery.validate.min.js"></script>

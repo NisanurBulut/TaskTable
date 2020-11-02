@@ -132,22 +132,24 @@ namespace TaskTable.Web.Areas.Member.Controllers
             return View(model);
         }
         public IActionResult ExportExcel(int id)
-        {
-            TempData["active"] = "taskorder";
+        {           
             // byte döndüğü için doğrudan report return edilebilir
             return File(_fileService.ExportExcel(_taskService.GetTaskWithReportProperty(id).Reports),
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", new Guid() + ".xlsx");
         }
         public IActionResult ExportPdf(int id)
         {
-            TempData["active"] = "taskorder";
             var filePath = _fileService.ExportExcel(_taskService.GetTaskWithReportProperty(id).Reports);
             return File(filePath, "application/pdf", new Guid() + ".pdf");
         }
+        
+        // buradaki id aslında taskId
         public IActionResult AddReport(int id)
         {
+            TempData["active"] = "taskorder";
             ReportAddViewModel model = new ReportAddViewModel();
-            var entity = _reportService.Get(id);
+            model.TaskId = id;
+            model.Task = _taskService.GetTaskWithUrgencyProperty(id);
             return View(model);
         }
     }
