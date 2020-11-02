@@ -1,0 +1,26 @@
+﻿@model TaskTable.Web.Areas.Member.Models.ReportAddViewModel
+@{
+    ViewData["Title"] = "AddReport";
+    Layout = "~/Areas/Member/Views/Shared/_MemberLayout.cshtml";
+}
+
+<form method="post" asp-action="AddReport" class="w-75 mx-auto p-3">
+    <input type="hidden" value="@Model.TaskId" />
+    <div class="form-group">
+        <label asp-for="@Model.Description"></label>
+        <span class="text-danger" asp-validation-for="@Model.Description"></span>
+        <textarea class="form-control" type="text" asp-for="@Model.Description"></textarea>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.Detail"></label>
+        <span class="text-danger" asp-validation-for="@Model.Detail"></span>
+        <textarea class="form-control" type="text" asp-for="@Model.Detail"></textarea>
+    </div>
+    <button type="submit" class="btn btn-info btn-sm">
+        <i class="fas fa-save mr-2"></i>Kaydet
+    </button>
+</form>
+@section JavaScript{
+    <script src="~/jquery-validate/jquery.validate.min.js"></script>
+    <script src="~/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

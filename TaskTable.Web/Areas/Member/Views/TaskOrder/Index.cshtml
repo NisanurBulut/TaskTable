@@ -33,7 +33,7 @@
                 else
                 {
                     <span class="lead font-weight-bold font-italic d-block text-left mb-1">Rapor bulunmuyor. Görevinizi detaylandırın...</span>
-                    <a href="#" class="btn btn-light btn-sm">
+                    <a asp-action="AddReport" asp-route-id="@item.Id" class="btn btn-light btn-sm">
                         Rapor Oluştur
                         <i class="fas fa-plus fa-1x ml-2"></i>
                     </a>
@@ -44,6 +44,10 @@
             </p>
             <div class="collapse" id="reportSection-@item.Id">
                 <div class="card card-body">
+                    <a asp-action="AddReport" asp-route-id="@item.Id" class="btn btn-light btn-sm">
+                        Rapor Oluştur
+                        <i class="fas fa-plus fa-1x ml-2"></i>
+                    </a>
                     <table class="table table-hover table-bordered table-sm">
                         <thead>
                             <tr>
@@ -59,19 +63,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(var report in item.Reports)
+                            @foreach (var report in item.Reports)
                             {
-                            <tr>
-                                <td>@report.Description</td>
-                                <td>@report.Detail</td>
-                                <td>
-                                    <a class="btn btn-sm btn-warning"
-                                       asp-action="EditTask"
-                                       asp-route-id="@item.Id">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>@report.Description</td>
+                                    <td>@report.Detail</td>
+                                    <td>
+                                        <a class="btn btn-sm btn-warning"
+                                           asp-action="EditReport"
+                                           asp-route-id="@report.Id">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Text;
 using TaskTable.Business.Interfaces;
+using TaskTable.DataAccess.Interfaces;
 using TaskTable.Entity.Concrete;
 
 namespace TaskTable.Business.Concrete
 {
     public class ReportManager : IReportService
     {
+        private readonly IReportRepository _reportRepository;
+        public ReportManager(IReportRepository reportRepository)
+        {
+            _reportRepository = reportRepository;
+        }
         public void Add(ReportEntity item)
         {
             throw new NotImplementedException();
@@ -15,7 +21,7 @@ namespace TaskTable.Business.Concrete
 
         public ReportEntity Get(int id)
         {
-            throw new NotImplementedException();
+            return _reportRepository.Get(id);
         }
 
         public List<ReportEntity> GetAll()

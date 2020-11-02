@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.Areas.Admin.Models;
+using TaskTable.Web.Areas.Member.Models;
+
 namespace TaskTable.Web.Areas.Member.Controllers
 {
     [Authorize(Roles = "Member")]
@@ -15,21 +17,24 @@ namespace TaskTable.Web.Areas.Member.Controllers
     public class TaskOrderController : Controller
     {
         private readonly IAppUserService _appUserService;
+        private readonly IReportService _reportService;
         private readonly ITaskService _taskService;
         private readonly IFileService _fileService;
         private readonly UserManager<AppUser> _userManager;
-        public TaskOrderController(IAppUserService appUserService, 
-            ITaskService taskService, UserManager<AppUser> userManager, IFileService fileService)
+        public TaskOrderController(IAppUserService appUserService,
+            ITaskService taskService, UserManager<AppUser> userManager, IFileService fileService, IReportService reportService)
         {
             _userManager = userManager;
             _appUserService = appUserService;
             _taskService = taskService;
             _fileService = fileService;
+            _reportService = reportService;
         }
-        public IActionResult Index(int id)
+        public async Task<IActionResult> Index()
         {
             TempData["active"] = "taskorder";
-            var tasklist = _taskService.GetAllTasksWithAllProperties(I=>I.AppUserId==id && I.Durum==false);
+            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var tasklist = _taskService.GetAllTasksWithAllProperties(I => I.AppUserId == user.Id && I.Durum == false);
             var models = new List<TaskListAllViewModel>();
             foreach (var item in tasklist)
             {
@@ -138,6 +143,12 @@ namespace TaskTable.Web.Areas.Member.Controllers
             TempData["active"] = "taskorder";
             var filePath = _fileService.ExportExcel(_taskService.GetTaskWithReportProperty(id).Reports);
             return File(filePath, "application/pdf", new Guid() + ".pdf");
+        }
+        public IActionResult AddReport(int id)
+        {
+            ReportAddViewModel model = new ReportAddViewModel();
+            var entity = _reportService.Get(id);
+            return View(model);
         }
     }
 }
