@@ -46,8 +46,8 @@ namespace TaskTable.Web.Areas.Admin.Controllers
                 if (picture != null)
                 {
                     string picExtension = Path.GetExtension(picture.FileName);
-                    string fileName = new Guid() + picExtension;
-                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img" + fileName);
+                    string fileName = Guid.NewGuid().ToString() + picExtension;
+                    string filePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/img/" + fileName);
                     using (var stream = new FileStream(filePath, FileMode.Create))
                     {
                         await picture.CopyToAsync(stream);
