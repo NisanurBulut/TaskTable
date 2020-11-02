@@ -34,6 +34,10 @@
            asp-action="Index" class="list-group-item list-group-item-action @(active=="profile"?"active":"")">
             <i class="fas fa-user fa-1x mr-2"></i>Profil
         </a>
-        <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-sign-out-alt fa-1x mr-2"></i>Çıkış Yap</a>
+        <a asp-area=""
+           asp-controller="Home"
+           asp-action="SignOut" class="list-group-item list-group-item-action ">
+        <i class="fas fa-sign-out-alt fa-1x mr-2"></i>Çıkış Yap
+        </a>
     </div>
 </div>

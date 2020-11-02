@@ -83,5 +83,10 @@ namespace TaskTable.Web.Controllers
             }
             return View("Index", model);
         }
+        public async Task<IActionResult> SignOut()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index");
+        }
     }
 }
