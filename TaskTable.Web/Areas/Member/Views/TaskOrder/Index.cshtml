@@ -22,7 +22,7 @@
                 {
                     <a class="btn btn-light btn-sm"
                        data-toggle="collapse"
-                       href="#reportSection"
+                       href="#reportSection-@item.Id"
                        role="button" aria-expanded="false"
                        aria-controls="collapseExample">
                         Raporlara Git
@@ -35,17 +35,46 @@
                     <span class="lead font-weight-bold font-italic d-block text-left mb-1">Rapor bulunmuyor. Görevinizi detaylandırın...</span>
                     <a href="#" class="btn btn-light btn-sm">
                         Rapor Oluştur
-                        <i class="fas fa-caret-down fa-1x ml-2"></i>
-                        <span class="badge badge-dark">@item.Reports.Count</span>
+                        <i class="fas fa-plus fa-1x ml-2"></i>
                     </a>
                 }
                 <a href="#" class="btn btn-dark btn-sm">
                     Tamamlandı Olarak İşaretle
                 </a>
             </p>
-            <div class="collapse" id="reportSection">
+            <div class="collapse" id="reportSection-@item.Id">
                 <div class="card card-body">
-                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                    <table class="table table-hover table-bordered table-sm">
+                        <thead>
+                            <tr>
+                                <td>
+                                    Ad
+                                </td>
+                                <td>
+                                    Tanım
+                                </td>
+                                <td>
+                                    İşlem
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach(var report in item.Reports)
+                            {
+                            <tr>
+                                <td>@report.Description</td>
+                                <td>@report.Detail</td>
+                                <td>
+                                    <a class="btn btn-sm btn-warning"
+                                       asp-action="EditTask"
+                                       asp-route-id="@item.Id">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
