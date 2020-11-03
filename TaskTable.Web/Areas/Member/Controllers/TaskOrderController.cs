@@ -20,15 +20,20 @@ namespace TaskTable.Web.Areas.Member.Controllers
         private readonly IReportService _reportService;
         private readonly ITaskService _taskService;
         private readonly IFileService _fileService;
+        private readonly INotificationService _notificationService;
         private readonly UserManager<AppUser> _userManager;
         public TaskOrderController(IAppUserService appUserService,
-            ITaskService taskService, UserManager<AppUser> userManager, IFileService fileService, IReportService reportService)
+            ITaskService taskService, UserManager<AppUser> userManager,
+            IFileService fileService,
+            IReportService reportService,
+            INotificationService notificationService)
         {
             _userManager = userManager;
             _appUserService = appUserService;
             _taskService = taskService;
             _fileService = fileService;
             _reportService = reportService;
+            _notificationService = notificationService;
         }
         public async Task<IActionResult> Index()
         {
@@ -152,7 +157,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
             return View(model);
         }
         [HttpPost]
-        public IActionResult AddReport(ReportAddViewModel model)
+        public async Task<IActionResult> AddReport(ReportAddViewModel model)
         {
             if (ModelState.IsValid)
             {
@@ -164,6 +169,18 @@ namespace TaskTable.Web.Areas.Member.Controllers
 
                 };
                 _reportService.Add(entity);
+                // rolü admin olan kullanıcılara bildirim eklenecek
+                var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+                var activeUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                foreach (var adminUser in adminUsers)
+                {
+                    _notificationService.Add(new NotificationEntity
+                    {
+                        State = false,
+                        AppUserId = adminUser.Id,
+                        Description = $"{activeUser.Name} {activeUser.Surname} yeni bir rapor yazdı."
+                    });
+                }
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -198,7 +215,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult CompleteTask(int TaskId)
+        public async Task<IActionResult> CompleteTask(int TaskId)
         {
             if (ModelState.IsValid)
             {
@@ -206,6 +223,18 @@ namespace TaskTable.Web.Areas.Member.Controllers
                 entity.Durum = true;
 
                 _taskService.Update(entity);
+
+                var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+                var activeUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                foreach (var adminUser in adminUsers)
+                {
+                    _notificationService.Add(new NotificationEntity
+                    {
+                        State = false,
+                        AppUserId = adminUser.Id,
+                        Description = $"{activeUser.Name} {activeUser.Surname} görevi tamamladı."
+                    });
+                }
                 return RedirectToAction("Index");
             }
             return Json(null);

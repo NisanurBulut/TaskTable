@@ -27,11 +27,13 @@ namespace TaskTable.Web
             services.AddScoped<IReportService, ReportManager>();
             services.AddScoped<IAppUserService, AppUserManager>();
             services.AddScoped<IFileService, FileManager>();
+            services.AddScoped<INotificationService, NotificationManager>();
 
             services.AddScoped<ITaskRepository, TaskRepository>();
             services.AddScoped<IUrgencyRepository, UrgencyRepository>();
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
+            services.AddScoped<INotificationRepository, NotificationRepository>();
 
             services.AddIdentity<AppUser, AppRole>(opt =>
             {
