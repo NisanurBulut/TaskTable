@@ -16,7 +16,7 @@ namespace TaskTable.Business.Concrete
         }
         public void Add(ReportEntity item)
         {
-            throw new NotImplementedException();
+            _reportRepository.Add(item);
         }
 
         public ReportEntity Get(int id)
@@ -31,12 +31,17 @@ namespace TaskTable.Business.Concrete
 
         public void Update(ReportEntity item)
         {
-            throw new NotImplementedException();
+            _reportRepository.Update(item);
         }
 
         public void Delete(ReportEntity item)
         {
-            throw new NotImplementedException();
+            _reportRepository.Delete(item);
+        }
+
+        public ReportEntity GetReportWithTaskProperty(int id)
+        {
+           return  _reportRepository.GetReportWithTaskProperty(id);
         }
     }
 }

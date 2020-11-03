@@ -48,7 +48,7 @@
                         Rapor Oluştur
                         <i class="fas fa-plus fa-1x ml-2"></i>
                     </a>
-                    <table class="table table-hover table-bordered table-sm">
+                    <table class="table table-hover table-bordered table-sm text-center">
                         <thead>
                             <tr>
                                 <td>
@@ -73,6 +73,11 @@
                                            asp-action="EditReport"
                                            asp-route-id="@report.Id">
                                             <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-danger"
+                                           asp-action="DeleteReport"
+                                           asp-route-id="@report.Id">
+                                            <i class="fas fa-trash"></i>
                                         </a>
                                     </td>
                                 </tr>

@@ -1,11 +1,12 @@
-﻿@model TaskTable.Web.Areas.Member.Models.ReportAddViewModel
+﻿@model TaskTable.Web.Areas.Member.Models.ReportEditViewModel
+
 @{
-    ViewData["Title"] = "AddReport";
+    ViewData["Title"] = "EditReport";
     Layout = "~/Areas/Member/Views/Shared/_MemberLayout.cshtml";
 }
 
-<form method="post" asp-action="AddReport" class="w-75 mx-auto p-3">
-    <input name="TaskId" type="hidden" value="@Model.TaskId" />
+<form method="post" asp-action="EditReport" class="w-75 mx-auto p-3">
+    <input name="Id" type="hidden" value="@Model.Id" />
     <div class="card">
         <div class="card-header">
             <div class="card-title">
@@ -15,11 +16,11 @@
         <div class="card-body">
             <p>
                 <span class="font-weight-bold mr-2">Görev Ad :</span>@Model.Task.Ad
-            </p>                              
-            <p>                               
+            </p>
+            <p>
                 <span class="font-weight-bold mr-2">Görev Açıklama :</span>@Model.Task.Aciklama
-            </p>                              
-            <p>                               
+            </p>
+            <p>
                 <span class="font-weight-bold mr-2">Görev Aciliyet :</span>@Model.Task.Urgency.Description
             </p>
         </div>
