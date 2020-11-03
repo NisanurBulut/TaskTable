@@ -13,7 +13,12 @@
            class="list-group-item list-group-item-action @(active=="profile"?"active":"")">
         <i class="fas fa-arrow-alt-circle-down fa-1x mr-2">
                   </i>Gelen İş Emirleri</a>
-        <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-arrow-alt-circle-up fa-1x mr-2"></i>Tamamlanan İş Emirleri</a>
+        <a asp-area="Member"
+           asp-controller="Task"
+           asp-action="Index"
+           class="list-group-item list-group-item-action @(active=="task"?"active":"")">
+            <i class="fas fa-arrow-alt-circle-up fa-1x mr-2"></i>Tamamlanan İş Emirleri
+        </a>
         <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-bell fa-1x mr-2"></i>Bildirimler</a>
         <a asp-area="Member"
            asp-controller="Profil"

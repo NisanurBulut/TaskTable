@@ -59,8 +59,12 @@ namespace TaskTable.Business.Concrete
 
         public TaskEntity GetTaskWithReportProperty(int id)
         {
-           return _taskRepository.GetTaskWithReportProperty(id);
+            return _taskRepository.GetTaskWithReportProperty(id);
         }
 
+        public List<TaskEntity> GetAllCompleteTasksWithAllProperties(out int totalPage, int userId, int activePage)
+        {
+            return _taskRepository.GetAllCompleteTasksWithAllProperties(out totalPage, userId, activePage);
+        }
     }
 }

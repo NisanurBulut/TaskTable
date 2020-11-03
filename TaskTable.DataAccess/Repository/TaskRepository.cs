@@ -44,6 +44,23 @@ namespace TaskTable.DataAccess.Repository
                 .Include(a => a.AppUser)
                 .OrderByDescending(a => a.OlusturulmaTarihi).ToList();
         }
+
+        public List<TaskEntity> GetAllCompleteTasksWithAllProperties(out int totalPage, int userId, int activePage)
+        {
+            using var context = new DatabaseContext();
+            // eager loading .Include(a => a.UrgencyId)
+            var returnValue = context.Tasks
+                 .Include(a => a.Urgency)
+                 .Include(a => a.Reports)
+                 .Include(a => a.AppUser)
+                 .Where(a => a.AppUserId == userId && !a.Durum)
+                 .Skip((1 - activePage) * 3)
+                 .Take(3)
+                 .OrderByDescending(a => a.OlusturulmaTarihi);
+            totalPage = (int)Math.Ceiling((double)(returnValue.Count() / 3));
+            return returnValue.ToList();
+        }
+
         public List<TaskEntity> GetNotFinishedTasks()
         {
             using var context = new DatabaseContext();

@@ -14,6 +14,7 @@ namespace TaskTable.Business.Interfaces
         // func delegeler herhangi bir tipten değer alıp herhangi bir tipi geri döndüren yapılardı
         // func içine dönüş tipini de belirtiriz
         List<TaskEntity> GetAllTasksWithAllProperties(Expression<Func<TaskEntity, bool>> filter);
+        List<TaskEntity> GetAllCompleteTasksWithAllProperties(out int totalPage, int userId, int activePage);
         List<TaskEntity> GetNotFinishedTasks();
         TaskEntity GetTaskWithUrgencyProperty(int id);
         TaskEntity GetTaskWithReportProperty(int id);

@@ -1,0 +1,65 @@
+﻿@model List<TaskListAllViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Member/Views/Shared/_MemberLayout.cshtml";
+}
+
+@foreach (var item in Model)
+{
+    <div class="card my-1">
+        <div class="card-header">
+            @item.Ad
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">
+                <span class="text-danger">Aciliyet Durumu:</span>
+                @item.Urgency.Description
+            </h5>
+            <p class="card-text">
+                @item.Aciklama
+            </p>
+            <p class="text-right">
+                @if (item.Reports.Any())
+                {
+                    <a class="btn btn-light btn-sm"
+                       data-toggle="collapse"
+                       href="#reportSection-@item.Id"
+                       role="button" aria-expanded="false"
+                       aria-controls="collapseExample">
+                        Raporlara Git
+                        <i class="fas fa-caret-down fa-1x ml-2"></i>
+                        <span class="badge badge-dark">@item.Reports.Count</span>
+                    </a>
+                }
+            </p>
+            <div class="collapse" id="reportSection-@item.Id">
+                <div class="card card-body">
+                   
+                    <table class="table table-hover table-bordered table-sm text-center">
+                        <thead>
+                            <tr>
+                                <td>
+                                    Ad
+                                </td>
+                                <td>
+                                    Tanım
+                                </td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var report in item.Reports)
+                            {
+                                <tr>
+                                    <td>@report.Description</td>
+                                    <td>@report.Detail</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

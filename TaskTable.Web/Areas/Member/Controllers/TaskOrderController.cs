@@ -50,7 +50,6 @@ namespace TaskTable.Web.Areas.Member.Controllers
                 };
                 models.Add(taskModel);
             }
-            var model = _appUserService.GetNotAdminAppUsers();
             return View(models);
         }
         public IActionResult AssignUser(int id, string searchKey, int page = 1)

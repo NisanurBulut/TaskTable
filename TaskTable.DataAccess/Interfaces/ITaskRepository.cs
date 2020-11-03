@@ -9,6 +9,7 @@ namespace TaskTable.DataAccess.Interfaces
         List<TaskEntity> GetNotFinishedTasks();
         List<TaskEntity> GetAllTasksWithAllProperties();
         List<TaskEntity> GetAllTasksWithAllProperties(Expression<Func<TaskEntity, bool>> filter);
+        List<TaskEntity> GetAllCompleteTasksWithAllProperties(out int totalPage, int userId, int activePage);
         List<TaskEntity> GetAllTasksWithUserId(int id);
         TaskEntity GetTaskWithUrgencyProperty(int id);
         TaskEntity GetTaskWithReportProperty(int id);
