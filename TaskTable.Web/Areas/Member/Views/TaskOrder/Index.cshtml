@@ -38,7 +38,7 @@
                         <i class="fas fa-plus fa-1x ml-2"></i>
                     </a>
                 }
-                <a href="#" class="btn btn-dark btn-sm">
+                <a class="btn btn-dark btn-sm" data-toggle="modal" data-target="#complateTaskModal" data-taskid="@item.Id">
                     Tamamlandı Olarak İşaretle
                 </a>
             </p>
@@ -86,8 +86,56 @@
                     </table>
                 </div>
             </div>
-
-
         </div>
     </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="complateTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="tamamlaTaskModal">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body text-center">
+                    Grev tamamlandıya çekilecektir. Onaylıyor musunuz ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fas fa-times mr-2"></i>Vazgeç</button>
+                    <button id="btnSave" type="button" class="btn btn-primary"><i class="fas fa-check mr-2"></i>Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@section JavaScript{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#complateTaskModal").on("show.bs.modal", function (event) {
+                let triggerElement = $(event.relatedTarget);
+                let id = triggerElement.data("taskid");
+                console.log(id);
+                $("#btnSave").click(function () {
+                    $.ajax({
+                        type: "Get",
+                        url: "./TaskOrder/CompleteTask",
+                        data: { "TaskId": id },
+                        dataType: "json",
+                        contentType: "application/json; charset=utf8",
+                        success: function () {
+                            window.location.reload();
+                        },
+                        error: function (error) {
+                            alert(error.statusText);
+                            console.log(error);
+                        }
+                    });
+                });
+            })
+        });
+    </script>
 }

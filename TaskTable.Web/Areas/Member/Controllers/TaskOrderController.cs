@@ -198,5 +198,18 @@ namespace TaskTable.Web.Areas.Member.Controllers
             }
             return View(model);
         }
+        [HttpGet]
+        public IActionResult CompleteTask(int TaskId)
+        {
+            if (ModelState.IsValid)
+            {
+                var entity = _taskService.Get(TaskId);
+                entity.Durum = true;
+
+                _taskService.Update(entity);
+                return RedirectToAction("Index");
+            }
+            return Json(null);
+        }
     }
 }
