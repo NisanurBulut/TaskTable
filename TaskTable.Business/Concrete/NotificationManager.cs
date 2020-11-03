@@ -34,6 +34,11 @@ namespace TaskTable.Business.Concrete
             return _notificationRepository.GetAll();
         }
 
+        public List<NotificationEntity> GetUnReadAll(int AppUserId)
+        {
+            return _notificationRepository.GetUnReadAll(AppUserId);
+        }
+
         public void Update(NotificationEntity item)
         {
             _notificationRepository.Update(item);

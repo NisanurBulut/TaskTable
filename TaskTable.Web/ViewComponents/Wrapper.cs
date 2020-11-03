@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TaskTable.Business.Interfaces;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.Areas.Admin.Models;
 
@@ -13,9 +14,11 @@ namespace TaskTable.Web.ViewComponents
     {
         // view component geriye task dönemez
         private readonly UserManager<AppUser> _userManager;
-        public Wrapper(UserManager<AppUser> userManager)
+        private readonly INotificationService _notificationService;
+        public Wrapper(UserManager<AppUser> userManager, INotificationService notificationService)
         {
             _userManager = userManager;
+            _notificationService = notificationService;
         }
         public IViewComponentResult Invoke()
         {
@@ -26,7 +29,7 @@ namespace TaskTable.Web.ViewComponents
             model.Id = user.Id;
             model.Surname = user.Surname;
             model.Email = user.Email;
-
+            model.NotificationsCount = _notificationService.GetUnReadAll(user.Id).Count(); 
             var roles = _userManager.GetRolesAsync(user).Result;
             if (roles.Contains("Admin"))
             {

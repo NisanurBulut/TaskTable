@@ -6,6 +6,6 @@ namespace TaskTable.DataAccess.Interfaces
 {
     public interface INotificationRepository:IBaseRepository<NotificationEntity>
     {
-        
+        List<NotificationEntity> GetUnReadAll(int AppUserId);
     }
 }
