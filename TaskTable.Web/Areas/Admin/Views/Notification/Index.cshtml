@@ -1,0 +1,26 @@
+﻿@model List<NotificationListViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@if (Model.Any())
+{
+    @foreach (var item in Model)
+    {
+        <form method="post" asp-action="ReadNotification" asp-route-id="@item.Id" class="my-1">
+            <div class="alert alert-warning alert-dismissible fade show p-3 my-1" role="alert">
+                <input type="hidden" value="@item.Id" name="Id" />
+                <p>@item.Description</p>
+                <button type="submit" class="close" data-dismiss="alert" aria-label="Close">
+                    <i class="fas fa-xs fa-check"></i>
+                </button>
+            </div>
+        </form>
+    }
+}
+else
+{
+    <div class="alert alert-info alert-dismissible fade show p-3 my-1" role="alert">
+        <p>Okunmamış bildirim bulunmamaktadır.</p>
+    </div>
+}
