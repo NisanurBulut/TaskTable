@@ -37,6 +37,10 @@ namespace TaskTable.Web.Areas.Member.Controllers
             int totalPage = 0;
             var tasklist = _taskService.GetAllCompleteTasksWithAllProperties(out totalPage, user.Id, activePage);
             var models = new List<TaskListAllViewModel>();
+
+            ViewBag.TotalPage = tasklist.Count;
+            ViewBag.ActivePage = activePage;
+
             foreach (var item in tasklist)
             {
                 TaskListAllViewModel taskModel = new TaskListAllViewModel

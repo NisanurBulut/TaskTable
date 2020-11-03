@@ -22,6 +22,7 @@ namespace TaskTable.DataAccess.Context
             modelBuilder.ApplyConfiguration(new UrgencyMap());
             modelBuilder.ApplyConfiguration(new ReportMap());
             modelBuilder.ApplyConfiguration(new AppUserMap());
+            modelBuilder.ApplyConfiguration(new NotificationMap());
             // IdentityDbContext içerisinde yeniden yorumlanabilmesi için
             base.OnModelCreating(modelBuilder);
 
@@ -29,5 +30,7 @@ namespace TaskTable.DataAccess.Context
         public DbSet<TaskEntity> Tasks { get; set; }
         public DbSet<UrgencyEntity> Urgencies { get; set; }
         public DbSet<ReportEntity> Reports { get; set; }
+
+        public DbSet<NotificationEntity> Notifications { get; set; }
     }
 }

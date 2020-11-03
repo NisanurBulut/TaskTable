@@ -53,7 +53,7 @@ namespace TaskTable.DataAccess.Repository
                  .Include(a => a.Urgency)
                  .Include(a => a.Reports)
                  .Include(a => a.AppUser)
-                 .Where(a => a.AppUserId == userId && !a.Durum)
+                 .Where(a => a.AppUserId == userId && a.Durum == true)
                  .Skip((1 - activePage) * 3)
                  .Take(3)
                  .OrderByDescending(a => a.OlusturulmaTarihi);

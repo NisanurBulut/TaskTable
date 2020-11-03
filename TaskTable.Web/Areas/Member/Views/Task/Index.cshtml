@@ -35,7 +35,7 @@
             </p>
             <div class="collapse" id="reportSection-@item.Id">
                 <div class="card card-body">
-                   
+
                     <table class="table table-hover table-bordered table-sm text-center">
                         <thead>
                             <tr>
@@ -63,3 +63,15 @@
     </div>
 }
 
+<nav aria-label="Page navigation" class="float-right">
+    <ul class="pagination">
+        @for (int i = 1; i <= ViewBag.TotalPage; i++)
+        {
+            <li class="page-item @(ViewBag.ActivePage==i?"active":"")">
+                <a class="page-link"
+                   asp-action="Index"
+                   asp-route-activePage="@i">@i</a>
+            </li>
+        }
+    </ul>
+</nav>
