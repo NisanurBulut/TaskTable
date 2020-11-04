@@ -15,5 +15,8 @@ namespace TaskTable.DataAccess.Interfaces
         TaskEntity GetTaskWithReportProperty(int id);
         int GetCompletedTaskCountWithAppUserIdProperty(int id);
         int GetUnCompletedTaskCountWithAppUserIdProperty(int id);
+        int GetNotAssignTaskCount();
+        int GetNotCompletedTaskCount();
+        int GetComplatedAssignTaskCount();
     }
 }

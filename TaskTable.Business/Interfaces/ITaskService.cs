@@ -21,5 +21,8 @@ namespace TaskTable.Business.Interfaces
         List<TaskEntity> GetAllTasksWithUserId(int id);
         int GetCompletedTaskCountWithAppUserIdProperty(int id);
         int GetUnCompletedTaskCountWithAppUserIdProperty(int id);
+        int GetNotAssignTaskCount();
+        int GetNotCompletedTaskCount();
+        int GetComplatedAssignTaskCount();
     }
 }

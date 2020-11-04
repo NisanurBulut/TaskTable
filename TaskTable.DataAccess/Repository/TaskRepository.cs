@@ -65,7 +65,7 @@ namespace TaskTable.DataAccess.Repository
         {
             using var context = new DatabaseContext();
             // eager loading .Include(a => a.UrgencyId)
-            return context.Tasks.Where(a => a.Durum==false)
+            return context.Tasks.Where(a => a.Durum == false)
                 .Include(a => a.Urgency)
                .OrderByDescending(a => a.OlusturulmaTarihi).ToList();
         }
@@ -95,14 +95,34 @@ namespace TaskTable.DataAccess.Repository
         {
             using var context = new DatabaseContext();
             // eager loading .Include(a => a.UrgencyId)
-            return context.Tasks.Where(a => a.Durum==true).Count();
+            return context.Tasks.Where(a => a.Durum == true).Count();
         }
 
         public int GetUnCompletedTaskCountWithAppUserIdProperty(int id)
         {
             using var context = new DatabaseContext();
-            // eager loading .Include(a => a.UrgencyId)
-            return context.Tasks.Where(a => a.Durum==false).Count();
+            return context.Tasks.Where(a => a.Durum == false).Count();
+        }
+
+        public int GetNotAssignTaskCount()
+        {
+            // atanma bekleyen görev sayısı
+            using var context = new DatabaseContext();
+            return context.Tasks.Where(a => a.Durum == false && a.AppUserId == null).Count();
+        }
+
+        public int GetNotCompletedTaskCount()
+        {
+            // atanmış ve devam eden görev sayısı
+            using var context = new DatabaseContext();
+            return context.Tasks.Where(a => a.Durum == false && a.AppUserId != null).Count();
+        }
+
+        public int GetComplatedAssignTaskCount()
+        {
+            // tamamlanmış görev sayısı
+            using var context = new DatabaseContext();
+            return context.Tasks.Where(a => a.Durum == true).Count();
         }
     }
 }

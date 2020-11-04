@@ -9,6 +9,13 @@
     </div>
     <div class="list-group list-group-flush">
         <a asp-area="Admin"
+           asp-controller="Home"
+           asp-action="Index"
+           class="list-group-item list-group-item-action @(active=="home"?"active":"")">
+            <i class="fas fa-home fa-1x mr-2">
+            </i>Anasayfa
+        </a>
+        <a asp-area="Admin"
            asp-controller="Task"
            asp-action="Index"
            class="list-group-item list-group-item-action @(active=="task"?"active":"")">

@@ -4,5 +4,141 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
 
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card m-3" style="max-width: 20rem;">
+            <div class="card-header text-white bg-danger">Atanmayı Bekleyen Görevler</div>
+            <div class="card-body">
+                @if (ViewBag.NotAssignTaskCount > 0)
+                {
+                    <p class="card-text display-4">@ViewBag.NotAssignTaskCount</p>
+                    <p class="card-text text-right text-danger">
+                        <a asp-action="Index" asp-controller="TaskOrder">
+                            İncele
+                            <i class="fas fa-chevron-circle-right"></i>
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text text-left">
+                        Bütün görevler kullanıcılara atanmış durumda ya da herhangi bir görev bulunmamaktadır.
+                    </p>
+                    <p class="card-text text-right text-danger">
+                        <a asp-action="AddTask" asp-controller="Task">
+                            Görev Oluştur
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card m-3" style="max-width: 20rem;">
+            <div class="card-header text-white bg-warning">Devam Eden Görevler</div>
+            <div class="card-body">
+                @if (ViewBag.NotCompletedTaskCount > 0)
+                {
+                    <p class="card-text display-4">@ViewBag.NotCompletedTaskCount</p>
+                    <p class="card-text text-right">
+                        <a asp-action="Index" asp-controller="Task" class="text-warning">
+                            İncele
+                            <i class="fas fa-chevron-circle-right"></i>
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text text-left">
+                        Devam eden görev bulunmuyor... <br /><br /><br />
+                    </p>
+                    <p class="card-text text-right text-danger">
+                        <a asp-action="Index" asp-controller="TaskOrder">
+                            Görev Emri Oluştur
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card m-3" style="max-width: 20rem;">
+            <div class="card-header text-white bg-success">Tamamlanmış Görevler</div>
+            <div class="card-body">
+                @if (ViewBag.ComplatedAssignTaskCount > 0)
+                {
+                    <p class="card-text display-4">@ViewBag.ComplatedAssignTaskCount</p>
+                    <p class="card-text text-right">
+                        <a asp-action="Index" asp-controller="TaskOrder" class="text-success">
+                            İncele
+                            <i class="fas fa-chevron-circle-right"></i>
+                        </a>
+                    </p>
+                }
+                else
+                {
+
+                    <p class="card-text text-left">
+                        Henüz tamamlanmış görev bulunmuyor ... <br /><br />  <br />
+                    </p>
+                    <p class="card-text text-right text-danger">
+                        <a asp-action="Index" asp-controller="Task">
+                            Görev Tamamla
+                            <i class="fas fa-plus"></i>
+                        </a>
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card m-3" style="max-width: 20rem;">
+            <div class="card-header text-white bg-info">Okunmamış Bildirimler</div>
+            <div class="card-body">
+                @if (ViewBag.UnReadNotificationCount > 0)
+                {
+                    <p class="card-text display-4">@ViewBag.UnReadNotificationCount</p>
+                    <p class="card-text text-right">
+                        <a asp-action="Index" asp-controller="Notification" class="text-info">
+                            İncele
+                            <i class="fas fa-chevron-circle-right"></i>
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text text-left">
+                        Bildirim bulunmuyor ... <br /><br /> <br /> <br />
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card m-3" style="max-width: 20rem;">
+            <div class="card-header text-white bg-dark">Raporlar</div>
+            <div class="card-body">
+                @if (ViewBag.ReportCount > 0)
+                {
+                    <p class="card-text display-4">@ViewBag.ReportCount</p>
+                    <p class="card-text text-right">
+                        <a asp-action="Index" asp-controller="TaskOrder" class="text-dark">
+                            İncele
+                            <i class="fas fa-chevron-circle-right"></i>
+                        </a>
+                    </p>
+                }
+                else
+                {
+                    <p class="card-text text-left">
+                        Rapor bulunmuyor ... <br /><br /> <br /> <br />
+                    </p>
+                }
+            </div>
+        </div>
+    </div>
+</div>

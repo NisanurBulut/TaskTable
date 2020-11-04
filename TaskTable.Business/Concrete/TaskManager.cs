@@ -76,5 +76,20 @@ namespace TaskTable.Business.Concrete
         {
             return _taskRepository.GetCompletedTaskCountWithAppUserIdProperty(id);
         }
+
+        public int GetNotAssignTaskCount()
+        {
+            return _taskRepository.GetNotAssignTaskCount();
+        }
+
+        public int GetNotCompletedTaskCount()
+        {
+            return _taskRepository.GetNotCompletedTaskCount();
+        }
+
+        public int GetComplatedAssignTaskCount()
+        {
+            return _taskRepository.GetComplatedAssignTaskCount();
+        }
     }
 }

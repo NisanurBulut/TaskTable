@@ -11,6 +11,12 @@ namespace TaskTable.DataAccess.Repository
 {
     public class ReportRepository : BaseRepository<ReportEntity>, IReportRepository
     {
+        public int GetReportsCount()
+        {
+            using var context = new DatabaseContext();
+            return context.Reports.Count();
+        }
+
         public int GetReportsCountWithAppUserIdProperty(int id)
         {
             using var context = new DatabaseContext();

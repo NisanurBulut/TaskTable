@@ -41,6 +41,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
             ViewBag.UnCompletedTaskCount = _taskService.GetUnCompletedTaskCountWithAppUserIdProperty(user.Id);
             TempData["active"] = "home";
             return View();
+           
         }
     }
 }

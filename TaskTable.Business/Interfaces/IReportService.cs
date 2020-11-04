@@ -9,5 +9,6 @@ namespace TaskTable.Business.Interfaces
     {
         ReportEntity GetReportWithTaskProperty(int id);
         int GetReportsCountWithAppUserIdProperty(int id);
+        int GetReportsCount();
     }
 }
