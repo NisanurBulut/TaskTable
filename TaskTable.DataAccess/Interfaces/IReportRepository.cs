@@ -8,5 +8,6 @@ namespace TaskTable.DataAccess.Interfaces
     public interface IReportRepository:IBaseRepository<ReportEntity>
     {
         ReportEntity GetReportWithTaskProperty(int id);
+        int GetReportsCountWithAppUserIdProperty(int id);
     }
 }

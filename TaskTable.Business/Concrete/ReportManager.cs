@@ -43,5 +43,10 @@ namespace TaskTable.Business.Concrete
         {
            return  _reportRepository.GetReportWithTaskProperty(id);
         }
+
+        public int GetReportsCountWithAppUserIdProperty(int id)
+        {
+            return _reportRepository.GetReportsCountWithAppUserIdProperty(id);
+        }
     }
 }

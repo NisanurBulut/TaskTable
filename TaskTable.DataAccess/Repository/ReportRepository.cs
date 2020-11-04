@@ -11,6 +11,15 @@ namespace TaskTable.DataAccess.Repository
 {
     public class ReportRepository : BaseRepository<ReportEntity>, IReportRepository
     {
+        public int GetReportsCountWithAppUserIdProperty(int id)
+        {
+            using var context = new DatabaseContext();
+            // eager loading .Include(a => a.UrgencyId)
+           return context.Tasks.Where(a => a.AppUserId == id)
+                .Include(a => a.Reports).Select(a=>a.Reports).Count();
+
+        }
+
         public ReportEntity GetReportWithTaskProperty(int id)
         {
             using var context = new DatabaseContext();
