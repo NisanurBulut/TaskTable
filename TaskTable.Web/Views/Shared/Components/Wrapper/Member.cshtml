@@ -8,6 +8,13 @@
     </div>
     <div class="list-group list-group-flush">
         <a asp-area="Member"
+           asp-controller="Home"
+           asp-action="Index"
+           class="list-group-item list-group-item-action @(active=="home"?"active":"")">
+            <i class="fas fa-home fa-1x mr-2">
+            </i>Anasayfa
+        </a>
+        <a asp-area="Member"
            asp-controller="TaskOrder"
            asp-action="Index"
            class="list-group-item list-group-item-action @(active=="profile"?"active":"")">
@@ -20,10 +27,12 @@
            class="list-group-item list-group-item-action @(active=="task"?"active":"")">
             <i class="fas fa-arrow-alt-circle-up fa-1x mr-2"></i>Tamamlanan İş Emirleri
         </a>
-        <a class="list-group-item list-group-item-action">
+        <a asp-area="Member"
+           asp-controller="Notification"
+           asp-action="Index" class="list-group-item list-group-item-action @(active=="notification"?"active":"")">
             <i class="fas fa-bell fa-1x mr-2"></i> Bildirimler
-            <span class="badge badge-info"> 
-            <small>@Model.NotificationsCount</small>
+            <span class="badge badge-info">
+                <small>@Model.NotificationsCount</small>
             </span>
         </a>
         <a asp-area="Member"

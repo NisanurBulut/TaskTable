@@ -13,6 +13,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
     {
         public IActionResult Index()
         {
+            TempData["active"] = "home";
             return View();
         }
     }
