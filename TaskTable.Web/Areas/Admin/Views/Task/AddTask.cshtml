@@ -16,7 +16,7 @@
         <textarea class="form-control" type="text" asp-for="@Model.Aciklama"></textarea>
     </div>
     <div class="form-group">
-        <label>Aciliter: </label>
+        <label>Aciliyet: </label>
         <span class="text-danger" asp-validation-for="@Model.UrgencyId"></span>
         <select asp-for="@Model.UrgencyId" class="form-control" asp-items="ViewBag.Urgencies">
             <option hidden value="-1">Seçiniz</option>

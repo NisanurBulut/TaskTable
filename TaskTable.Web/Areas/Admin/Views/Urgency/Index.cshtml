@@ -7,7 +7,12 @@
 
 @if (Model.Any())
 {
-    <table class="table table-sm table-hover">
+    <div class="card card-body m-3">
+        <a asp-action="AddReport" class="btn btn-light btn-sm">
+            Rapor Oluştur
+            <i class="fas fa-plus fa-1x ml-2"></i>
+        </a>
+     <table class="table table-sm table-hover">
         <thead>
             <tr>
                 <th>Tanım</th>
@@ -22,22 +27,33 @@
                         @item.Description
                     </td>
                     <td>
-                        <a asp-area="" asp-controller="" asp-action="" 
+                        <a asp-area="Admin"
+                           asp-controller="Urgency"
+                           asp-action="EditUrgency"
+                           asp-route-id="@item.Id"
                            class="btn btn-sm btn-warning" id="@item.Id">
                             <i class="fas fa-edit fa-1x"></i>
+                        </a>
+                        <a asp-area="Admin"
+                           asp-controller="Urgency"
+                           asp-action="DeleteUrgency"
+                           asp-route-id="@item.Id"
+                           class="btn btn-sm btn-danger" id="@item.Id">
+                            <i class="fas fa-trash fa-1x"></i>
                         </a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
+    </div>
 }
 else
 {
-<div class="text-center lead mt-4">
-    <p class="lead">Kayıt bulunamadı</p>
-  <a asp-area="Admin" asp-controller="Urgency" 
-     asp-action="AddUrgency" 
-     class="btn btn-sm btn-outline-primary my-2"><i class="fas fa-plus mr-2"></i>Yeni Aciliyet</a>
-</div>
+    <div class="text-center lead mt-4">
+        <p class="lead">Kayıt bulunamadı</p>
+        <a asp-area="Admin" asp-controller="Urgency"
+           asp-action="AddUrgency"
+           class="btn btn-sm btn-outline-primary my-2"><i class="fas fa-plus mr-2"></i>Yeni Aciliyet</a>
+    </div>
 }
