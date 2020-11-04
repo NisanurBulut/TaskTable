@@ -6,7 +6,7 @@ namespace TaskTable.DataAccess.Interfaces
 {
     public interface ITaskRepository:IBaseRepository<TaskEntity>
     {
-        List<TaskEntity> GetNotFinishedTasks();
+        List<TaskEntity> GetNotCompletedTasks();
         List<TaskEntity> GetAllTasksWithAllProperties();
         List<TaskEntity> GetAllTasksWithAllProperties(Expression<Func<TaskEntity, bool>> filter);
         List<TaskEntity> GetAllCompleteTasksWithAllProperties(out int totalPage, int userId, int activePage);
@@ -14,5 +14,6 @@ namespace TaskTable.DataAccess.Interfaces
         TaskEntity GetTaskWithUrgencyProperty(int id);
         TaskEntity GetTaskWithReportProperty(int id);
         int GetCompletedTaskCountWithAppUserIdProperty(int id);
+        int GetUnCompletedTaskCountWithAppUserIdProperty(int id);
     }
 }

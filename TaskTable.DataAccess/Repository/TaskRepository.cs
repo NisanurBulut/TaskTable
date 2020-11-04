@@ -61,11 +61,11 @@ namespace TaskTable.DataAccess.Repository
             return returnValue.ToList();
         }
 
-        public List<TaskEntity> GetNotFinishedTasks()
+        public List<TaskEntity> GetNotCompletedTasks()
         {
             using var context = new DatabaseContext();
             // eager loading .Include(a => a.UrgencyId)
-            return context.Tasks.Where(a => !a.Durum)
+            return context.Tasks.Where(a => a.Durum==false)
                 .Include(a => a.Urgency)
                .OrderByDescending(a => a.OlusturulmaTarihi).ToList();
         }
@@ -95,7 +95,14 @@ namespace TaskTable.DataAccess.Repository
         {
             using var context = new DatabaseContext();
             // eager loading .Include(a => a.UrgencyId)
-            return context.Tasks.Where(a => !a.Durum).Count();
+            return context.Tasks.Where(a => a.Durum==true).Count();
+        }
+
+        public int GetUnCompletedTaskCountWithAppUserIdProperty(int id)
+        {
+            using var context = new DatabaseContext();
+            // eager loading .Include(a => a.UrgencyId)
+            return context.Tasks.Where(a => a.Durum==false).Count();
         }
     }
 }

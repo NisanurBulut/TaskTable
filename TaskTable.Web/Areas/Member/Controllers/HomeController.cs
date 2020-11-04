@@ -22,18 +22,23 @@ namespace TaskTable.Web.Areas.Member.Controllers
         private readonly IReportService _reportService;
         private readonly UserManager<AppUser> _userManager;
         private readonly ITaskService _taskService;
+        private readonly INotificationService _notificationService;
         public HomeController(IReportService reportService, 
-            UserManager<AppUser> userManager, ITaskService taskService)
+            UserManager<AppUser> userManager, ITaskService taskService,
+            INotificationService notificationService)
         {
             _userManager = userManager;
             _reportService = reportService;
             _taskService = taskService;
+            _notificationService = notificationService;
         }
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             ViewBag.ReportCount = _reportService.GetReportsCountWithAppUserIdProperty(user.Id);
             ViewBag.CompletedTaskCount = _taskService.GetCompletedTaskCountWithAppUserIdProperty(user.Id);
+            ViewBag.UnReadNotificationCount = _notificationService.GetUnReadNotificationCountwithAppUserId(user.Id);
+            ViewBag.UnCompletedTaskCount = _taskService.GetUnCompletedTaskCountWithAppUserIdProperty(user.Id);
             TempData["active"] = "home";
             return View();
         }

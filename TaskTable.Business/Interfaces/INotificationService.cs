@@ -8,5 +8,6 @@ namespace TaskTable.Business.Interfaces
     public interface INotificationService : IBaseService<NotificationEntity>
     {
         List<NotificationEntity> GetUnReadAll(int AppUserId);
+        int GetUnReadNotificationCountwithAppUserId(int id);
     }
 }

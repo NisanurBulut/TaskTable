@@ -42,7 +42,7 @@ namespace TaskTable.Business.Concrete
         }
         public List<TaskEntity> GetNotFinishedTasks()
         {
-            return _taskRepository.GetNotFinishedTasks();
+            return _taskRepository.GetNotCompletedTasks();
         }
         public TaskEntity GetTaskWithUrgencyProperty(int id)
         {
@@ -68,6 +68,11 @@ namespace TaskTable.Business.Concrete
         }
 
         public int GetCompletedTaskCountWithAppUserIdProperty(int id)
+        {
+            return _taskRepository.GetCompletedTaskCountWithAppUserIdProperty(id);
+        }
+
+        public int GetUnCompletedTaskCountWithAppUserIdProperty(int id)
         {
             return _taskRepository.GetCompletedTaskCountWithAppUserIdProperty(id);
         }

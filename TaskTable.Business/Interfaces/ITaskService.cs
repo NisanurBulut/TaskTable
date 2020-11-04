@@ -20,5 +20,6 @@ namespace TaskTable.Business.Interfaces
         TaskEntity GetTaskWithReportProperty(int id);
         List<TaskEntity> GetAllTasksWithUserId(int id);
         int GetCompletedTaskCountWithAppUserIdProperty(int id);
+        int GetUnCompletedTaskCountWithAppUserIdProperty(int id);
     }
 }
