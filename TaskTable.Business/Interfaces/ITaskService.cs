@@ -19,5 +19,6 @@ namespace TaskTable.Business.Interfaces
         TaskEntity GetTaskWithUrgencyProperty(int id);
         TaskEntity GetTaskWithReportProperty(int id);
         List<TaskEntity> GetAllTasksWithUserId(int id);
+        int GetCompletedTaskCountWithAppUserIdProperty(int id);
     }
 }

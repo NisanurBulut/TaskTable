@@ -4,10 +4,35 @@
     Layout = "~/Areas/Member/Views/Shared/_MemberLayout.cshtml";
 }
 
-<div class="card m-3" style="max-width: 20rem;">
-    <div class="card-header text-white bg-primary">Rapor sayısı</div>
-    <div class="card-body">
-        <h4 class="card-title">Primary card title</h4>
-        <p class="card-text display-4">@ViewBag.ReportCount</p>
+<div class="row">
+    <div class="col-md-4">
+        <div class="card m-3" style="max-width: 20rem;">
+            <div class="card-header text-white bg-primary">Tamamlanan Görev sayısı</div>
+            <div class="card-body">
+                <h4 class="card-title">Tamamlanan Görev Sayısı</h4>
+                <p class="card-text display-4">@ViewBag.CompletedTaskCount</p>
+                <p class="card-text text-right">
+                    <a asp-action="Index" asp-controller="Task">
+                        İncele
+                        <i class="fas fa-chevron-circle-right"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card m-3" style="max-width: 20rem;">
+            <div class="card-header text-white bg-dark">Rapor sayısı</div>
+            <div class="card-body">
+                <h4 class="card-title">Yazılan Rapor Sayısı</h4>
+                <p class="card-text display-4">@ViewBag.ReportCount</p>
+                <p class="card-text text-right">
+                    <a asp-action="Index" asp-controller="TaskOrder" class="text-dark">
+                        İncele
+                        <i class="fas fa-chevron-circle-right"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
     </div>
 </div>

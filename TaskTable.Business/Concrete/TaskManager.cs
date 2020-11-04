@@ -66,5 +66,10 @@ namespace TaskTable.Business.Concrete
         {
             return _taskRepository.GetAllCompleteTasksWithAllProperties(out totalPage, userId, activePage);
         }
+
+        public int GetCompletedTaskCountWithAppUserIdProperty(int id)
+        {
+            return _taskRepository.GetCompletedTaskCountWithAppUserIdProperty(id);
+        }
     }
 }

@@ -90,5 +90,12 @@ namespace TaskTable.DataAccess.Repository
                     .FirstOrDefault();
             }
         }
+
+        public int GetCompletedTaskCountWithAppUserIdProperty(int id)
+        {
+            using var context = new DatabaseContext();
+            // eager loading .Include(a => a.UrgencyId)
+            return context.Tasks.Where(a => !a.Durum).Count();
+        }
     }
 }
