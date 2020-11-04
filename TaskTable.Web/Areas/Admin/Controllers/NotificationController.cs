@@ -28,6 +28,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            TempData["active"] = "notification";
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var notificationList = _notificationService.GetUnReadAll(user.Id);
             var models = new List<NotificationListViewModel>();

@@ -30,7 +30,7 @@
         <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-chart-area fa-1x mr-2"></i>İstatistikler</a>
         <a asp-area="Admin"
            asp-controller="Notification"
-           asp-action="Index" class="list-group-item list-group-item-action">
+           asp-action="Index" class="list-group-item list-group-item-action @(active=="notification"?"active":"")">
             <i class="fas fa-bell fa-1x mr-2"></i> Bildirimler
             <span class="badge badge-info">
                 <small>@Model.NotificationsCount</small>

@@ -18,13 +18,17 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         private readonly ITaskService _taskService;
         private readonly IFileService _fileService;
         private readonly UserManager<AppUser> _userManager;
+        private readonly INotificationService _notificationService;
         public TaskOrderController(IAppUserService appUserService, 
-            ITaskService taskService, UserManager<AppUser> userManager, IFileService fileService)
+            ITaskService taskService, UserManager<AppUser> userManager, 
+            IFileService fileService,
+            INotificationService notificationService)
         {
             _userManager = userManager;
             _appUserService = appUserService;
             _taskService = taskService;
             _fileService = fileService;
+            _notificationService = notificationService;
         }
         public IActionResult Index()
         {
@@ -111,6 +115,12 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             var item = _taskService.Get(model.TaskId);
             item.AppUserId = model.AppUserId;
             _taskService.Update(item);
+
+            _notificationService.Add(new NotificationEntity
+            {
+                AppUserId = model.AppUserId,
+                Description = $"{item.Ad} adlı iş için görevlendirildiniz."
+            });
             return RedirectToAction("Index");
         }
         public IActionResult GiveDetail(int id)
