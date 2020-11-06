@@ -8,7 +8,6 @@ namespace TaskTable.DataTransferObjects.DtoTask
 {
     public class TaskEditDto
     {
-       
         public int Id { get; set; }
         public string Name { get; set; }
         public int UrgencyId { get; set; }
