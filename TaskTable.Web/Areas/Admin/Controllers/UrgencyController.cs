@@ -34,10 +34,10 @@ namespace TaskTable.Web.Areas.Member.Controllers
         }
         public IActionResult AddUrgency()
         {
-            return View(new UrgencyAddViewModel());
+            return View(new UrgencyAddDto());
         }
         [HttpPost]
-        public IActionResult AddUrgency(UrgencyAddViewModel model)
+        public IActionResult AddUrgency(UrgencyAddDto model)
         {
             if (ModelState.IsValid)
             {
@@ -53,24 +53,16 @@ namespace TaskTable.Web.Areas.Member.Controllers
         public IActionResult EditUrgency(int id)
         {
             TempData["active"] = "urgency";
-            var model = _urgencyService.Get(id);
-            var urgencyEditViewModel = new UrgencyEditViewModel()
-            {
-                Description = model.Description,
-                Id = model.Id
-            };
-            return View(urgencyEditViewModel);
+            var model = _mapper.Map<UrgencyEditDto>(_urgencyService.Get(id));
+           
+            return View(model);
         }
         [HttpPost]
-        public IActionResult EditUrgency(UrgencyEditViewModel model)
+        public IActionResult EditUrgency(UrgencyEditDto model)
         {
-            UrgencyEntity entity = new UrgencyEntity()
-            {
-                Description = model.Description,
-                Id = model.Id
-            };
+            UrgencyEntity entity = _mapper.Map<UrgencyEntity>(model);
             _urgencyService.Update(entity);
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }
