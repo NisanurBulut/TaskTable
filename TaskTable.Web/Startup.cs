@@ -1,3 +1,6 @@
+using AutoMapper;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -7,9 +10,18 @@ using Microsoft.Extensions.Hosting;
 using System;
 using TaskTable.Business.Concrete;
 using TaskTable.Business.Interfaces;
+using TaskTable.Business.ValidationRules.AppUser;
+using TaskTable.Business.ValidationRules.Report;
+using TaskTable.Business.ValidationRules.Task;
+using TaskTable.Business.ValidationRules.Urgency;
 using TaskTable.DataAccess.Context;
 using TaskTable.DataAccess.Interfaces;
 using TaskTable.DataAccess.Repository;
+using TaskTable.DataTransferObjects.DtoAppUser;
+using TaskTable.DataTransferObjects.DtoNotification;
+using TaskTable.DataTransferObjects.DtoReport;
+using TaskTable.DataTransferObjects.DtoTask;
+using TaskTable.DataTransferObjects.DtoUrgency;
 using TaskTable.Entity.Concrete;
 
 namespace TaskTable.Web
@@ -53,7 +65,17 @@ namespace TaskTable.Web
                 opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                 opt.LoginPath = "/Home/Index";
             });
-            services.AddControllersWithViews();
+            services.AddAutoMapper(typeof(Startup));
+            // bir validatorda farklý nesne örneði alalým
+            services.AddTransient<IValidator<UrgencyAddDto>, UrgencyAddValidator>();
+            services.AddTransient<IValidator<UrgencyEditDto>, UrgencyEditValidator>();
+            services.AddTransient<IValidator<TaskAddDto>, TaskAddValidator>();
+            services.AddTransient<IValidator<AppUserSignInDto>, AppUserSignInValidator>();
+            services.AddTransient<IValidator<AppUserDto>, AppUserValidator>();
+            services.AddTransient<IValidator<TaskEditDto>, TaskEditValidator>();
+            services.AddTransient<IValidator<ReportAddDto>, ReportAddValidator>();
+            services.AddTransient<IValidator<ReportEditDto>, ReportEditValidator>();
+            services.AddControllersWithViews().AddFluentValidation();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
