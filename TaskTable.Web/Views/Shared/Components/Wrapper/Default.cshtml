@@ -19,7 +19,7 @@
            asp-controller="Task"
            asp-action="Index"
            class="list-group-item list-group-item-action @(active=="task"?"active":"")">
-            <i class="fas fa-tasks fa-1x mr-2"></i>Görev
+            <i class="fas fa-tasks fa-1x mr-2"></i>Görevler
         </a>
         <a asp-area="Admin"
            asp-controller="Urgency"
@@ -33,7 +33,11 @@
            class="list-group-item list-group-item-action @(active=="taskorder"?"active":"")">
             <i class="fas fa-briefcase fa-1x mr-2"></i>İş Emirleri
         </a>
-        <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-chart-bar fa-1x mr-2"></i>Grafikler</a>
+        <a asp-area="Admin"
+           asp-controller="Graph"
+           asp-action="Index" 
+           class="list-group-item list-group-item-action @(active=="graph"?"active":"")">
+        <i class="fas fa-chart-bar fa-1x mr-2"></i>Grafikler</a>
         <a href="#" class="list-group-item list-group-item-action "><i class="fas fa-chart-area fa-1x mr-2"></i>İstatistikler</a>
         <a asp-area="Admin"
            asp-controller="Notification"
