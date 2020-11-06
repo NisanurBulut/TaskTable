@@ -10,5 +10,8 @@ namespace TaskTable.Business.Interfaces
     {
         List<AppUser> GetNotAdminAppUsers();
         List<AppUser> GetNotAdminAppUsers(out int TotalPage, string searchKey, int activePage = 1);
+
+        List<GraphView> GetTopFiveUsersWithMostTaks();
+        List<GraphView> GetWorkingUsersWithMostTaks();
     }
 }

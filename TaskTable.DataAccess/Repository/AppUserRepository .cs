@@ -72,5 +72,41 @@ namespace TaskTable.DataAccess.Repository
             // bir sayfa da 3 adet gösterim yapılmak isteniyor
             return result.Skip((activePage - 1) * 3).Take(3).ToList();
         }
+        // Top 5 users with the most tasks
+        /* Username alanı unique
+         * select a.UserName, count(*) as total from aspnetuser a inner join gorevler b
+         * on a.Id=b.appuserId
+         * where b.Durum=1
+         * group by a.Username
+         */
+
+        public List<GraphView> GetTopFiveUsersWithMostTaks()
+        {
+            using var context = new DatabaseContext();
+            return context.Tasks
+                .Where(a => a.Durum == true)
+                .Include(a => a.AppUser)
+                .GroupBy(a => a.AppUser.UserName)
+                .OrderByDescending(I => I.Count())
+                .Take(5).Select(a => new GraphView
+                {
+                    Ad = a.Key,
+                    Deger = a.Count()
+                }).ToList();
+        }
+        public List<GraphView> GetWorkingUsersWithMostTaks()
+        {
+            using var context = new DatabaseContext();
+            return context.Tasks
+                .Where(a => a.Durum == false && a.AppUserId != null)
+                .Include(a => a.AppUser)
+                .GroupBy(a => a.AppUser.UserName)
+                .OrderByDescending(I => I.Count())
+                .Take(5).Select(a => new GraphView
+                {
+                    Ad = a.Key,
+                    Deger = a.Count()
+                }).ToList();
+        }
     }
 }

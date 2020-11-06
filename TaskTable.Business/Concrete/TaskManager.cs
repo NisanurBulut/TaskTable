@@ -91,5 +91,6 @@ namespace TaskTable.Business.Concrete
         {
             return _taskRepository.GetComplatedAssignTaskCount();
         }
+
     }
 }

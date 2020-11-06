@@ -22,5 +22,15 @@ namespace TaskTable.Business.Concrete
         {
             return _appUserRepository.GetNotAdminAppUsers(out totalPage, searchKey, activePage);
         }
+
+        public List<GraphView> GetTopFiveUsersWithMostTaks()
+        {
+            return _appUserRepository.GetTopFiveUsersWithMostTaks();
+        }
+
+        public List<GraphView> GetWorkingUsersWithMostTaks()
+        {
+            return _appUserRepository.GetWorkingUsersWithMostTaks();
+        }
     }
 }

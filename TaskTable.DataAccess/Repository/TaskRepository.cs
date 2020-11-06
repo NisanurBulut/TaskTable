@@ -124,5 +124,6 @@ namespace TaskTable.DataAccess.Repository
             using var context = new DatabaseContext();
             return context.Tasks.Where(a => a.Durum == true).Count();
         }
+
     }
 }

@@ -18,5 +18,6 @@ namespace TaskTable.DataAccess.Interfaces
         int GetNotAssignTaskCount();
         int GetNotCompletedTaskCount();
         int GetComplatedAssignTaskCount();
+     
     }
 }
