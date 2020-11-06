@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TaskTable.Business.Interfaces;
+using TaskTable.DataTransferObjects.DtoUrgency;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.Areas.Admin.Models;
 
@@ -17,15 +19,18 @@ namespace TaskTable.Web.Areas.Member.Controllers
     public class UrgencyController : Controller
     {
         private readonly IUrgencyService _urgencyService;
-        public UrgencyController(IUrgencyService urgencyService)
+        private readonly IMapper _mapper;
+        public UrgencyController(IUrgencyService urgencyService, IMapper mapper)
         {
             _urgencyService = urgencyService;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
             TempData["active"] = "urgency";
             var results = _urgencyService.GetAll();
-            return View(results);
+            var models = _mapper.Map<List<UrgencyListDto>>(results);
+            return View(models);
         }
         public IActionResult AddUrgency()
         {

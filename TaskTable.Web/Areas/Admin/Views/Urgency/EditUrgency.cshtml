@@ -7,7 +7,7 @@
 <form action="EditUrgency" class="w-75 mx-auto p-3" method="post">
     <input asp-for="Id" type="hidden" />
     <div class="form-group">
-        <label asp-for="@Model.Description"></label>
+        <label>Açıklama</label>
         <span asp-validation-for="@Model.Description" class="text-danger"></span>
         <input asp-for="@Model.Description" type="text" class="form-control" />
     </div>
