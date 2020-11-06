@@ -7,11 +7,17 @@
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="5.4.0" />
     <PackageReference Include="FastMember" Version="1.5.0" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="9.2.0" />
     <PackageReference Include="iTextSharp.LGPLv2.Core" Version="1.6.9" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TaskTable.DataAccess\TaskTable.DataAccess.csproj" />
+    <ProjectReference Include="..\TaskTable.Dto\TaskTable.DataTransferObjects.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ValidationRules\Task\" />
   </ItemGroup>
 
 </Project>

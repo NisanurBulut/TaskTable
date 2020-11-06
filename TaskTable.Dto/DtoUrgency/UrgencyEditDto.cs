@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TaskTable.DataTransferObjects.DtoUrgency
 {
-    public class UrgencyUpdateDto
+    public class UrgencyEditDto
     {
         public int Id { get; set; }
         public string Description { get; set; }
