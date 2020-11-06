@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
-namespace TaskTable.Web.Areas.Admin.Models
+namespace TaskTable.DataTransferObjects.DtoNotification
 {
-    public class UrgencyListViewModel
+    public class NotificationListDto
     {
         public int Id { get; set; }
         public string Description { get; set; }

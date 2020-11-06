@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace TaskTable.DataTransferObjects.DtoAppUser
 {
-    public class TaskAssignUserListViewModel
+    public class TaskAssignUserListDto
     {
         //public TaskListViewModel Task { get; set; }
         //public AppUserListViewModel AppUser { get; set; }

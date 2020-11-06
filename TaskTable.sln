@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskTable.Business", "TaskT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TaskTable.Web", "TaskTable.Web\TaskTable.Web.csproj", "{73E369F1-242C-4738-A3D0-A4D7DB0CB703}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskTable.DataTransferObjects", "TaskTable.Dto\TaskTable.DataTransferObjects.csproj", "{E925672A-09A3-4233-8273-5708C57F7DF4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{73E369F1-242C-4738-A3D0-A4D7DB0CB703}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{73E369F1-242C-4738-A3D0-A4D7DB0CB703}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{73E369F1-242C-4738-A3D0-A4D7DB0CB703}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E925672A-09A3-4233-8273-5708C57F7DF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E925672A-09A3-4233-8273-5708C57F7DF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E925672A-09A3-4233-8273-5708C57F7DF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E925672A-09A3-4233-8273-5708C57F7DF4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
