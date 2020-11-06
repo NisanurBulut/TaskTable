@@ -6,11 +6,11 @@ using TaskTable.DataTransferObjects.DtoAppUser;
 
 namespace TaskTable.Business.ValidationRules.AppUser
 {
-   public class AppUserValidator: AbstractValidator<AppUserDto>
+   public class TaskAddValidator: AbstractValidator<AppUserDto>
     { 
         // Display ve compare fluent validasyon ile kullanılamaz.
        
-        public AppUserValidator()
+        public TaskAddValidator()
         {
             RuleFor(a => a.UserName).NotNull().WithMessage("Kullanıcı adı boş geçilemez");
             RuleFor(a => a.Name).NotNull().WithMessage("Ad boş geçilemez");

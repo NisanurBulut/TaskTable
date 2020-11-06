@@ -8,12 +8,11 @@ namespace TaskTable.DataTransferObjects.DtoTask
 {
     public class TaskEditDto
     {
-        //[Required(ErrorMessage = "Ad alanı boş geçilemez")]
-        //[Range(1, int.MaxValue, ErrorMessage = "Lütfen bir aciliyet durumu seçiniz.")]
+       
         public int Id { get; set; }
-        public string Ad { get; set; }
+        public string Name { get; set; }
         public int UrgencyId { get; set; }
-        public bool Durum { get; set; }
-        public string Aciklama { get; set; }
+        public bool State { get; set; }
+        public string Description { get; set; }
     }
 }

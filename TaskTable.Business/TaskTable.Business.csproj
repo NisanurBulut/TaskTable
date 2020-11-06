@@ -16,8 +16,4 @@
     <ProjectReference Include="..\TaskTable.Dto\TaskTable.DataTransferObjects.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ValidationRules\Task\" />
-  </ItemGroup>
-
 </Project>
