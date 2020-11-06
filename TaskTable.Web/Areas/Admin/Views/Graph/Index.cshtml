@@ -3,32 +3,70 @@
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-<div id="piechart" style="width: 900px; height: 500px;"></div>
+<div class="row">
+    <div class="col-md-6">
+        <div id="piechart" style="height: 500px;" class="w-100">
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div id="piechart2" style="height: 500px;" class="w-100">
+        </div>
+    </div>
+</div>
 @section JavaScript{
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(drawChart);
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart1);
+        google.charts.setOnLoadCallback(drawChart2);
+        function drawChart1() {
+            let chartData1 = [['Kullanıcı', 'Görev Sayısı']];
+            $.ajax({
+                type: "GET",
+                url: "./Graph/GetTopFiveUsersWithMostTaks",
+                async: false,
+                success: function (data) {
+                    let resultData = $.parseJSON(data); // parse object
+                    $.each(resultData, (index, item) => {
+                        chartData1.push([item.Ad, item.Deger])
+                    });
+                },
+                error: function (error) { }
+            });
+            var data = google.visualization.arrayToDataTable(chartData1);
 
-      function drawChart() {
+            var options = {
+                title: 'En Çok İş Tamamlayan 5 Kullanıcı'
+            };
 
-        var data = google.visualization.arrayToDataTable([
-          ['Task', 'Hours per Day'],
-          ['Work',     11],
-          ['Eat',      2],
-          ['Commute',  2],
-          ['Watch TV', 2],
-          ['Sleep',    7]
-        ]);
+            var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-        var options = {
-          title: 'My Daily Activities'
-        };
+            chart.draw(data, options);
+        }
+        function drawChart2() {
+            let chartData2 = [['Kullanıcı', 'Görev Sayısı']];
+            $.ajax({
+                type: "GET",
+                url: "./Graph/GetWorkingUsersWithMostTaks",
+                async: false,
+                success: function (data) {
+                    let resultData = $.parseJSON(data); // parse object
+                    $.each(resultData, (index, item) => {
+                        chartData2.push([item.Ad, item.Deger])
+                    });
+                },
+                error: function (error) { }
+            })
+            var data = google.visualization.arrayToDataTable(chartData2);
 
-        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+            var options = {
+                title: 'Devam Eden Görevi Olan Kullanıcılar'
+            };
 
-        chart.draw(data, options);
-      }
+            var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+            chart.draw(data, options);
+        }
     </script>
 }
 
