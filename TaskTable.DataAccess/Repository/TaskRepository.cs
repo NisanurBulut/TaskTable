@@ -18,7 +18,7 @@ namespace TaskTable.DataAccess.Repository
                 .Include(a => a.Urgency)
                 .Include(a => a.Reports)
                 .Include(a => a.AppUser)
-                .Where(a => !a.Durum).OrderByDescending(a => a.OlusturulmaTarihi).ToList();
+                .Where(a => !a.State).OrderByDescending(a => a.CreationDate).ToList();
         }
 
         public List<TaskEntity> GetAllTasksWithAllProperties(Expression<Func<TaskEntity, bool>> filter)
@@ -31,7 +31,7 @@ namespace TaskTable.DataAccess.Repository
                 .Include(a => a.Urgency)
                 .Include(a => a.Reports)
                 .Include(a => a.AppUser)
-                .Where(filter).OrderByDescending(a => a.OlusturulmaTarihi).ToList();
+                .Where(filter).OrderByDescending(a => a.CreationDate).ToList();
         }
 
         public List<TaskEntity> GetAllTasksWithUserId(int id)
@@ -42,7 +42,7 @@ namespace TaskTable.DataAccess.Repository
                 .Include(a => a.Urgency)
                 .Include(a => a.Reports)
                 .Include(a => a.AppUser)
-                .OrderByDescending(a => a.OlusturulmaTarihi).ToList();
+                .OrderByDescending(a => a.CreationDate).ToList();
         }
 
         public List<TaskEntity> GetAllCompleteTasksWithAllProperties(out int totalPage, int userId, int activePage)
@@ -53,10 +53,10 @@ namespace TaskTable.DataAccess.Repository
                  .Include(a => a.Urgency)
                  .Include(a => a.Reports)
                  .Include(a => a.AppUser)
-                 .Where(a => a.AppUserId == userId && a.Durum == true)
+                 .Where(a => a.AppUserId == userId && a.State == true)
                  .Skip((1 - activePage) * 3)
                  .Take(3)
-                 .OrderByDescending(a => a.OlusturulmaTarihi);
+                 .OrderByDescending(a => a.CreationDate);
             totalPage = (int)Math.Ceiling((double)(returnValue.Count() / 3));
             return returnValue.ToList();
         }
@@ -65,9 +65,9 @@ namespace TaskTable.DataAccess.Repository
         {
             using var context = new DatabaseContext();
             // eager loading .Include(a => a.UrgencyId)
-            return context.Tasks.Where(a => a.Durum == false)
+            return context.Tasks.Where(a => a.State == false)
                 .Include(a => a.Urgency)
-               .OrderByDescending(a => a.OlusturulmaTarihi).ToList();
+               .OrderByDescending(a => a.CreationDate).ToList();
         }
 
         public TaskEntity GetTaskWithReportProperty(int id)
@@ -77,7 +77,7 @@ namespace TaskTable.DataAccess.Repository
             return context.Tasks.Where(a => a.Id == id)
                 .Include(a => a.Reports)
                 .Include(a => a.AppUser)
-               .OrderByDescending(a => a.OlusturulmaTarihi).FirstOrDefault();
+               .OrderByDescending(a => a.CreationDate).FirstOrDefault();
         }
 
         public TaskEntity GetTaskWithUrgencyProperty(int id)
@@ -85,7 +85,7 @@ namespace TaskTable.DataAccess.Repository
             using (var context = new DatabaseContext())
             {
                 // eager loading .Include(a => a.UrgencyId)
-                return context.Tasks.Where(a => !a.Durum && a.Id == id)
+                return context.Tasks.Where(a => !a.State && a.Id == id)
                     .Include(a => a.Urgency)
                     .FirstOrDefault();
             }
@@ -95,34 +95,34 @@ namespace TaskTable.DataAccess.Repository
         {
             using var context = new DatabaseContext();
             // eager loading .Include(a => a.UrgencyId)
-            return context.Tasks.Where(a => a.Durum == true).Count();
+            return context.Tasks.Where(a => a.State == true).Count();
         }
 
         public int GetUnCompletedTaskCountWithAppUserIdProperty(int id)
         {
             using var context = new DatabaseContext();
-            return context.Tasks.Where(a => a.Durum == false).Count();
+            return context.Tasks.Where(a => a.State == false).Count();
         }
 
         public int GetNotAssignTaskCount()
         {
             // atanma bekleyen görev sayısı
             using var context = new DatabaseContext();
-            return context.Tasks.Where(a => a.Durum == false && a.AppUserId == null).Count();
+            return context.Tasks.Where(a => a.State == false && a.AppUserId == null).Count();
         }
 
         public int GetNotCompletedTaskCount()
         {
             // atanmış ve devam eden görev sayısı
             using var context = new DatabaseContext();
-            return context.Tasks.Where(a => a.Durum == false && a.AppUserId != null).Count();
+            return context.Tasks.Where(a => a.State == false && a.AppUserId != null).Count();
         }
 
         public int GetComplatedAssignTaskCount()
         {
             // tamamlanmış görev sayısı
             using var context = new DatabaseContext();
-            return context.Tasks.Where(a => a.Durum == true).Count();
+            return context.Tasks.Where(a => a.State == true).Count();
         }
 
     }

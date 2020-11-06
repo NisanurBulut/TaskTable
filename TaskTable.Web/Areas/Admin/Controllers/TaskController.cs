@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using TaskTable.Business.Interfaces;
+using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.Areas.Admin.Models;
 
@@ -17,53 +21,35 @@ namespace TaskTable.Web.Areas.Admin.Controllers
     {
         private readonly ITaskService _taskService;
         private readonly IUrgencyService _urgencyService;
-        
-        public TaskController(ITaskService taskService, IUrgencyService urgencyService)
+        private readonly IMapper _mapper;
+        public TaskController(ITaskService taskService, IUrgencyService urgencyService, IMapper mapper)
         {
+            _mapper = mapper;
             _taskService = taskService;
             _urgencyService = urgencyService;          
         }
         public IActionResult Index()
         {
             TempData["active"] = "task";
-            var taskentities = _taskService.GetNotFinishedTasks();
-            var results = new List<TaskListViewModel>();
+            var taskEntities = _taskService.GetNotFinishedTasks();
             // automapper kullanılarak düzeltilecek
-            foreach (var item in taskentities)
-            {
-                var model = new TaskListViewModel
-                {
-                    Id = item.Id,
-                    Aciklama = item.Aciklama,
-                    UrgencyId = item.UrgencyId,
-                    Urgency = item.Urgency,
-                    OlusturulmaTarihi = item.OlusturulmaTarihi,
-                    Ad = item.Ad,
-                    Durum = item.Durum
-                };
-                results.Add(model);
-            }
-            return View(results);
+            var models = _mapper.Map<List<TaskListDto>>(taskEntities);
+            return View(models);
         }
         [HttpGet]
         public IActionResult AddTask()
         {
             TempData["active"] = "task";
             ViewBag.Urgencies = new SelectList(_urgencyService.GetAll(), "Id", "Description");
-            return View();
+            return View(new TaskAddDto());
         }
         [HttpPost]
         public IActionResult AddTask(TaskAddViewModel model)
         {
             if (ModelState.IsValid)
             {
-                _taskService.Add(new TaskEntity
-                {
-                    Ad = model.Ad,
-                    Aciklama = model.Aciklama,
-                    UrgencyId = model.UrgencyId,
-
-                });
+                var entity = _mapper.Map<TaskEntity>(model);
+                _taskService.Add(entity);
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -72,28 +58,16 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         {
             TempData["active"] = "task";
             var entity = _taskService.Get(id);
-            TaskEditViewModel model = new TaskEditViewModel()
-            {
-                Id = entity.Id,
-                Aciklama = entity.Aciklama,
-                Ad = entity.Ad,
-                UrgencyId = entity.UrgencyId
-            };
+            TaskEditDto model = _mapper.Map<TaskEditDto>(entity);
             ViewBag.Urgencies = new SelectList(_urgencyService.GetAll(), "Id", "Description", model.UrgencyId);
             return View(model);
         }
         [HttpPost]
-        public IActionResult EditTask(TaskEditViewModel model)
+        public IActionResult EditTask(TaskEditDto model)
         {
             if (ModelState.IsValid)
             {
-                _taskService.Update(new TaskEntity
-                {
-                    Ad = model.Ad,
-                    Aciklama = model.Aciklama,
-                    UrgencyId = model.UrgencyId,
-                    Id = model.Id
-                });
+                _taskService.Update(_mapper.Map<TaskEntity>(model));
                 return RedirectToAction("Index");
             }
             return View(model);

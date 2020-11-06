@@ -1,4 +1,4 @@
-﻿@model TaskTable.Web.Areas.Admin.Models.TaskEditViewModel
+﻿@model TaskEditDto
 @{
     ViewData["Title"] = "EditTask";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -7,13 +7,13 @@
     <input type="hidden" asp-for="@Model.Id"/>
     <div class="form-group">
         <label>Ad: </label>
-        <span class="text-danger" asp-validation-for="@Model.Ad"></span>
-        <input class="form-control" type="text" asp-for="@Model.Ad" />
+        <span class="text-danger" asp-validation-for="@Model.Name"></span>
+        <input class="form-control" type="text" asp-for="@Model.Name" />
     </div>
     <div class="form-group">
         <label>Açıklama: </label>
-        <span class="text-danger" asp-validation-for="@Model.Aciklama"></span>
-        <textarea class="form-control" type="text" asp-for="@Model.Aciklama"></textarea>
+        <span class="text-danger" asp-validation-for="@Model.Description"></span>
+        <textarea class="form-control" type="text" asp-for="@Model.Description"></textarea>
     </div>
     <div class="form-group">
         <label>Aciliyet: </label>

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoAppUser;
+using TaskTable.DataTransferObjects.DtoReport;
+using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.Areas.Admin.Models;
 using TaskTable.Web.Areas.Member.Models;
@@ -23,12 +26,15 @@ namespace TaskTable.Web.Areas.Member.Controllers
         private readonly IFileService _fileService;
         private readonly INotificationService _notificationService;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IMapper _mapper;
         public TaskOrderController(IAppUserService appUserService,
             ITaskService taskService, UserManager<AppUser> userManager,
             IFileService fileService,
             IReportService reportService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IMapper mapper)
         {
+            _mapper = mapper;
             _userManager = userManager;
             _appUserService = appUserService;
             _taskService = taskService;
@@ -40,22 +46,8 @@ namespace TaskTable.Web.Areas.Member.Controllers
         {
             TempData["active"] = "taskorder";
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var tasklist = _taskService.GetAllTasksWithAllProperties(I => I.AppUserId == user.Id && I.Durum == false);
-            var models = new List<TaskListAllViewModel>();
-            foreach (var item in tasklist)
-            {
-                TaskListAllViewModel taskModel = new TaskListAllViewModel
-                {
-                    Id = item.Id,
-                    Aciklama = item.Aciklama,
-                    Ad = item.Ad,
-                    OlusturulmaTarihi = item.OlusturulmaTarihi,
-                    Reports = item.Reports,
-                    Urgency = item.Urgency,
-                    AppUser = item.AppUser
-                };
-                models.Add(taskModel);
-            }
+            var tasklist = _taskService.GetAllTasksWithAllProperties(I => I.AppUserId == user.Id && I.State == false);
+            var models = _mapper.Map<List<TaskListDto>>(tasklist);
             return View(models);
         }
         public IActionResult AssignUser(int id, string searchKey, int page = 1)
@@ -67,28 +59,10 @@ namespace TaskTable.Web.Areas.Member.Controllers
             var kullaniciEntities = _appUserService.GetNotAdminAppUsers(out totalPage, searchKey, page);
             ViewBag.TotalPage = totalPage;
             ViewBag.SearchKey = searchKey;
-            List<AppUserListViewModel> appUserListModel = new List<AppUserListViewModel>();
-            foreach (var item in kullaniciEntities)
-            {
-                AppUserListViewModel modelAppUser = new AppUserListViewModel
-                {
-                    Email = item.Email,
-                    Name = item.Name,
-                    Surname = item.Surname,
-                    Id = item.Id,
-                    Picture = item.Picture
-                };
-                appUserListModel.Add(modelAppUser);
-            }
+            var appUserListModel = _mapper.Map<List<AppUserListDto>>(kullaniciEntities);
+            
             ViewBag.Kullanicilar = appUserListModel;
-            TaskListViewModel model = new TaskListViewModel
-            {
-                Aciklama = entity.Aciklama,
-                Ad = entity.Ad,
-                Id = entity.Id,
-                Urgency = entity.Urgency,
-                OlusturulmaTarihi = entity.OlusturulmaTarihi
-            };
+            TaskListDto model = _mapper.Map<TaskListDto>(entity);
             return View(model);
         }
         [HttpGet]
@@ -97,22 +71,12 @@ namespace TaskTable.Web.Areas.Member.Controllers
             TempData["active"] = "taskorder";
             var user = _userManager.Users.FirstOrDefault(a => a.Id == model.AppUserId);
             var task = _taskService.GetTaskWithUrgencyProperty(model.TaskId);
-            AppUserListViewModel userModel = new AppUserListViewModel();
-            userModel.Id = user.Id;
-            userModel.Name = user.Name;
-            userModel.Surname = user.Surname;
-            userModel.Picture = user.Picture;
-            userModel.Email = user.Email;
+            AppUserListDto userModel = _mapper.Map<AppUserListDto>(user);
+            TaskListDto taskListDto = _mapper.Map<TaskListDto>(task);
 
-            TaskListViewModel taskListViewModel = new TaskListViewModel();
-            taskListViewModel.Aciklama = task.Aciklama;
-            taskListViewModel.Ad = task.Ad;
-            taskListViewModel.Urgency = task.Urgency;
-            taskListViewModel.Id = task.Id;
-
-            TaskAssignUserListViewModel taskUserViewModel = new TaskAssignUserListViewModel();
+            TaskAssignUserListDto taskUserViewModel = new TaskAssignUserListDto();
             taskUserViewModel.AppUser = userModel;
-            taskUserViewModel.Task = taskListViewModel;
+            taskUserViewModel.Task = taskListDto;
             return View(taskUserViewModel);
         }
         [HttpPost]
@@ -127,13 +91,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         {
             TempData["active"] = "taskorder";
             var result = _taskService.GetTaskWithReportProperty(id);
-            TaskListAllViewModel model = new TaskListAllViewModel();
-            model.OlusturulmaTarihi = result.OlusturulmaTarihi;
-            model.Id = result.Id;
-            model.Reports = result.Reports;
-            model.Aciklama = result.Aciklama;
-            model.Ad = result.Ad;
-            model.AppUser = result.AppUser;
+            var model = _mapper.Map<TaskListDto>(result);           
             return View(model);
         }
         public IActionResult ExportExcel(int id)
@@ -158,17 +116,12 @@ namespace TaskTable.Web.Areas.Member.Controllers
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> AddReport(ReportAddViewModel model)
+        public async Task<IActionResult> AddReport(ReportAddDto model)
         {
             if (ModelState.IsValid)
             {
-                ReportEntity entity = new ReportEntity
-                {
-                    TaskId = model.TaskId,
-                    Detail = model.Detail,
-                    Description = model.Description
-
-                };
+                var entity = _mapper.Map<ReportEntity>(model);
+              
                 _reportService.Add(entity);
                 // rolü admin olan kullanıcılara bildirim eklenecek
                 var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
@@ -192,17 +145,11 @@ namespace TaskTable.Web.Areas.Member.Controllers
             TempData["active"] = "taskorder";
             ReportEntity entity = new ReportEntity();
             entity = _reportService.GetReportWithTaskProperty(id);
-            ReportEditViewModel model = new ReportEditViewModel();
-            model.TaskId = id;
-            model.Id = entity.Id;
-            model.Task = entity.Task;
-            model.TaskId = entity.TaskId;
-            model.Detail = entity.Detail;
-            model.Description = entity.Description;
+            var model = _mapper.Map<ReportEditDto>(entity);
             return View(model);
         }
         [HttpPost]
-        public IActionResult EditReport(ReportEditViewModel model)
+        public IActionResult EditReport(ReportEditDto model)
         {
             if (ModelState.IsValid)
             {
@@ -220,10 +167,9 @@ namespace TaskTable.Web.Areas.Member.Controllers
         {
             if (ModelState.IsValid)
             {
-                var entity = _taskService.Get(TaskId);
-                entity.Durum = true;
-
-                _taskService.Update(entity);
+                var taskEntity = _taskService.Get(TaskId);
+                taskEntity.State = true;
+                _taskService.Update(taskEntity);
 
                 var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
                 var activeUser = await _userManager.FindByNameAsync(User.Identity.Name);

@@ -5,10 +5,10 @@ namespace TaskTable.Entity.Concrete
 {
     public class TaskEntity :BaseEntity, ITablo
     {
-        public string Ad { get; set; }
-        public bool Durum { get; set; }
-        public string Aciklama { get; set; }
-        public DateTime OlusturulmaTarihi { get; set; } = DateTime.Now;
+        public string Name { get; set; }
+        public bool State { get; set; }
+        public string Description { get; set; }
+        public DateTime CreationDate { get; set; } = DateTime.Now;
         // görev oluşturulurken kullanıcı atama zorlaması olmaması için nullable olmalı
         public int? AppUserId { get; set; }
         public AppUser AppUser { get; set; }

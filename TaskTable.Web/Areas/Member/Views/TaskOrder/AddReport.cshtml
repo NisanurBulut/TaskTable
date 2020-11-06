@@ -1,4 +1,4 @@
-﻿@model TaskTable.Web.Areas.Member.Models.ReportAddViewModel
+﻿@model ReportAddDto
 @{
     ViewData["Title"] = "AddReport";
     Layout = "~/Areas/Member/Views/Shared/_MemberLayout.cshtml";
@@ -14,10 +14,10 @@
         </div>
         <div class="card-body">
             <p>
-                <span class="font-weight-bold mr-2">Görev Ad :</span>@Model.Task.Ad
+                <span class="font-weight-bold mr-2">Görev Ad :</span>@Model.Task.Name
             </p>                              
             <p>                               
-                <span class="font-weight-bold mr-2">Görev Açıklama :</span>@Model.Task.Aciklama
+                <span class="font-weight-bold mr-2">Görev Açıklama :</span>@Model.Task.Description
             </p>                              
             <p>                               
                 <span class="font-weight-bold mr-2">Görev Aciliyet :</span>@Model.Task.Urgency.Description

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoAppUser;
+using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.Areas.Admin.Models;
 namespace TaskTable.Web.Areas.Admin.Controllers
@@ -22,8 +23,8 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         private readonly UserManager<AppUser> _userManager;
         private readonly INotificationService _notificationService;
         private readonly IMapper _mapper;
-        public TaskOrderController(IAppUserService appUserService, 
-            ITaskService taskService, UserManager<AppUser> userManager, 
+        public TaskOrderController(IAppUserService appUserService,
+            ITaskService taskService, UserManager<AppUser> userManager,
             IFileService fileService,
             INotificationService notificationService,
             IMapper mapper)
@@ -38,23 +39,9 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         public IActionResult Index()
         {
             TempData["active"] = "taskorder";
-            var tasklist = _taskService.GetAllTasksWithAllProperties();
-            var models = new List<TaskListAllViewModel>();
-            foreach (var item in tasklist)
-            {
-                TaskListAllViewModel taskModel = new TaskListAllViewModel
-                {
-                    Id = item.Id,
-                    Aciklama = item.Aciklama,
-                    Ad = item.Ad,
-                    OlusturulmaTarihi = item.OlusturulmaTarihi,
-                    Reports = item.Reports,
-                    Urgency = item.Urgency,
-                    AppUser = item.AppUser
-                };
-                models.Add(taskModel);
-            }
-            var model = _appUserService.GetNotAdminAppUsers();
+            var taskEntityList = _taskService.GetAllTasksWithAllProperties();
+            var models = _mapper.Map<TaskListDto>(taskEntityList);
+            
             return View(models);
         }
         public IActionResult AssignUser(int id, string searchKey, int page = 1)
@@ -66,28 +53,10 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             var kullaniciEntities = _appUserService.GetNotAdminAppUsers(out totalPage, searchKey, page);
             ViewBag.TotalPage = totalPage;
             ViewBag.SearchKey = searchKey;
-            List<AppUserListViewModel> appUserListModel = new List<AppUserListViewModel>();
-            foreach (var item in kullaniciEntities)
-            {
-                AppUserListViewModel modelAppUser = new AppUserListViewModel
-                {
-                    Email = item.Email,
-                    Name = item.Name,
-                    Surname = item.Surname,
-                    Id = item.Id,
-                    Picture = item.Picture
-                };
-                appUserListModel.Add(modelAppUser);
-            }
+            var appUserListModel = _mapper.Map<AppUserListDto>(kullaniciEntities);
+         
             ViewBag.Kullanicilar = appUserListModel;
-            TaskListViewModel model = new TaskListViewModel
-            {
-                Aciklama = entity.Aciklama,
-                Ad = entity.Ad,
-                Id = entity.Id,
-                Urgency = entity.Urgency,
-                OlusturulmaTarihi = entity.OlusturulmaTarihi
-            };
+            TaskListDto model = _mapper.Map<TaskListDto>(entity);
             return View(model);
         }
         [HttpGet]
@@ -95,21 +64,10 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         {
             TempData["active"] = "taskorder";
             var user = _userManager.Users.FirstOrDefault(a => a.Id == model.AppUserId);
-            var task = _taskService.GetTaskWithUrgencyProperty(model.TaskId);
-            AppUserListViewModel userModel = new AppUserListViewModel();
-            userModel.Id = user.Id;
-            userModel.Name = user.Name;
-            userModel.Surname = user.Surname;
-            userModel.Picture = user.Picture;
-            userModel.Email = user.Email;
-
-            TaskListViewModel taskListViewModel = new TaskListViewModel();
-            taskListViewModel.Aciklama = task.Aciklama;
-            taskListViewModel.Ad = task.Ad;
-            taskListViewModel.Urgency = task.Urgency;
-            taskListViewModel.Id = task.Id;
-
-            TaskAssignUserListViewModel taskUserViewModel = new TaskAssignUserListViewModel();
+            var taskEntity = _taskService.GetTaskWithUrgencyProperty(model.TaskId);
+            AppUserListDto userModel = _mapper.Map<AppUserListDto>(user);
+            var taskListViewModel = _mapper.Map<TaskListDto>(taskEntity);
+            TaskAssignUserListDto taskUserViewModel = new TaskAssignUserListDto();
             taskUserViewModel.AppUser = userModel;
             taskUserViewModel.Task = taskListViewModel;
             return View(taskUserViewModel);
@@ -124,7 +82,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             _notificationService.Add(new NotificationEntity
             {
                 AppUserId = model.AppUserId,
-                Description = $"{item.Ad} adlı iş için görevlendirildiniz."
+                Description = $"{item.Name} adlı iş için görevlendirildiniz."
             });
             return RedirectToAction("Index");
         }
@@ -132,13 +90,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         {
             TempData["active"] = "taskorder";
             var result = _taskService.GetTaskWithReportProperty(id);
-            TaskListAllViewModel model = new TaskListAllViewModel();
-            model.OlusturulmaTarihi = result.OlusturulmaTarihi;
-            model.Id = result.Id;
-            model.Reports = result.Reports;
-            model.Aciklama = result.Aciklama;
-            model.Ad = result.Ad;
-            model.AppUser = result.AppUser;
+            TaskListDto model = _mapper.Map<TaskListDto>(result);
             return View(model);
         }
         public IActionResult ExportExcel(int id)

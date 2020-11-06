@@ -1,4 +1,4 @@
-﻿@model TaskAssignUserListViewModel
+﻿@model TaskAssignUserListDto
 @{
     ViewData["Title"] = "AssignTaskToUser";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -13,16 +13,16 @@
             </div>
             <div class="card-body">
                 <h5 class="card-title">
-                    @Model.Task.Ad
+                    @Model.Task.Name
                 </h5>
                 <p class="card-text">
-                    @Model.Task.Aciklama
+                    @Model.Task.Description
                 </p>
                 <p class="card-text">
                     <strong>Aciliyet Durumu : </strong>
                     <span class="badge badge-primary">@Model.Task.Urgency.Description</span>
                 </p>
-                <p class="card-text"> <small>@Model.Task.OlusturulmaTarihi.ToString("D")</small></p>
+                <p class="card-text"> <small>@Model.Task.CreationDate.ToString("D")</small></p>
             </div>
         </div>
     </div>

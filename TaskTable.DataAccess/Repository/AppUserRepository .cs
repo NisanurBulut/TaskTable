@@ -84,7 +84,7 @@ namespace TaskTable.DataAccess.Repository
         {
             using var context = new DatabaseContext();
             return context.Tasks
-                .Where(a => a.Durum == true)
+                .Where(a => a.State == true)
                 .Include(a => a.AppUser)
                 .GroupBy(a => a.AppUser.UserName)
                 .OrderByDescending(I => I.Count())
@@ -98,7 +98,7 @@ namespace TaskTable.DataAccess.Repository
         {
             using var context = new DatabaseContext();
             return context.Tasks
-                .Where(a => a.Durum == false && a.AppUserId != null)
+                .Where(a => a.State == false && a.AppUserId != null)
                 .Include(a => a.AppUser)
                 .GroupBy(a => a.AppUser.UserName)
                 .OrderByDescending(I => I.Count())

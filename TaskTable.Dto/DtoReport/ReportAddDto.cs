@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using TaskTable.Entity.Concrete;
 
 namespace TaskTable.DataTransferObjects.DtoReport
 {
@@ -12,6 +13,6 @@ namespace TaskTable.DataTransferObjects.DtoReport
         public string Description { get; set; }
         public string Detail { get; set; }
         public int TaskId { get; set; }
-        //public TaskEntity Task { get; set; }
+        public TaskEntity Task { get; set; }
     }
 }

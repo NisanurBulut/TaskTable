@@ -1,4 +1,4 @@
-﻿@model List<TaskTable.Web.Areas.Admin.Models.TaskListViewModel>
+﻿@model List<TaskListDto>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -19,9 +19,9 @@
         @foreach (var item in Model)
         {
             <tr>
-                <td>@item.Ad</td>
-                <td>@item.Aciklama</td>
-                <td>@item.OlusturulmaTarihi.ToString("D")</td>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.CreationDate.ToString("D")</td>
                 <td>@item.Urgency.Description</td>
                 <td>
                     <a class="btn btn-sm btn-danger" 

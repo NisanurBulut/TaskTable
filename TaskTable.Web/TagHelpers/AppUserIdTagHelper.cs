@@ -20,8 +20,8 @@ namespace TaskTable.Web.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             var tasks = _taskService.GetAllTasksWithUserId(AppUserId);
-            int finisedTaskCount = tasks.Where(a => a.Durum).Count();
-            int unFinisedTaskCount = tasks.Where(a => !a.Durum).Count();
+            int finisedTaskCount = tasks.Where(a => a.State).Count();
+            int unFinisedTaskCount = tasks.Where(a => !a.State).Count();
             string htmlString = $"<p>Tamamlanan görev sayısı : {finisedTaskCount}</p>" +
                 $"</br><p>Devam eden görev sayısı : {unFinisedTaskCount}</p>";
             output.Content.SetHtmlContent(htmlString);
