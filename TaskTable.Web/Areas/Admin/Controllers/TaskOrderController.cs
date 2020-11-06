@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -20,11 +21,14 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         private readonly IFileService _fileService;
         private readonly UserManager<AppUser> _userManager;
         private readonly INotificationService _notificationService;
+        private readonly IMapper _mapper;
         public TaskOrderController(IAppUserService appUserService, 
             ITaskService taskService, UserManager<AppUser> userManager, 
             IFileService fileService,
-            INotificationService notificationService)
+            INotificationService notificationService,
+            IMapper mapper)
         {
+            _mapper = mapper;
             _userManager = userManager;
             _appUserService = appUserService;
             _taskService = taskService;
