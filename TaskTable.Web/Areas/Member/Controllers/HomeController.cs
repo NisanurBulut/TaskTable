@@ -34,12 +34,12 @@ namespace TaskTable.Web.Areas.Member.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            TempData["active"] = "home";
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             ViewBag.ReportCount = _reportService.GetReportsCountWithAppUserIdProperty(user.Id);
             ViewBag.CompletedTaskCount = _taskService.GetCompletedTaskCountWithAppUserIdProperty(user.Id);
             ViewBag.UnReadNotificationCount = _notificationService.GetUnReadNotificationCountwithAppUserId(user.Id);
             ViewBag.UnCompletedTaskCount = _taskService.GetUnCompletedTaskCountWithAppUserIdProperty(user.Id);
-            TempData["active"] = "home";
             return View();
            
         }
