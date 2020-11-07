@@ -11,29 +11,29 @@ using TaskTable.DataTransferObjects.DtoAppUser;
 using TaskTable.DataTransferObjects.DtoReport;
 using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
+using TaskTable.Web.BaseControllers;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {
     [Authorize(Roles = "Member")]
     [Area("Member")]
-    public class TaskOrderController : Controller
+    public class TaskOrderController : BaseIdentityController
     {
         private readonly IAppUserService _appUserService;
         private readonly IReportService _reportService;
         private readonly ITaskService _taskService;
         private readonly IFileService _fileService;
         private readonly INotificationService _notificationService;
-        private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
         public TaskOrderController(IAppUserService appUserService,
             ITaskService taskService, UserManager<AppUser> userManager,
             IFileService fileService,
             IReportService reportService,
             INotificationService notificationService,
-            IMapper mapper)
+            IMapper mapper):base(userManager)
         {
             _mapper = mapper;
-            _userManager = userManager;
+           
             _appUserService = appUserService;
             _taskService = taskService;
             _fileService = fileService;
@@ -43,7 +43,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         public async Task<IActionResult> Index()
         {
             TempData["active"] = "taskorder";
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var user = await GetOnlineUser();
             var tasklist = _taskService.GetAllTasksWithAllProperties(I => I.AppUserId == user.Id && I.State == false);
             var models = _mapper.Map<List<TaskListDto>>(tasklist);
             return View(models);
@@ -123,7 +123,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
                 _reportService.Add(entity);
                 // rolü admin olan kullanıcılara bildirim eklenecek
                 var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
-                var activeUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                var activeUser = await GetOnlineUser();
                 foreach (var adminUser in adminUsers)
                 {
                     _notificationService.Add(new NotificationEntity
@@ -170,7 +170,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
                 _taskService.Update(taskEntity);
 
                 var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
-                var activeUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                var activeUser = await GetOnlineUser();
                 foreach (var adminUser in adminUsers)
                 {
                     _notificationService.Add(new NotificationEntity

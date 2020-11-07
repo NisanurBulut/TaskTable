@@ -7,12 +7,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
 using TaskTable.Entity.Concrete;
+using TaskTable.Web.BaseControllers;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {
     [Authorize(Roles = "Member")]
     [Area("Member")]
-    public class HomeController : Controller
+    public class HomeController : BaseIdentityController
     {
         /*
          İlgili kullanıcının rapor sayısı
@@ -20,14 +21,13 @@ namespace TaskTable.Web.Areas.Member.Controllers
          İlgili kullanıcının görev sayısı
          */
         private readonly IReportService _reportService;
-        private readonly UserManager<AppUser> _userManager;
         private readonly ITaskService _taskService;
         private readonly INotificationService _notificationService;
         public HomeController(IReportService reportService, 
             UserManager<AppUser> userManager, ITaskService taskService,
-            INotificationService notificationService)
+            INotificationService notificationService):base(userManager)
         {
-            _userManager = userManager;
+          
             _reportService = reportService;
             _taskService = taskService;
             _notificationService = notificationService;
@@ -35,7 +35,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         public async Task<IActionResult> Index()
         {
             TempData["active"] = "home";
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var user = GetOnlineUser();
             ViewBag.ReportCount = _reportService.GetReportsCountWithAppUserIdProperty(user.Id);
             ViewBag.CompletedTaskCount = _taskService.GetCompletedTaskCountWithAppUserIdProperty(user.Id);
             ViewBag.UnReadNotificationCount = _notificationService.GetUnReadNotificationCountwithAppUserId(user.Id);
