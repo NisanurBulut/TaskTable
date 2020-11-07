@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
+using TaskTable.DataTransferObjects.DtoNotification;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.Areas.Admin.Models;
 
@@ -18,29 +20,24 @@ namespace TaskTable.Web.Areas.Member.Controllers
     // her view component'in bir default'ı olmalıdır.
     public class NotificationController : Controller
     {
+        private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
         private readonly INotificationService _notificationService;
         public NotificationController(INotificationService notificationService,
-            UserManager<AppUser> userManager)
+            UserManager<AppUser> userManager, IMapper mapper)
         {
             _userManager = userManager;
             _notificationService = notificationService;
+            _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
             TempData["active"] = "notification";
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var notificationList = _notificationService.GetUnReadAll(user.Id);
-            var models = new List<NotificationListViewModel>();
-            foreach(var item in notificationList)
-            {
-                var model = new NotificationListViewModel
-                {
-                    Id = item.Id,
-                    Description = item.Description
-                };
-                models.Add(model);
-            }
+            var models = _mapper.Map<List<NotificationListDto>>(notificationList);
+            
+           
             return View(models);
         }
         [HttpPost]

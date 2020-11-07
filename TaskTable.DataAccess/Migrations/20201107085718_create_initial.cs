@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace TaskTable.DataAccess.Migrations
 {
-    public partial class createInitial : Migration
+    public partial class create_initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,7 +46,8 @@ namespace TaskTable.DataAccess.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Name = table.Column<string>(maxLength: 100, nullable: true),
-                    Surname = table.Column<string>(maxLength: 100, nullable: true)
+                    Surname = table.Column<string>(maxLength: 100, nullable: true),
+                    Picture = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -174,16 +175,38 @@ namespace TaskTable.DataAccess.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "tNotification",
+                schema: "dbo",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    AppUserId = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(maxLength: 100, nullable: false),
+                    State = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_tNotification", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_tNotification_AspNetUsers_AppUserId",
+                        column: x => x.AppUserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "tTask",
                 schema: "dbo",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Ad = table.Column<string>(maxLength: 50, nullable: false),
-                    Durum = table.Column<bool>(nullable: false),
-                    Aciklama = table.Column<string>(maxLength: 100, nullable: false),
-                    OlusturulmaTarihi = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    State = table.Column<bool>(nullable: false),
+                    Description = table.Column<string>(maxLength: 100, nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: false),
                     AppUserId = table.Column<int>(nullable: true),
                     UrgencyId = table.Column<int>(nullable: false)
                 },
@@ -266,6 +289,12 @@ namespace TaskTable.DataAccess.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_tNotification_AppUserId",
+                schema: "dbo",
+                table: "tNotification",
+                column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_tReport_TaskId",
                 schema: "dbo",
                 table: "tReport",
@@ -300,6 +329,10 @@ namespace TaskTable.DataAccess.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "tNotification",
+                schema: "dbo");
 
             migrationBuilder.DropTable(
                 name: "tReport",

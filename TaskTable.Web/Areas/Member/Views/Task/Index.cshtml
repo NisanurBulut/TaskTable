@@ -1,4 +1,4 @@
-﻿@model List<TaskListAllViewModel>
+﻿@model List<TaskListDto>
 
 @{
     ViewData["Title"] = "Index";
@@ -9,7 +9,7 @@
 {
     <div class="card my-1">
         <div class="card-header">
-            @item.Ad
+            @item.Name
         </div>
         <div class="card-body">
             <h5 class="card-title">
@@ -17,7 +17,7 @@
                 @item.Urgency.Description
             </h5>
             <p class="card-text">
-                @item.Aciklama
+                @item.Description
             </p>
             <p class="text-right">
                 @if (item.Reports.Any())

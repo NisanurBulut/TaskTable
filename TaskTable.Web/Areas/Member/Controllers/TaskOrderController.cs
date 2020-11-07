@@ -66,7 +66,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
             return View(model);
         }
         [HttpGet]
-        public IActionResult AssignTaskToUser(TaskAssignUserViewModel model)
+        public IActionResult AssignTaskToUser(TaskAssignUserDto model)
         {
             TempData["active"] = "taskorder";
             var user = _userManager.Users.FirstOrDefault(a => a.Id == model.AppUserId);
@@ -80,7 +80,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
             return View(taskUserViewModel);
         }
         [HttpPost]
-        public IActionResult AssignTaskOnUser(TaskAssignUserViewModel model)
+        public IActionResult AssignTaskOnUser(TaskAssignUserDto model)
         {
             var item = _taskService.Get(model.TaskId);
             item.AppUserId = model.AppUserId;
@@ -110,7 +110,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         public IActionResult AddReport(int id)
         {
             TempData["active"] = "taskorder";
-            ReportAddViewModel model = new ReportAddViewModel();
+            ReportAddDto model = new ReportAddDto();
             model.TaskId = id;
             model.Task = _taskService.GetTaskWithUrgencyProperty(id);
             return View(model);

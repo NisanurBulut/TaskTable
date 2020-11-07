@@ -40,7 +40,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         {
             TempData["active"] = "taskorder";
             var taskEntityList = _taskService.GetAllTasksWithAllProperties();
-            var models = _mapper.Map<TaskListDto>(taskEntityList);
+            var models = _mapper.Map<List<TaskListDto>>(taskEntityList);
             
             return View(models);
         }
@@ -51,38 +51,44 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             int totalPage = 0;
             var entity = _taskService.GetTaskWithUrgencyProperty(id);
             var kullaniciEntities = _appUserService.GetNotAdminAppUsers(out totalPage, searchKey, page);
+            
             ViewBag.TotalPage = totalPage;
             ViewBag.SearchKey = searchKey;
-            var appUserListModel = _mapper.Map<AppUserListDto>(kullaniciEntities);
+           
+            var appUserListModel = _mapper.Map<List<AppUserListDto>>(kullaniciEntities);
          
             ViewBag.Kullanicilar = appUserListModel;
             TaskListDto model = _mapper.Map<TaskListDto>(entity);
             return View(model);
         }
         [HttpGet]
-        public IActionResult AssignTaskToUser(TaskAssignUserViewModel model)
+        public IActionResult AssignTaskToUser(TaskAssignUserDto model)
         {
             TempData["active"] = "taskorder";
+            
             var user = _userManager.Users.FirstOrDefault(a => a.Id == model.AppUserId);
             var taskEntity = _taskService.GetTaskWithUrgencyProperty(model.TaskId);
-            AppUserListDto userModel = _mapper.Map<AppUserListDto>(user);
-            var taskListViewModel = _mapper.Map<TaskListDto>(taskEntity);
+            
+            AppUserListDto userListDto = _mapper.Map<AppUserListDto>(user);
+            var taskListDto = _mapper.Map<TaskListDto>(taskEntity);
+            
             TaskAssignUserListDto taskUserViewModel = new TaskAssignUserListDto();
-            taskUserViewModel.AppUser = userModel;
-            taskUserViewModel.Task = taskListViewModel;
+            taskUserViewModel.AppUser = userListDto;
+            taskUserViewModel.Task = taskListDto;
+            
             return View(taskUserViewModel);
         }
         [HttpPost]
-        public IActionResult AssignTaskOnUser(TaskAssignUserViewModel model)
+        public IActionResult AssignTaskOnUser(TaskAssignUserDto model)
         {
-            var item = _taskService.Get(model.TaskId);
-            item.AppUserId = model.AppUserId;
-            _taskService.Update(item);
+            var taskEntity = _taskService.Get(model.TaskId);
+            taskEntity.AppUserId = model.AppUserId;
+            _taskService.Update(taskEntity);
 
             _notificationService.Add(new NotificationEntity
             {
                 AppUserId = model.AppUserId,
-                Description = $"{item.Name} adlı iş için görevlendirildiniz."
+                Description = $"{taskEntity.Name} adlı iş için görevlendirildiniz."
             });
             return RedirectToAction("Index");
         }

@@ -44,7 +44,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             return View(new TaskAddDto());
         }
         [HttpPost]
-        public IActionResult AddTask(TaskAddViewModel model)
+        public IActionResult AddTask(TaskAddDto model)
         {
             if (ModelState.IsValid)
             {

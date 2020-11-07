@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -10,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using TaskTable.DataTransferObjects.DtoAppUser;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.Areas.Admin.Models;
 
@@ -19,9 +21,11 @@ namespace TaskTable.Web.Areas.Member.Controllers
     [Area("Member")]
     public class ProfilController : Controller
     {
+        private readonly IMapper _mapper;
         private readonly UserManager<AppUser> _userManager;
-        public ProfilController(UserManager<AppUser> userManager)
+        public ProfilController(UserManager<AppUser> userManager, IMapper mapper)
         {
+            _mapper = mapper;
             _userManager = userManager;
         }
         public async Task<IActionResult> Index()
@@ -29,16 +33,11 @@ namespace TaskTable.Web.Areas.Member.Controllers
             TempData["active"] = "profile";
             // oturum açmış kullanıcı bilgisi okunur
             var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
-            AppUserListViewModel model = new AppUserListViewModel();
-            model.Id = appUser.Id;
-            model.Name = appUser.Name;
-            model.Email = appUser.Email;
-            model.Picture = appUser.Picture;
-            model.Surname = appUser.Surname;
+            AppUserListDto model = _mapper.Map<AppUserListDto>(appUser);
             return View(model);
         }
         [HttpPost]
-        public async Task<IActionResult> Index(AppUserListViewModel model, IFormFile picture)
+        public async Task<IActionResult> Index(AppUserListDto model, IFormFile picture)
         {
             if (ModelState.IsValid)
             {

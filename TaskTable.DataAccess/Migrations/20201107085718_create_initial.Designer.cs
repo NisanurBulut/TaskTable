@@ -10,8 +10,8 @@ using TaskTable.DataAccess.Context;
 namespace TaskTable.DataAccess.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    [Migration("20201028104113_add-column_picture_in_tAppUser")]
-    partial class addcolumn_picture_in_tAppUser
+    [Migration("20201107085718_create_initial")]
+    partial class create_initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -221,6 +221,33 @@ namespace TaskTable.DataAccess.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
+            modelBuilder.Entity("TaskTable.Entity.Concrete.NotificationEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER")
+                        .HasAnnotation("SqlServer:IdentityIncrement", 1)
+                        .HasAnnotation("SqlServer:IdentitySeed", 1)
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AppUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasMaxLength(100);
+
+                    b.Property<bool>("State")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppUserId");
+
+                    b.ToTable("tNotification","dbo");
+                });
+
             modelBuilder.Entity("TaskTable.Entity.Concrete.ReportEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -257,24 +284,24 @@ namespace TaskTable.DataAccess.Migrations
                         .HasAnnotation("SqlServer:IdentitySeed", 1)
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Aciklama")
+                    b.Property<int?>("AppUserId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<DateTime>("CreationDate")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasMaxLength(100);
 
-                    b.Property<string>("Ad")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasMaxLength(50);
 
-                    b.Property<int?>("AppUserId")
+                    b.Property<bool>("State")
                         .HasColumnType("INTEGER");
-
-                    b.Property<bool>("Durum")
-                        .HasColumnType("INTEGER");
-
-                    b.Property<DateTime>("OlusturulmaTarihi")
-                        .HasColumnType("TEXT");
 
                     b.Property<int>("UrgencyId")
                         .HasColumnType("INTEGER");
@@ -353,6 +380,15 @@ namespace TaskTable.DataAccess.Migrations
                     b.HasOne("TaskTable.Entity.Concrete.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("TaskTable.Entity.Concrete.NotificationEntity", b =>
+                {
+                    b.HasOne("TaskTable.Entity.Concrete.AppUser", "AppUser")
+                        .WithMany("Notifications")
+                        .HasForeignKey("AppUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
