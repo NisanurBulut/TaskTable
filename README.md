@@ -10,6 +10,10 @@ Görev tamamlama işlemi - Task complete Operation
 ![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_FinishTask.gif)
 
 
+
+Görev işlemi - Task Operation
+![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_Task.gif)
+
 Kullanıcıya göre atama - Assign by user
 ![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_AssignTaskToUser.gif)
 
