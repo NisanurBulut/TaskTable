@@ -15,6 +15,7 @@ namespace TaskTable.Business.Concrete
     {
         public byte[] ExportExcel<T>(List<T> entity) where T : class, new()
         {
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var excelPackage = new ExcelPackage();
             var excelBlank = excelPackage.Workbook.Worksheets.Add("Calisma1");
             excelBlank.Cells["A1"].LoadFromCollection(entity, true, OfficeOpenXml.Table.TableStyles.Light15);
@@ -26,9 +27,11 @@ namespace TaskTable.Business.Concrete
             dataTable.Load(ObjectReader.Create(entity));
 
             var fileName = Guid.NewGuid() + ".pdf";
-            var returnPath = "/documents" + fileName;
-            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwRoot/documents/" + fileName);
-            var stream = new FileStream(path, FileMode.Open);
+            var returnPath = "/documents/" + fileName;
+            var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/documents/" + fileName);
+
+
+            var stream = new FileStream(path, FileMode.Create);
 
             string arialTtf = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
             BaseFont baseFont = BaseFont.CreateFont(arialTtf, BaseFont.IDENTITY_H, BaseFont.NOT_EMBEDDED);

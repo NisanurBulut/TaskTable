@@ -7,3 +7,7 @@ Görev ekle sil güncelle işlemleri - Add task delete update operations
 
 Kullanıcıya göre atama - Assign by user
 ![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_AssignTaskToUser.gif)
+
+
+Rapor export işlemleri - Report Export Operations
+![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_Trailer_ExportReport.gif)

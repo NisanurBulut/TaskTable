@@ -44,7 +44,9 @@ namespace TaskTable.Web.Mapping.AutoMapperProfile
             CreateMap<ReportEntity, ReportAddDto>();
             CreateMap<ReportAddDto, ReportEntity>();
             CreateMap<ReportEntity, ReportEditDto>();
-            CreateMap<ReportEditDto, ReportEntity>(); 
+            CreateMap<ReportEditDto, ReportEntity>();
+            CreateMap<ReportEntity, ReportExportDto>();
+            CreateMap<ReportExportDto, ReportEntity>();
             #endregion
         }
     }

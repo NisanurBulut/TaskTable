@@ -101,13 +101,15 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         public IActionResult ExportExcel(int id)
         {
             // byte döndüğü için doğrudan report return edilebilir
-            return File(_fileService.ExportExcel(_taskService.GetTaskWithReportProperty(id).Reports),
-                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", new Guid() + ".xlsx");
+            var models = _mapper.Map<List<ReportExportDto>>(_taskService.GetTaskWithReportProperty(id).Reports);
+            return File(_fileService.ExportExcel(models),
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", Guid.NewGuid().ToString() + ".xlsx");
         }
         public IActionResult ExportPdf(int id)
         {
-            var filePath = _fileService.ExportExcel(_taskService.GetTaskWithReportProperty(id).Reports);
-            return File(filePath, "application/pdf", new Guid() + ".pdf");
+            var models = _mapper.Map<List<ReportExportDto>>(_taskService.GetTaskWithReportProperty(id).Reports);
+            var filePath = _fileService.ExportPdf(models);
+            return File(filePath, "application/pdf", Guid.NewGuid().ToString() + ".pdf");
         }
     }
 }
