@@ -19,11 +19,11 @@ Kullanıcıya göre atama - Assign by user
 
 
 Rapor işlemleri - Report Operations
-![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_Trailer_CRUDReport.gif)
+![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_CRUDReport.gif)
 
 Rapor export işlemleri - Report Export Operations
-![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_Trailer_ExportReport.gif)
+![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_ExportReport.gif)
 
 
 Bildirim işlemleri - Notification Operations
-![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_Trailer_Notification.gif)
+![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_Notification.gif)
