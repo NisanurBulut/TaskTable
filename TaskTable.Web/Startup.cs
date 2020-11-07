@@ -24,6 +24,7 @@ namespace TaskTable.Web
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddDbContext<DatabaseContext>();
 
             services.AddContainerWithDependecies();
@@ -52,16 +53,11 @@ namespace TaskTable.Web
             app.UseAuthorization();
             IdentityInitializer.SeedData(userManager, roleManager).Wait();
             app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
-                // MapAreaControllerRoute kullanýlýrsa area'a özgü olur route
-                // her zaman özelden genele sýrasýyla yazýlmalý
-                endpoints.MapControllerRoute(
-                       name: "areas",
-                       pattern: "{area}/{controller=Home}/{action=Index}/{id?}");
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{area=Common}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("areas", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

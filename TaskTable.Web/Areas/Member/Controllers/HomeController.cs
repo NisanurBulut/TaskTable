@@ -31,7 +31,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         public async Task<IActionResult> Index()
         {
             TempData["active"] = TempDataInfo.Home;
-            var user = GetOnlineUser();
+            var user = await GetOnlineUser();
             ViewBag.ReportCount = _reportService.GetReportsCountWithAppUserIdProperty(user.Id);
             ViewBag.CompletedTaskCount = _taskService.GetCompletedTaskCountWithAppUserIdProperty(user.Id);
             ViewBag.UnReadNotificationCount = _notificationService.GetUnReadNotificationCountwithAppUserId(user.Id);
