@@ -9,5 +9,8 @@ Kullanıcıya göre atama - Assign by user
 ![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_AssignTaskToUser.gif)
 
 
+Rapor işlemleri - Report Operations
+![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_Trailer_CRUDReport.gif)
+
 Rapor export işlemleri - Report Export Operations
 ![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_Trailer_ExportReport.gif)
