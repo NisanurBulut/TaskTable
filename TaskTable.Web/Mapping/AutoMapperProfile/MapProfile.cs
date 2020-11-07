@@ -3,11 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TaskTable.DataTransferObjects.DtoAppUser;
-using TaskTable.DataTransferObjects.DtoNotification;
-using TaskTable.DataTransferObjects.DtoReport;
-using TaskTable.DataTransferObjects.DtoTask;
-using TaskTable.DataTransferObjects.DtoUrgency;
+using TaskTable.DataTransferObjects;
 using TaskTable.Entity.Concrete;
 
 namespace TaskTable.Web.Mapping.AutoMapperProfile

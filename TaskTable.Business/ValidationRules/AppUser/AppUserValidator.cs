@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TaskTable.DataTransferObjects.DtoAppUser;
+using TaskTable.DataTransferObjects;
 
-namespace TaskTable.Business.ValidationRules.AppUser
+namespace TaskTable.Business.ValidationRules
 {
     public class AppUserValidator : AbstractValidator<AppUserDto>
     {

@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using TaskTable.Business.Interfaces;
-using TaskTable.DataTransferObjects.DtoTask;
+using TaskTable.DataTransferObjects;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.StringInfo;
 

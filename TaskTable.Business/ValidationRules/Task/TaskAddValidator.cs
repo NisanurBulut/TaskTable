@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TaskTable.DataTransferObjects.DtoTask;
+using TaskTable.DataTransferObjects;
 
-namespace TaskTable.Business.ValidationRules.Task
+namespace TaskTable.Business.ValidationRules
 {
     public class TaskAddValidator: AbstractValidator<TaskAddDto>
     {

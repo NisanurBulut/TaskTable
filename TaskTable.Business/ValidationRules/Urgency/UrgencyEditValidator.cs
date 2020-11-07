@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TaskTable.DataTransferObjects.DtoUrgency;
+using TaskTable.DataTransferObjects;
 
-namespace TaskTable.Business.ValidationRules.Urgency
+namespace TaskTable.Business.ValidationRules
 {
    public class UrgencyEditValidator:AbstractValidator<UrgencyEditDto>
     {

@@ -3,9 +3,8 @@ using FluentValidation.AspNetCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TaskTable.DataTransferObjects.DtoTask;
-
-namespace TaskTable.Business.ValidationRules.Task
+using TaskTable.DataTransferObjects;
+namespace TaskTable.Business.ValidationRules
 {
     public class TaskEditValidator : AbstractValidator<TaskEditDto>
     {

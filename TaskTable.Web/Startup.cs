@@ -9,20 +9,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using TaskTable.Business.Concrete;
+using TaskTable.Business.DIContainer;
 using TaskTable.Business.Interfaces;
-using TaskTable.Business.ValidationRules.AppUser;
-using TaskTable.Business.ValidationRules.Report;
-using TaskTable.Business.ValidationRules.Task;
-using TaskTable.Business.ValidationRules.Urgency;
+
 using TaskTable.DataAccess.Context;
-using TaskTable.DataAccess.Interfaces;
-using TaskTable.DataAccess.Repository;
-using TaskTable.DataTransferObjects.DtoAppUser;
-using TaskTable.DataTransferObjects.DtoNotification;
-using TaskTable.DataTransferObjects.DtoReport;
-using TaskTable.DataTransferObjects.DtoTask;
-using TaskTable.DataTransferObjects.DtoUrgency;
 using TaskTable.Entity.Concrete;
+using TaskTable.Web.Extensions;
 
 namespace TaskTable.Web
 {
@@ -34,47 +26,12 @@ namespace TaskTable.Web
         {
             services.AddDbContext<DatabaseContext>();
 
-            services.AddScoped<ITaskService, TaskManager>(); // isteði gerçekleþtiren session da ilgili nesneden sadece bir tane örnek alýnýr, transient ta ise her istekte bir örnek alýnýr, singletonda devamlý ayný örnek kullanýlýr nesne için
-            services.AddScoped<IUrgencyService, UrgencyManager>();
-            services.AddScoped<IReportService, ReportManager>();
-            services.AddScoped<IAppUserService, AppUserManager>();
-            services.AddScoped<IFileService, FileManager>();
-            services.AddScoped<INotificationService, NotificationManager>();
-
-            services.AddScoped<ITaskRepository, TaskRepository>();
-            services.AddScoped<IUrgencyRepository, UrgencyRepository>();
-            services.AddScoped<IReportRepository, ReportRepository>();
-            services.AddScoped<IAppUserRepository, AppUserRepository>();
-            services.AddScoped<INotificationRepository, NotificationRepository>();
-
-            services.AddIdentity<AppUser, AppRole>(opt =>
-            {
-                opt.Password.RequireDigit = false;
-                opt.Password.RequireLowercase = false;
-                opt.Password.RequiredLength = 1;
-                opt.Password.RequireUppercase = false;
-                opt.Password.RequireNonAlphanumeric = false;
-            }).AddEntityFrameworkStores<DatabaseContext>();
-
-            services.ConfigureApplicationCookie(opt =>
-            {
-                opt.Cookie.Name = "TaskTableCookie";
-                opt.Cookie.SameSite = SameSiteMode.Strict; // cookie baþka sitelerle paylaþýlmasýn
-                opt.Cookie.HttpOnly = true; //kullanýcý cookieye eriþemesin
-                opt.ExpireTimeSpan = TimeSpan.FromDays(20); // cookie ömrü
-                opt.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-                opt.LoginPath = "/Home/Index";
-            });
+            services.AddContainerWithDependecies();
+            services.AddIdentityConfiguration();
+            
             services.AddAutoMapper(typeof(Startup));
             // bir validatorda farklý nesne örneði alalým
-            services.AddTransient<IValidator<UrgencyAddDto>, UrgencyAddValidator>();
-            services.AddTransient<IValidator<UrgencyEditDto>, UrgencyEditValidator>();
-            services.AddTransient<IValidator<TaskAddDto>, TaskAddValidator>();
-            services.AddTransient<IValidator<AppUserSignInDto>, AppUserSignInValidator>();
-            services.AddTransient<IValidator<AppUserDto>, AppUserValidator>();
-            services.AddTransient<IValidator<TaskEditDto>, TaskEditValidator>();
-            services.AddTransient<IValidator<ReportAddDto>, ReportAddValidator>();
-            services.AddTransient<IValidator<ReportEditDto>, ReportEditValidator>();
+            services.AddValidatorWithDependecies();
             services.AddControllersWithViews().AddFluentValidation();
         }
 
@@ -85,11 +42,12 @@ namespace TaskTable.Web
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseStaticFiles();
+            app.UseStatusCodePagesWithReExecute("/Home/StatusCode","?code={0}");
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
             IdentityInitializer.SeedData(userManager, roleManager).Wait();
+            app.UseStaticFiles();
             app.UseEndpoints(endpoints =>
             {
                 // MapAreaControllerRoute kullanýlýrsa area'a özgü olur route

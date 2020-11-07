@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TaskTable.DataTransferObjects.DtoUrgency
+namespace TaskTable.DataTransferObjects
 {
     public class UrgencyAddDto
     {

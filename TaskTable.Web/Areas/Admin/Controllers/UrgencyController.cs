@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TaskTable.Business.Interfaces;
-using TaskTable.DataTransferObjects.DtoUrgency;
+using TaskTable.DataTransferObjects;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.StringInfo;
 

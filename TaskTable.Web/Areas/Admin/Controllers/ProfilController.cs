@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using TaskTable.DataTransferObjects.DtoAppUser;
+using TaskTable.DataTransferObjects;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.BaseControllers;
 using TaskTable.Web.StringInfo;

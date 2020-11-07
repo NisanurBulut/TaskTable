@@ -6,7 +6,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
-using TaskTable.DataTransferObjects.DtoAppUser;
+using TaskTable.DataTransferObjects;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.BaseControllers;
 
@@ -84,6 +84,15 @@ namespace TaskTable.Web.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index");
+        }
+        public IActionResult StatusCode(int? Code)
+        {
+           if(Code==404)
+            {
+                ViewBag.Code = Code;
+                ViewBag.Message = "Sayfa hatası";
+            }
+            return View();
         }
     }
 }

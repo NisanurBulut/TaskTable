@@ -5,12 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using TaskTable.Entity.Concrete;
 
-namespace TaskTable.DataTransferObjects.DtoTask
+namespace TaskTable.DataTransferObjects
 {
     public class TaskListDto
     {
-        //[Range(1, int.MaxValue, ErrorMessage = "Lütfen bir aciliyet durumu seçiniz.")]
-        //[Required(ErrorMessage ="Ad alanı boş geçilemez.")]
         public int Id { get; set; }
         public string Name { get; set; }
         public int UrgencyId { get; set; }

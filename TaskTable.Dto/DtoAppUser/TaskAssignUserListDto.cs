@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using TaskTable.DataTransferObjects.DtoTask;
+using TaskTable.DataTransferObjects;
 
-namespace TaskTable.DataTransferObjects.DtoAppUser
+namespace TaskTable.DataTransferObjects
 {
     public class TaskAssignUserListDto
     {

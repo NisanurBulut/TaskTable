@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace TaskTable.DataTransferObjects.DtoNotification
+namespace TaskTable.DataTransferObjects
 {
     public class NotificationListDto
     {

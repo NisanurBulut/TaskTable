@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TaskTable.Business.Interfaces;
-using TaskTable.DataTransferObjects.DtoAppUser;
+using TaskTable.DataTransferObjects;
 using TaskTable.Entity.Concrete;
 
 namespace TaskTable.Web.ViewComponents

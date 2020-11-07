@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TaskTable.Entity.Concrete;
 
-namespace TaskTable.DataTransferObjects.DtoReport
+namespace TaskTable.DataTransferObjects
 {
     public class ReportAddDto
     {

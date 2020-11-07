@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace TaskTable.DataTransferObjects.DtoTask
+namespace TaskTable.DataTransferObjects
 {
     public class TaskEditDto
     {

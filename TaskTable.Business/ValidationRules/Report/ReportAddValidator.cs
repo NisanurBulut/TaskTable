@@ -2,9 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using TaskTable.DataTransferObjects.DtoReport;
+using TaskTable.DataTransferObjects;
 
-namespace TaskTable.Business.ValidationRules.Report
+namespace TaskTable.Business.ValidationRules
 {
    public class ReportAddValidator: AbstractValidator<ReportAddDto>
     {
