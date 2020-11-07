@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
 using TaskTable.Entity.Concrete;
+using TaskTable.Web.BaseControllers;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
@@ -15,17 +16,16 @@ namespace TaskTable.Web.Areas.Admin.Controllers
     // area kavramı yalnızca controllera özgüdür
     // viewcomponentlerde kullanılamaz
     // her view component'in bir default'ı olmalıdır.
-    public class HomeController : Controller
+    public class HomeController : BaseIdentityController
     {
         private readonly IReportService _reportService;
-        private readonly UserManager<AppUser> _userManager;
         private readonly ITaskService _taskService;
         private readonly INotificationService _notificationService;
         public HomeController(IReportService reportService,
             UserManager<AppUser> userManager, ITaskService taskService,
-            INotificationService notificationService)
+            INotificationService notificationService):base(userManager)
         {
-            _userManager = userManager;
+            
             _reportService = reportService;
             _taskService = taskService;
             _notificationService = notificationService;
@@ -33,7 +33,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             TempData["active"] = "home";
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var user = await GetOnlineUser();
             ViewBag.NotAssignTaskCount = _taskService.GetNotAssignTaskCount();
             ViewBag.ComplatedAssignTaskCount = _taskService.GetComplatedAssignTaskCount();
             ViewBag.NotCompletedTaskCount = _taskService.GetNotCompletedTaskCount();

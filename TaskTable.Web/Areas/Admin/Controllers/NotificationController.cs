@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoNotification;
 using TaskTable.Entity.Concrete;
+using TaskTable.Web.BaseControllers;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
@@ -17,22 +18,22 @@ namespace TaskTable.Web.Areas.Admin.Controllers
     // area kavramı yalnızca controllera özgüdür
     // viewcomponentlerde kullanılamaz
     // her view component'in bir default'ı olmalıdır.
-    public class NotificationController : Controller
+    public class NotificationController : BaseIdentityController
     {
         private readonly IMapper _mapper;
-        private readonly UserManager<AppUser> _userManager;
+        
         private readonly INotificationService _notificationService;
         public NotificationController(INotificationService notificationService,
-            UserManager<AppUser> userManager, IMapper mapper)
+            UserManager<AppUser> userManager, IMapper mapper):base(userManager)
         {
-            _userManager = userManager;
+           
             _notificationService = notificationService;
             _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
             TempData["active"] = "notification";
-            var user = await _userManager.FindByNameAsync(User.Identity.Name);
+            var user = await GetOnlineUser();
             var notificationList = _notificationService.GetUnReadAll(user.Id);
             var models = _mapper.Map < List<NotificationListDto>>(notificationList);
             return View(models);

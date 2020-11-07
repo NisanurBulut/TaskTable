@@ -14,16 +14,14 @@ namespace TaskTable.Web.Controllers
     public class HomeController : Controller
     {
         // dependency Injection
-        private readonly ITaskService _taskService;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMapper _mapper;
-        public HomeController(ITaskService taskService, 
+        public HomeController(
             UserManager<AppUser> userManager, 
             SignInManager<AppUser> signInManager,
             IMapper mapper)
         {
-            _taskService = taskService;
             _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;

@@ -10,27 +10,27 @@ using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoAppUser;
 using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
+using TaskTable.Web.BaseControllers;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    public class TaskOrderController : Controller
+    public class TaskOrderController : BaseIdentityController
     {
         private readonly IAppUserService _appUserService;
         private readonly ITaskService _taskService;
         private readonly IFileService _fileService;
-        private readonly UserManager<AppUser> _userManager;
         private readonly INotificationService _notificationService;
         private readonly IMapper _mapper;
         public TaskOrderController(IAppUserService appUserService,
             ITaskService taskService, UserManager<AppUser> userManager,
             IFileService fileService,
             INotificationService notificationService,
-            IMapper mapper)
+            IMapper mapper):base(userManager)
         {
             _mapper = mapper;
-            _userManager = userManager;
+           
             _appUserService = appUserService;
             _taskService = taskService;
             _fileService = fileService;
@@ -70,7 +70,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
             var taskEntity = _taskService.GetTaskWithUrgencyProperty(model.TaskId);
             
             AppUserListDto userListDto = _mapper.Map<AppUserListDto>(user);
-            var taskListDto = _mapper.Map<TaskListDto>(taskEntity);
+            TaskListDto taskListDto = _mapper.Map<TaskListDto>(taskEntity);
             
             TaskAssignUserListDto taskUserViewModel = new TaskAssignUserListDto();
             taskUserViewModel.AppUser = userListDto;

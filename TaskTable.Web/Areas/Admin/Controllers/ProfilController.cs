@@ -13,25 +13,24 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TaskTable.DataTransferObjects.DtoAppUser;
 using TaskTable.Entity.Concrete;
+using TaskTable.Web.BaseControllers;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]
     [Area("Admin")]
-    public class ProfilController : Controller
+    public class ProfilController : BaseIdentityController
     {
-        private readonly UserManager<AppUser> _userManager;
         private readonly IMapper _mapper;
-        public ProfilController(UserManager<AppUser> userManager, IMapper mapper)
+        public ProfilController(UserManager<AppUser> userManager, IMapper mapper):base(userManager)
         {
-            _userManager = userManager;
             _mapper = mapper;
         }
         public async Task<IActionResult> Index()
         {
             TempData["active"] = "profile";
             // oturum açmış kullanıcı bilgisi okunur
-            var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+            var appUser = await GetOnlineUser();
             AppUserListDto model = _mapper.Map<AppUserListDto>(appUser);
             
             return View(model);
@@ -62,10 +61,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
                     TempData["message"] = "Güncelleme işlemi başarıyla gerçekleşti.";
                     return RedirectToAction("Index");
                 }
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError("", error.Description);
-                }
+                AddError(result.Errors);
             }
             return View();
         }
