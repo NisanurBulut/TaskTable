@@ -14,3 +14,7 @@ Rapor işlemleri - Report Operations
 
 Rapor export işlemleri - Report Export Operations
 ![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_Trailer_ExportReport.gif)
+
+
+Bildirim işlemleri - Notification Operations
+![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_Trailer_Notification.gif)
