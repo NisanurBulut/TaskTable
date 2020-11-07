@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewData["Title"] = "Error";
+    Layout = "~/Views/Shared/_StandartLayout.cshtml";
+}
+<div class="row mt-5">
+    <div class="col-md-4">
+        <img src="" class="w-100 img-fluid" />
+    </div>
+    <div class="col-md-8 display-4">
+        <p class="lead">
+            Hatanın gerçekleştiği yer :  @ViewBag.Path <br />
+            Hata Mesajı :  @ViewBag.Message
+        </p>
+    </div>
+</div>

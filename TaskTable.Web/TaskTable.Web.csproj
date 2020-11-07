@@ -11,7 +11,10 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\NewFolder\" />
     <Folder Include="Areas\Member\Data\" />
+    <Folder Include="Areas\Member\Models\" />
     <Folder Include="Assets\" />
     <Folder Include="Models\" />
     <Folder Include="wwwroot\css\" />

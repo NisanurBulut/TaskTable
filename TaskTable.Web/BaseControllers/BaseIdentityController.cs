@@ -15,10 +15,7 @@ namespace TaskTable.Web.BaseControllers
         {
             _userManager = userManager;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
+      
         protected async Task<AppUser> GetOnlineUser()
         {
             return await _userManager.FindByNameAsync(User.Identity.Name);

@@ -52,6 +52,10 @@ namespace TaskTable.Web.Areas.Admin.Controllers
                 _taskService.Add(entity);
                 return RedirectToAction("Index");
             }
+            else
+            {
+                ViewBag.Urgencies = new SelectList(_urgencyService.GetAll(), "Id", "Description");
+            }
             return View(model);
         }
         public IActionResult EditTask(int id)

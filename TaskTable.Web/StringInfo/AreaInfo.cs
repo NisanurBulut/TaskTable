@@ -9,5 +9,6 @@ namespace TaskTable.Web.StringInfo
     {
         public const string Admin = "Admin";
         public const string Member = "Member";
+        public const string Common = "Common";
     }
 }

@@ -8,11 +8,12 @@ using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.BaseControllers;
+using TaskTable.Web.StringInfo;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    [Area("Admin")]
+    [Authorize(Roles = RoleInfo.Admin)]
+    [Area(AreaInfo.Admin)]
     // area kavramı yalnızca controllera özgüdür
     // viewcomponentlerde kullanılamaz
     // her view component'in bir default'ı olmalıdır.

@@ -3,25 +3,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.BaseControllers;
+using TaskTable.Web.StringInfo;
 
 namespace TaskTable.Web.Controllers
 {
     public class HomeController : BaseIdentityController
     {
         // dependency Injection
-       
+
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMapper _mapper;
         public HomeController(
-            UserManager<AppUser> userManager, 
+            UserManager<AppUser> userManager,
             SignInManager<AppUser> signInManager,
-            IMapper mapper):base(userManager)
+            IMapper mapper) : base(userManager)
         {
             _signInManager = signInManager;
             _mapper = mapper;
@@ -40,7 +42,7 @@ namespace TaskTable.Web.Controllers
             if (ModelState.IsValid)
             {
                 var user = _mapper.Map<AppUser>(model);
-               
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -48,7 +50,7 @@ namespace TaskTable.Web.Controllers
                     if (addRoleResult.Succeeded)
                     {
                         return RedirectToAction("Index");
-                    } 
+                    }
                     AddError(addRoleResult.Errors);
                 }
                 AddError(result.Errors);
@@ -74,7 +76,7 @@ namespace TaskTable.Web.Controllers
                     if (roles.Contains("Admin"))
                     {
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
-                    }  
+                    }
                     return RedirectToAction("Index", "Home", new { area = "Member" });
                 }
             }
@@ -87,11 +89,18 @@ namespace TaskTable.Web.Controllers
         }
         public IActionResult StatusCode(int? Code)
         {
-           if(Code==404)
+            if (Code == 404)
             {
                 ViewBag.Code = Code;
                 ViewBag.Message = "Sayfa hatası";
             }
+            return View();
+        }
+        public IActionResult Error()
+        {
+            var exceptionHandler = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            ViewBag.Path = exceptionHandler.Path;
+            ViewBag.Message = exceptionHandler.Error.Message;
             return View();
         }
     }
