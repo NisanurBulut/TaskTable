@@ -8,21 +8,21 @@ using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoAppUser;
 using TaskTable.Entity.Concrete;
+using TaskTable.Web.BaseControllers;
 
 namespace TaskTable.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseIdentityController
     {
         // dependency Injection
-        private readonly UserManager<AppUser> _userManager;
+       
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMapper _mapper;
         public HomeController(
             UserManager<AppUser> userManager, 
             SignInManager<AppUser> signInManager,
-            IMapper mapper)
+            IMapper mapper):base(userManager)
         {
-            _userManager = userManager;
             _signInManager = signInManager;
             _mapper = mapper;
         }
@@ -46,16 +46,12 @@ namespace TaskTable.Web.Controllers
                 {
                     var addRoleResult = await _userManager.AddToRoleAsync(user, "Member");
                     if (addRoleResult.Succeeded)
-                        return RedirectToAction("Index");
-                    foreach (var err in addRoleResult.Errors)
                     {
-                        ModelState.AddModelError("", err.Description);
-                    }
+                        return RedirectToAction("Index");
+                    } 
+                    AddError(addRoleResult.Errors);
                 }
-                foreach (var err in result.Errors)
-                {
-                    ModelState.AddModelError("", err.Description);
-                }
+                AddError(result.Errors);
             }
             return View();
         }
@@ -65,7 +61,7 @@ namespace TaskTable.Web.Controllers
             if (ModelState.IsValid)
             {
                 // username var mı gerçekten
-                var user = await _userManager.FindByNameAsync(model.UserName);
+                var user = await GetOnlineUser();
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı.");
@@ -76,7 +72,9 @@ namespace TaskTable.Web.Controllers
                     // kullanıcının rolü belirlenmeli ki gideceği yeri bilelim
                     var roles = await _userManager.GetRolesAsync(user);
                     if (roles.Contains("Admin"))
+                    {
                         return RedirectToAction("Index", "Home", new { area = "Admin" });
+                    }  
                     return RedirectToAction("Index", "Home", new { area = "Member" });
                 }
             }
