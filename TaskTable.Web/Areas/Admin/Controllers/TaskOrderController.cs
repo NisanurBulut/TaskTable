@@ -10,7 +10,7 @@ using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoAppUser;
 using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
-using TaskTable.Web.Areas.Admin.Models;
+
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
     [Authorize(Roles = "Admin")]

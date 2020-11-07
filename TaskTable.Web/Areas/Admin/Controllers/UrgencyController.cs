@@ -10,7 +10,6 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoUrgency;
 using TaskTable.Entity.Concrete;
-using TaskTable.Web.Areas.Admin.Models;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {

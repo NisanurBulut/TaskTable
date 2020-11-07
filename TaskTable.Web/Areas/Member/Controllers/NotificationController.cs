@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoNotification;
 using TaskTable.Entity.Concrete;
-using TaskTable.Web.Areas.Admin.Models;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {

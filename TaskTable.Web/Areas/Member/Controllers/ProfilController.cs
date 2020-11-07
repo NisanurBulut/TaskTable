@@ -13,7 +13,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TaskTable.DataTransferObjects.DtoAppUser;
 using TaskTable.Entity.Concrete;
-using TaskTable.Web.Areas.Admin.Models;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {

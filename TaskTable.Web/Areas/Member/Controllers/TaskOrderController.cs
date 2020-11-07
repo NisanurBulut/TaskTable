@@ -11,8 +11,6 @@ using TaskTable.DataTransferObjects.DtoAppUser;
 using TaskTable.DataTransferObjects.DtoReport;
 using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
-using TaskTable.Web.Areas.Admin.Models;
-using TaskTable.Web.Areas.Member.Models;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {

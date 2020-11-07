@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
+using TaskTable.DataTransferObjects.DtoAppUser;
 using TaskTable.Entity.Concrete;
-using TaskTable.Web.Models;
 
 namespace TaskTable.Web.Controllers
 {
@@ -16,11 +17,16 @@ namespace TaskTable.Web.Controllers
         private readonly ITaskService _taskService;
         private readonly UserManager<AppUser> _userManager;
         private readonly SignInManager<AppUser> _signInManager;
-        public HomeController(ITaskService taskService, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        private readonly IMapper _mapper;
+        public HomeController(ITaskService taskService, 
+            UserManager<AppUser> userManager, 
+            SignInManager<AppUser> signInManager,
+            IMapper mapper)
         {
             _taskService = taskService;
             _userManager = userManager;
             _signInManager = signInManager;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
@@ -31,17 +37,12 @@ namespace TaskTable.Web.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Register(AppUserViewModel model)
+        public async Task<IActionResult> Register(AppUserDto model)
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser
-                {
-                    Name = model.Name,
-                    Surname = model.Surname,
-                    Email = model.Email,
-                    UserName = model.UserName
-                };
+                var user = _mapper.Map<AppUser>(model);
+               
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -61,7 +62,7 @@ namespace TaskTable.Web.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> SignIn(AppUserSignInViewModel model)
+        public async Task<IActionResult> SignIn(AppUserSignInDto model)
         {
             if (ModelState.IsValid)
             {

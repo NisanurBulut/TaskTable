@@ -9,7 +9,6 @@ using TaskTable.DataTransferObjects.DtoReport;
 using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.DataTransferObjects.DtoUrgency;
 using TaskTable.Entity.Concrete;
-using TaskTable.Web.Areas.Admin.Models;
 
 namespace TaskTable.Web.Mapping.AutoMapperProfile
 {

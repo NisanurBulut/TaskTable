@@ -11,7 +11,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
-using TaskTable.Web.Areas.Admin.Models;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
