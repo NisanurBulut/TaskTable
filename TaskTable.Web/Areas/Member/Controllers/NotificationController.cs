@@ -10,11 +10,12 @@ using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoNotification;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.BaseControllers;
+using TaskTable.Web.StringInfo;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {
-    [Authorize(Roles = "Member")]
-    [Area("Member")]
+    [Authorize(Roles = RoleInfo.Member)]
+    [Area(AreaInfo.Member)]
     // area kavramı yalnızca controllera özgüdür
     // viewcomponentlerde kullanılamaz
     // her view component'in bir default'ı olmalıdır.
@@ -30,7 +31,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            TempData["active"] = "notification";
+            TempData["active"] = TempDataInfo.Notification;
             var user = await GetOnlineUser();
             var notificationList = _notificationService.GetUnReadAll(user.Id);
             var models = _mapper.Map<List<NotificationListDto>>(notificationList);

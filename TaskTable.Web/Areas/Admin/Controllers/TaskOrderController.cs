@@ -11,11 +11,12 @@ using TaskTable.DataTransferObjects.DtoAppUser;
 using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.BaseControllers;
+using TaskTable.Web.StringInfo;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    [Area("Admin")]
+    [Authorize(Roles = RoleInfo.Admin)]
+    [Area(AreaInfo.Admin)]
     public class TaskOrderController : BaseIdentityController
     {
         private readonly IAppUserService _appUserService;
@@ -38,7 +39,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            TempData["active"] = "taskorder";
+            TempData["active"] = TempDataInfo.TaskOrder;
             var taskEntityList = _taskService.GetAllTasksWithAllProperties();
             var models = _mapper.Map<List<TaskListDto>>(taskEntityList);
             
@@ -46,7 +47,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         }
         public IActionResult AssignUser(int id, string searchKey, int page = 1)
         {
-            TempData["active"] = "taskorder";
+            TempData["active"] = TempDataInfo.TaskOrder;
             ViewBag.ActivePage = page;
             int totalPage = 0;
             var entity = _taskService.GetTaskWithUrgencyProperty(id);
@@ -64,11 +65,10 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AssignTaskToUser(TaskAssignUserDto model)
         {
-            TempData["active"] = "taskorder";
-            
+            TempData["active"] = TempDataInfo.TaskOrder;
+
             var user = _userManager.Users.FirstOrDefault(a => a.Id == model.AppUserId);
             var taskEntity = _taskService.GetTaskWithUrgencyProperty(model.TaskId);
-            
             AppUserListDto userListDto = _mapper.Map<AppUserListDto>(user);
             TaskListDto taskListDto = _mapper.Map<TaskListDto>(taskEntity);
             
@@ -94,21 +94,19 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         }
         public IActionResult GiveDetail(int id)
         {
-            TempData["active"] = "taskorder";
+            TempData["active"] = TempDataInfo.TaskOrder;
             var result = _taskService.GetTaskWithReportProperty(id);
             TaskListDto model = _mapper.Map<TaskListDto>(result);
             return View(model);
         }
         public IActionResult ExportExcel(int id)
         {
-            TempData["active"] = "taskorder";
             // byte döndüğü için doğrudan report return edilebilir
             return File(_fileService.ExportExcel(_taskService.GetTaskWithReportProperty(id).Reports),
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", new Guid() + ".xlsx");
         }
         public IActionResult ExportPdf(int id)
         {
-            TempData["active"] = "taskorder";
             var filePath = _fileService.ExportExcel(_taskService.GetTaskWithReportProperty(id).Reports);
             return File(filePath, "application/pdf", new Guid() + ".pdf");
         }

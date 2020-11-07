@@ -8,18 +8,14 @@ using Microsoft.AspNetCore.Mvc;
 using TaskTable.Business.Interfaces;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.BaseControllers;
+using TaskTable.Web.StringInfo;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {
-    [Authorize(Roles = "Member")]
-    [Area("Member")]
+    [Authorize(Roles = RoleInfo.Member)]
+    [Area(AreaInfo.Member)]
     public class HomeController : BaseIdentityController
     {
-        /*
-         İlgili kullanıcının rapor sayısı
-         İlgili kullanıcının bildirim sayısı
-         İlgili kullanıcının görev sayısı
-         */
         private readonly IReportService _reportService;
         private readonly ITaskService _taskService;
         private readonly INotificationService _notificationService;
@@ -34,7 +30,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            TempData["active"] = "home";
+            TempData["active"] = TempDataInfo.Home;
             var user = GetOnlineUser();
             ViewBag.ReportCount = _reportService.GetReportsCountWithAppUserIdProperty(user.Id);
             ViewBag.CompletedTaskCount = _taskService.GetCompletedTaskCountWithAppUserIdProperty(user.Id);

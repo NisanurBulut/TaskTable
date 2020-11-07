@@ -61,7 +61,7 @@ namespace TaskTable.Web.Controllers
             if (ModelState.IsValid)
             {
                 // username var mı gerçekten
-                var user = await GetOnlineUser();
+                var user = await _userManager.FindByNameAsync(model.UserName);
                 if (user == null)
                 {
                     ModelState.AddModelError("", "Kullanıcı adı veya şifre hatalı.");

@@ -10,11 +10,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoUrgency;
 using TaskTable.Entity.Concrete;
+using TaskTable.Web.StringInfo;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    [Area("Admin")]
+    [Authorize(Roles = RoleInfo.Admin)]
+    [Area(AreaInfo.Admin)]
     public class UrgencyController : Controller
     {
         private readonly IUrgencyService _urgencyService;

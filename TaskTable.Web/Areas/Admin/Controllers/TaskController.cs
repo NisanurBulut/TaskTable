@@ -11,11 +11,12 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
+using TaskTable.Web.StringInfo;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    [Area("Admin")]
+    [Authorize(Roles = RoleInfo.Admin)]
+    [Area(AreaInfo.Admin)]
     public class TaskController : Controller
     {
         private readonly ITaskService _taskService;
@@ -29,7 +30,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            TempData["active"] = "task";
+            TempData["active"] = TempDataInfo.Task;
             var taskEntities = _taskService.GetNotFinishedTasks();
             // automapper kullanılarak düzeltilecek
             var models = _mapper.Map<List<TaskListDto>>(taskEntities);
@@ -38,7 +39,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult AddTask()
         {
-            TempData["active"] = "task";
+            TempData["active"] = TempDataInfo.Task;
             ViewBag.Urgencies = new SelectList(_urgencyService.GetAll(), "Id", "Description");
             return View(new TaskAddDto());
         }
@@ -55,7 +56,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         }
         public IActionResult EditTask(int id)
         {
-            TempData["active"] = "task";
+            TempData["active"] = TempDataInfo.Task;
             var entity = _taskService.Get(id);
             TaskEditDto model = _mapper.Map<TaskEditDto>(entity);
             ViewBag.Urgencies = new SelectList(_urgencyService.GetAll(), "Id", "Description", model.UrgencyId);

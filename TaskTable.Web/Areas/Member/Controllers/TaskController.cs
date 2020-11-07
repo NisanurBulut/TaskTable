@@ -10,11 +10,12 @@ using TaskTable.Business.Interfaces;
 using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.BaseControllers;
+using TaskTable.Web.StringInfo;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {
-    [Authorize(Roles = "Member")]
-    [Area("Member")]
+    [Authorize(Roles = RoleInfo.Member)]
+    [Area(AreaInfo.Member)]
     public class TaskController : BaseIdentityController
     {
         private readonly IAppUserService _appUserService;
@@ -37,7 +38,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         }
         public async Task<IActionResult> Index(int activePage = 1)
         {
-            TempData["active"] = "task";
+            TempData["active"] = TempDataInfo.Task;
             var user = await GetOnlineUser();
             int totalPage = 0;
             var taskEntityList = _taskService.GetAllCompleteTasksWithAllProperties(out totalPage, user.Id, activePage);

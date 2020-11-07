@@ -14,11 +14,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using TaskTable.DataTransferObjects.DtoAppUser;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.BaseControllers;
+using TaskTable.Web.StringInfo;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    [Area("Admin")]
+    [Authorize(Roles = RoleInfo.Admin)]
+    [Area(AreaInfo.Admin)]
     public class ProfilController : BaseIdentityController
     {
         private readonly IMapper _mapper;
@@ -28,7 +29,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            TempData["active"] = "profile";
+            TempData["active"] = TempDataInfo.Profile;
             // oturum açmış kullanıcı bilgisi okunur
             var appUser = await GetOnlineUser();
             AppUserListDto model = _mapper.Map<AppUserListDto>(appUser);

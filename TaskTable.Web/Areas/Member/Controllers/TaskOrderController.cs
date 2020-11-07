@@ -12,11 +12,12 @@ using TaskTable.DataTransferObjects.DtoReport;
 using TaskTable.DataTransferObjects.DtoTask;
 using TaskTable.Entity.Concrete;
 using TaskTable.Web.BaseControllers;
+using TaskTable.Web.StringInfo;
 
 namespace TaskTable.Web.Areas.Member.Controllers
 {
-    [Authorize(Roles = "Member")]
-    [Area("Member")]
+    [Authorize(Roles = RoleInfo.Member)]
+    [Area(AreaInfo.Member)]
     public class TaskOrderController : BaseIdentityController
     {
         private readonly IAppUserService _appUserService;
@@ -50,7 +51,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         }
         public IActionResult AssignUser(int id, string searchKey, int page = 1)
         {
-            TempData["active"] = "taskorder";
+            TempData["active"] = TempDataInfo.TaskOrder;
             ViewBag.ActivePage = page;
             int totalPage = 0;
             var entity = _taskService.GetTaskWithUrgencyProperty(id);
@@ -66,7 +67,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         [HttpGet]
         public IActionResult AssignTaskToUser(TaskAssignUserDto model)
         {
-            TempData["active"] = "taskorder";
+            TempData["active"] = TempDataInfo.TaskOrder;
             var user = _userManager.Users.FirstOrDefault(a => a.Id == model.AppUserId);
             var task = _taskService.GetTaskWithUrgencyProperty(model.TaskId);
             AppUserListDto userModel = _mapper.Map<AppUserListDto>(user);
@@ -87,7 +88,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         }
         public IActionResult GiveDetail(int id)
         {
-            TempData["active"] = "taskorder";
+            TempData["active"] = TempDataInfo.TaskOrder;
             var result = _taskService.GetTaskWithReportProperty(id);
             var model = _mapper.Map<TaskListDto>(result);           
             return View(model);
@@ -107,7 +108,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         // buradaki id aslında taskId
         public IActionResult AddReport(int id)
         {
-            TempData["active"] = "taskorder";
+            TempData["active"] = TempDataInfo.TaskOrder;
             ReportAddDto model = new ReportAddDto();
             model.TaskId = id;
             model.Task = _taskService.GetTaskWithUrgencyProperty(id);
@@ -122,7 +123,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
               
                 _reportService.Add(entity);
                 // rolü admin olan kullanıcılara bildirim eklenecek
-                var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+                var adminUsers = await _userManager.GetUsersInRoleAsync(RoleInfo.Admin);
                 var activeUser = await GetOnlineUser();
                 foreach (var adminUser in adminUsers)
                 {
@@ -140,7 +141,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
         // 
         public IActionResult EditReport(int id)
         {
-            TempData["active"] = "taskorder";
+            TempData["active"] = TempDataInfo.TaskOrder;
             ReportEntity entity = new ReportEntity();
             entity = _reportService.GetReportWithTaskProperty(id);
             var model = _mapper.Map<ReportEditDto>(entity);
@@ -169,7 +170,7 @@ namespace TaskTable.Web.Areas.Member.Controllers
                 taskEntity.State = true;
                 _taskService.Update(taskEntity);
 
-                var adminUsers = await _userManager.GetUsersInRoleAsync("Admin");
+                var adminUsers = await _userManager.GetUsersInRoleAsync(RoleInfo.Admin);
                 var activeUser = await GetOnlineUser();
                 foreach (var adminUser in adminUsers)
                 {

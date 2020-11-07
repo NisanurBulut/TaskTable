@@ -6,11 +6,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using TaskTable.Business.Interfaces;
+using TaskTable.Web.StringInfo;
 
 namespace TaskTable.Web.Areas.Admin.Controllers
 {
-    [Authorize(Roles = "Admin")]
-    [Area("Admin")]
+    [Authorize(Roles = RoleInfo.Admin)]
+    [Area(AreaInfo.Admin)]
     public class GraphController : Controller
     {
         /*
@@ -25,7 +26,7 @@ namespace TaskTable.Web.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            TempData["active"] = "graph";
+            TempData["active"] = TempDataInfo.Graph;
             return View();
         }
         public IActionResult GetTopFiveUsersWithMostTaks()
