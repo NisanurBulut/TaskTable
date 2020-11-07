@@ -5,6 +5,11 @@
 Görev ekle sil güncelle işlemleri - Add task delete update operations
 ![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_TaskCRUD.gif)
 
+
+Görev tamamlama işlemi - Task complete Operation
+![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_FinishTask.gif)
+
+
 Kullanıcıya göre atama - Assign by user
 ![Uygulama](https://github.com/NisanurBulut/TaskTable/blob/master/TaskTable.Web/Assets/Trailer_AssignTaskToUser.gif)
 
