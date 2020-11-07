@@ -17,14 +17,15 @@ namespace TaskTable.Web.Controllers
     public class HomeController : BaseIdentityController
     {
         // dependency Injection
-
+        private readonly INLogger _nLogger;
         private readonly SignInManager<AppUser> _signInManager;
         private readonly IMapper _mapper;
         public HomeController(
             UserManager<AppUser> userManager,
-            SignInManager<AppUser> signInManager,
+            SignInManager<AppUser> signInManager, INLogger nLogger,
             IMapper mapper) : base(userManager)
         {
+            _nLogger = nLogger;
             _signInManager = signInManager;
             _mapper = mapper;
         }
@@ -99,6 +100,9 @@ namespace TaskTable.Web.Controllers
         public IActionResult Error()
         {
             var exceptionHandler = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
+            _nLogger.ErrorLog($"Hatanın oluştuğu yer : {exceptionHandler.Path}" +
+                $"Hata Mesajı : {exceptionHandler.Error.Message}" +
+                $"Hata stackTrace : {exceptionHandler.Error.StackTrace}");
             ViewBag.Path = exceptionHandler.Path;
             ViewBag.Message = exceptionHandler.Error.Message;
             return View();

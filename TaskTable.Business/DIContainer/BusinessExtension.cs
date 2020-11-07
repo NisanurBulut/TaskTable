@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using TaskTable.Business.Concrete;
 using TaskTable.Business.Interfaces;
+using TaskTable.Business.Logger;
 using TaskTable.DataAccess.Interfaces;
 using TaskTable.DataAccess.Repository;
 
@@ -25,6 +26,8 @@ namespace TaskTable.Business.DIContainer
             services.AddScoped<IReportRepository, ReportRepository>();
             services.AddScoped<IAppUserRepository, AppUserRepository>();
             services.AddScoped<INotificationRepository, NotificationRepository>();
+
+            services.AddTransient<INLogger,NLogger>();
         }
     }
 }
